@@ -11,6 +11,6 @@ public class IdleState : State
 
     public override void Exit()
     {
-        base .Exit();
+        base.Exit();
     }
 }
