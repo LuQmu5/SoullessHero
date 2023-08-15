@@ -2,15 +2,8 @@
 
 public class IdleState : State
 {
-    public override void Enter()
+    private void Start()
     {
-        base.Enter();
-
-        Debug.Log("Idle");
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
+        print("qq");
     }
 }

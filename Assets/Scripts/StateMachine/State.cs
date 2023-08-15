@@ -6,6 +6,13 @@ public class State : MonoBehaviour
 {
     [SerializeField] private Transition[] _transitions;
 
+    protected PlayerController PlayerController { get; private set; }
+
+    private void Awake()
+    {
+        PlayerController = GetComponent<PlayerController>();
+    }
+
     public virtual void Enter()
     {
         enabled = true;

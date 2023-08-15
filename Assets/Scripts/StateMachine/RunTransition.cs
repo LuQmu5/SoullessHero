@@ -2,11 +2,21 @@
 
 public class RunTransition : Transition
 {
-    private void Update()
+    protected override void OnEnable()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        base.OnEnable();
 
-        if (horizontalInput != 0)
+        PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
+    }
+
+    private void OnMoveKeyPressing(Vector2 direction)
+    {
+        if (direction != Vector2.zero && PlayerController.OnGround)
             NeedTransit = true;
     }
 }

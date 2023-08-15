@@ -4,7 +4,7 @@ public class IdleTransition : Transition
 {
     private void Update()
     {
-        if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude < 0.1f)
+        if (PlayerController.Velocity.sqrMagnitude < 0.1f)
         {
             NeedTransit = true;
         }

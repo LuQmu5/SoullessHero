@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RunState : State
+public class FallState : State
 {
     private void Start()
     {

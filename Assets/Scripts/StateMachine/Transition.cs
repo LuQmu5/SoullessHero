@@ -8,8 +8,14 @@ public class Transition : MonoBehaviour
 
     public State TargetState => _targetState;
     public bool NeedTransit { get; protected set; }
+    protected PlayerController PlayerController { get; private set; }
 
-    private void OnEnable()
+    private void Awake()
+    {
+        PlayerController = GetComponent<PlayerController>();
+    }
+
+    protected virtual void OnEnable()
     {
         NeedTransit = false;
     }

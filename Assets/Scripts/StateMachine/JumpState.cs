@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RunState : State
+public class JumpState : State
 {
     private void Start()
     {
@@ -11,6 +11,7 @@ public class RunState : State
     {
         base.Enter();
 
+        PlayerController.Jump();
         PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
     }
 
