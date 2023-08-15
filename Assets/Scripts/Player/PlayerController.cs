@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerCombat _combat;
+    [SerializeField] private PlayerAnimator _animator;
 
     [Header("Movement Settings")]
     [SerializeField] private Transform _legs;
@@ -35,5 +36,10 @@ public class PlayerController : MonoBehaviour
     public void Attack()
     {
         _combat.Attack();
+    }
+
+    public void PlayAnimation(string name)
+    {
+        _animator.PlayAnimation(name);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class State : MonoBehaviour
 {
     [SerializeField] private Transition[] _transitions;
+    [SerializeField] private AnimationNames _animationName;
 
     protected PlayerController PlayerController { get; private set; }
 
@@ -19,6 +20,8 @@ public class State : MonoBehaviour
 
         foreach (var transition in _transitions)
             transition.enabled = true;
+
+        PlayerController.PlayAnimation(_animationName.ToString());
     }
 
     public virtual void Exit()
