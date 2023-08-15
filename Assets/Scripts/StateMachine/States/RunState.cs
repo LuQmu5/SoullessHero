@@ -1,18 +1,11 @@
 ﻿using UnityEngine;
 
-public class JumpState : State
+public class RunState : State
 {
-    private void Start()
-    {
-        print("qq");
-    }
-
-
     public override void Enter()
     {
         base.Enter();
 
-        PlayerController.Jump();
         PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
     }
 
@@ -20,6 +13,7 @@ public class JumpState : State
     {
         base.Exit();
 
+        PlayerController.Move(Vector2.zero);
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 

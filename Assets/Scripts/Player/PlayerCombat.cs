@@ -14,8 +14,9 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator Attacking()
     {
         IsAttacking = true;
+        print("attack!");
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
 
         IsAttacking = false;
     }

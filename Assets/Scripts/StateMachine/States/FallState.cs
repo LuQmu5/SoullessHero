@@ -2,11 +2,6 @@
 
 public class FallState : State
 {
-    private void Start()
-    {
-        print("qq");
-    }
-
     public override void Enter()
     {
         base.Enter();
