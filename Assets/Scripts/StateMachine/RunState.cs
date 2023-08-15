@@ -18,6 +18,7 @@ public class RunState : State
     {
         base.Exit();
 
+        PlayerController.Move(Vector2.zero);
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 

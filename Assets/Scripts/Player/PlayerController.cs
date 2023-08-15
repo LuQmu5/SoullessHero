@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _legsRadius = 0.1f;
 
     public Vector2 Velocity => _mover.Velocity;
+    public bool IsAttacking => _combat.IsAttacking;
     public bool OnGround { get; private set; }
 
     private void FixedUpdate()
@@ -28,5 +30,10 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         _mover.Jump();
+    }
+
+    public void Attack()
+    {
+        _combat.Attack();
     }
 }

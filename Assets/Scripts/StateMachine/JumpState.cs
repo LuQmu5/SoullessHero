@@ -7,6 +7,7 @@ public class JumpState : State
         print("qq");
     }
 
+
     public override void Enter()
     {
         base.Enter();
