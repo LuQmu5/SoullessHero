@@ -14,6 +14,11 @@ public class State : MonoBehaviour
         PlayerController = GetComponent<PlayerController>();
     }
 
+    private void Start()
+    {
+        print('q');
+    }
+
     public virtual void Enter()
     {
         enabled = true;

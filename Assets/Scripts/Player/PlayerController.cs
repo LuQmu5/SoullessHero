@@ -23,9 +23,20 @@ public class PlayerController : MonoBehaviour
         OnGround = Physics2D.OverlapCircle(_legs.position, _legsRadius, _groundMask);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Ground")
+        {
+            _mover.Stop();
+        }
+    }
+
     public void Move(Vector2 direction)
     {
         _mover.Move(direction);
+
+        if (direction != Vector2.zero)
+            TransformRotation(direction);
     }
 
     public void Jump()
@@ -41,5 +52,17 @@ public class PlayerController : MonoBehaviour
     public void PlayAnimation(string name)
     {
         _animator.PlayAnimation(name);
+    }
+
+    private void TransformRotation(Vector2 direction)
+    {
+        if (direction == Vector2.right)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (direction == Vector2.left)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }

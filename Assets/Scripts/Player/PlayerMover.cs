@@ -22,4 +22,9 @@ public class PlayerMover : MonoBehaviour
     {
         _rigidbody.AddForce(Vector2.up * PlayerStats.Instance.JumpPower, ForceMode2D.Impulse);
     }
+
+    public void Stop()
+    {
+        _rigidbody.velocity = Vector2.zero;
+    }
 }

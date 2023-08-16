@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19150549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -284,8 +284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f9d8ad4c6c17c4e8bc5ca85fadac15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions: []
-  _animationName: 0
+  _transitions:
+  - {fileID: 106912638}
+  - {fileID: 106912648}
+  - {fileID: 106912647}
+  - {fileID: 106912651}
+  _animationName: 1
 --- !u!114 &106912637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,8 +302,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffd8c620fe48f14e9fcc68662858d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions: []
-  _animationName: 0
+  _transitions:
+  - {fileID: 106912635}
+  - {fileID: 106912651}
+  - {fileID: 106912647}
+  - {fileID: 106912648}
+  _animationName: 4
 --- !u!114 &106912638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,8 +487,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4152f758281304c9450917752c33c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions: []
-  _animationName: 0
+  _transitions:
+  - {fileID: 106912651}
+  - {fileID: 106912648}
+  - {fileID: 106912635}
+  _animationName: 3
 --- !u!114 &106912650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,8 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5123ef82c78e592438c0294c3c11032e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions: []
-  _animationName: 0
+  _transitions:
+  - {fileID: 106912635}
+  - {fileID: 106912651}
+  _animationName: 2
 --- !u!114 &106912651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,7 +533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b253745fb3a69db48827d1df925d7d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions: []
+  _transitions:
+  - {fileID: 106912635}
+  - {fileID: 106912648}
   _animationName: 0
 --- !u!114 &106912653
 MonoBehaviour:
