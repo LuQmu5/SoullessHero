@@ -5,6 +5,7 @@ public class PlayerInput : MonoBehaviour
 {
     public static event UnityAction<Vector2> MoveKeyPressing;
     public static event UnityAction JumpKeyPressed;
+    public static event UnityAction DashKeyPressed;
     public static event UnityAction AttackKeyPressed;
 
     private void Update()
@@ -14,6 +15,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             JumpKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DashKeyPressed?.Invoke();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

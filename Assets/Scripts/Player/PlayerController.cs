@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
+    public bool CanDash => _mover.CanDash;
     public bool OnGround { get; private set; }
 
     private void FixedUpdate()
@@ -25,10 +26,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Ground")
-        {
-            _mover.Stop();
-        }
+        if (collision.gameObject.layer == Constants.GroundLayer)
+            _mover.StopMovement();
     }
 
     public void Move(Vector2 direction)
@@ -64,5 +63,10 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
+    }
+
+    public void Dash()
+    {
+        _mover.Dash();
     }
 }

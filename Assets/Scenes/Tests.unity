@@ -168,16 +168,18 @@ GameObject:
   - component: {fileID: 106912646}
   - component: {fileID: 106912654}
   - component: {fileID: 106912639}
-  - component: {fileID: 106912637}
-  - component: {fileID: 106912636}
-  - component: {fileID: 106912650}
-  - component: {fileID: 106912649}
   - component: {fileID: 106912652}
-  - component: {fileID: 106912638}
-  - component: {fileID: 106912635}
-  - component: {fileID: 106912648}
-  - component: {fileID: 106912647}
+  - component: {fileID: 106912656}
+  - component: {fileID: 106912650}
+  - component: {fileID: 106912636}
+  - component: {fileID: 106912649}
+  - component: {fileID: 106912637}
   - component: {fileID: 106912651}
+  - component: {fileID: 106912655}
+  - component: {fileID: 106912648}
+  - component: {fileID: 106912635}
+  - component: {fileID: 106912638}
+  - component: {fileID: 106912647}
   - component: {fileID: 106912645}
   - component: {fileID: 106912643}
   - component: {fileID: 106912653}
@@ -289,7 +291,8 @@ MonoBehaviour:
   - {fileID: 106912648}
   - {fileID: 106912647}
   - {fileID: 106912651}
-  _animationName: 1
+  - {fileID: 106912655}
+  _animationName: 3
 --- !u!114 &106912637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +310,8 @@ MonoBehaviour:
   - {fileID: 106912651}
   - {fileID: 106912647}
   - {fileID: 106912648}
-  _animationName: 4
+  - {fileID: 106912655}
+  _animationName: 5
 --- !u!114 &106912638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +358,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &106912641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +495,8 @@ MonoBehaviour:
   - {fileID: 106912651}
   - {fileID: 106912648}
   - {fileID: 106912635}
-  _animationName: 3
+  - {fileID: 106912655}
+  _animationName: 4
 --- !u!114 &106912650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +574,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &106912655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106912632}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043e880b9dfc01c4094ef252bcb3f565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetState: {fileID: 106912656}
+--- !u!114 &106912656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106912632}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cb9866fe61e3542b92c9628d1e08f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitions:
+  - {fileID: 106912648}
+  - {fileID: 106912635}
+  _animationName: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

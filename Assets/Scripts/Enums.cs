@@ -10,8 +10,9 @@ public class Enums
 public enum AnimationNames
 {
     Attack,
-    Idle,
+    Dash,
     Fall,
+    Idle,
     Jump,
     Run
 }
