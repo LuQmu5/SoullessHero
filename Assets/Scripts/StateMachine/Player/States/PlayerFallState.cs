@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FallState : State
+public class PlayerFallState : PlayerState
 {
     public override void Enter()
     {

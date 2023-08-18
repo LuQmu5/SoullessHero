@@ -1,4 +1,4 @@
-﻿public class DashState : State
+﻿public class PlayerDashState : PlayerState
 {
     public override void Enter()
     {

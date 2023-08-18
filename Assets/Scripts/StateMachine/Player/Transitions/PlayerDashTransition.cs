@@ -1,4 +1,4 @@
-﻿public class DashTransition : Transition
+﻿public class PlayerDashTransition : PlayerTransition
 {
     protected override void OnEnable()
     {

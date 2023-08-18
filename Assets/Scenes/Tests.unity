@@ -183,10 +183,10 @@ GameObject:
   - component: {fileID: 106912645}
   - component: {fileID: 106912643}
   - component: {fileID: 106912653}
-  - component: {fileID: 106912644}
   - component: {fileID: 106912642}
-  - component: {fileID: 106912641}
   - component: {fileID: 106912657}
+  - component: {fileID: 106912644}
+  - component: {fileID: 106912641}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -294,7 +294,7 @@ MonoBehaviour:
   - {fileID: 106912647}
   - {fileID: 106912651}
   - {fileID: 106912655}
-  _animationName: 3
+  AnimationName: 3
 --- !u!114 &106912637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
   - {fileID: 106912647}
   - {fileID: 106912648}
   - {fileID: 106912655}
-  _animationName: 5
+  AnimationName: 5
 --- !u!114 &106912638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   - {fileID: 106912648}
   - {fileID: 106912635}
   - {fileID: 106912655}
-  _animationName: 4
+  AnimationName: 4
 --- !u!114 &106912650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 106912635}
   - {fileID: 106912651}
-  _animationName: 2
+  AnimationName: 2
 --- !u!114 &106912651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +545,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 106912635}
   - {fileID: 106912648}
-  _animationName: 0
+  AnimationName: 0
 --- !u!114 &106912653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 106912648}
   - {fileID: 106912635}
-  _animationName: 1
+  AnimationName: 1
 --- !u!114 &106912657
 MonoBehaviour:
   m_ObjectHideFlags: 0

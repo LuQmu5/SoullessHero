@@ -1,4 +1,4 @@
-﻿public class FallTransition : Transition
+﻿public class PlayerFallTransition : PlayerTransition
 {
     private void Update()
     {

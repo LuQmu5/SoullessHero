@@ -1,24 +1,22 @@
 ﻿using UnityEngine;
 
-public class RunState : State
+public class PlayerRunTransition : PlayerTransition
 {
-    public override void Enter()
+    protected override void OnEnable()
     {
-        base.Enter();
+        base.OnEnable();
 
         PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
     }
 
-    public override void Exit()
+    private void OnDisable()
     {
-        base.Exit();
-
-        PlayerController.Move(Vector2.zero); // ы
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        PlayerController.Move(direction);
+        if (direction != Vector2.zero)
+            NeedTransit = true;
     }
 }

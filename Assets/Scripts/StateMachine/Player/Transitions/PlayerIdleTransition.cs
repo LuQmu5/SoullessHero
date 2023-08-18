@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class IdleTransition : Transition
+﻿public class PlayerIdleTransition : PlayerTransition
 {
     private void Update()
     {

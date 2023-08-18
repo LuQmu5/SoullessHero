@@ -1,23 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class State : MonoBehaviour
 {
-    [SerializeField] private Transition[] _transitions;
-    [SerializeField] private AnimationNames _animationName;
-
-    protected PlayerController PlayerController { get; private set; }
-
-    private void Awake()
-    {
-        PlayerController = GetComponent<PlayerController>();
-    }
-
-    private void Start()
-    {
-        print("qq");
-    }
+    [SerializeField] private PlayerTransition[] _transitions;
+    [SerializeField] protected AnimationNames AnimationName;
 
     public virtual void Enter()
     {
@@ -25,8 +11,6 @@ public class State : MonoBehaviour
 
         foreach (var transition in _transitions)
             transition.enabled = true;
-
-        PlayerController.PlayAnimation(_animationName.ToString());
     }
 
     public virtual void Exit()
@@ -37,7 +21,7 @@ public class State : MonoBehaviour
         enabled = false;
     }
 
-    public State TryGetNextState()
+    public PlayerState TryGetNextState()
     {
         foreach (var transition in _transitions)
         {

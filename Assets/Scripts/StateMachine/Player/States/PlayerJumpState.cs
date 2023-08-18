@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 
-public class RunTransition : Transition
+public class PlayerJumpState : PlayerState
 {
-    protected override void OnEnable()
+    public override void Enter()
     {
-        base.OnEnable();
+        base.Enter();
 
+        PlayerController.Jump();
         PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
     }
 
-    private void OnDisable()
+    public override void Exit()
     {
+        base.Exit();
+
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        if (direction != Vector2.zero && PlayerController.OnGround)
-            NeedTransit = true;
+        PlayerController.Move(direction);
     }
 }

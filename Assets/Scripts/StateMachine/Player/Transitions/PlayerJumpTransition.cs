@@ -1,4 +1,4 @@
-﻿public class JumpTransition : Transition
+﻿public class PlayerJumpTransition : PlayerTransition
 {
     protected override void OnEnable()
     {

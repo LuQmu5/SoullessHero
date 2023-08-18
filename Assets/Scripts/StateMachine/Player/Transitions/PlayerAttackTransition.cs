@@ -1,4 +1,4 @@
-﻿public class AttackTransition : Transition
+﻿public class PlayerAttackTransition : PlayerTransition
 {
     protected override void OnEnable()
     {

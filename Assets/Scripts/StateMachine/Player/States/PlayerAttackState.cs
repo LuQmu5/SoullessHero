@@ -1,4 +1,4 @@
-﻿public class AttackState : State
+﻿public class PlayerAttackState : PlayerState
 {
     public override void Enter()
     {
