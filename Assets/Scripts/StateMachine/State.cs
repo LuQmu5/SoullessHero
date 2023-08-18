@@ -3,7 +3,6 @@
 public class State : MonoBehaviour
 {
     [SerializeField] private PlayerTransition[] _transitions;
-    [SerializeField] protected AnimationNames AnimationName;
 
     public virtual void Enter()
     {

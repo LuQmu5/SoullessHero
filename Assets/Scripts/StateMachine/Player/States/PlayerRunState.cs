@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RunState : PlayerState
+public class PlayerRunState : PlayerState
 {
     public override void Enter()
     {

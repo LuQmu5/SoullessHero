@@ -6,32 +6,28 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RawImage))]
 public class BackgroundFollower : MonoBehaviour
 {
-    [SerializeField] private float _speed = 0.005f;
+    [SerializeField] private float _speed = 0.05f;
+    [SerializeField] private Transform _followTarget;
 
     private RawImage _background;
     private float _offsetX;
-
-    private void OnEnable()
-    {
-        PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
-    }
-
-    private void OnDisable()
-    {
-        PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
-    }
+    private float _lastPositionX;
 
     private void Start()
     {
         _background = GetComponent<RawImage>();
+        _lastPositionX = _followTarget.position.x;
     }
 
-    private void OnMoveKeyPressing(Vector2 direction)
+    private void Update()
     {
-        if (direction == Vector2.zero)
+        if (_lastPositionX == _followTarget.position.x)
             return;
 
-        _offsetX += Time.deltaTime * _speed * direction.x;
+        var direction = _lastPositionX < _followTarget.position.x ? 1 : -1;
+        _lastPositionX = _followTarget.position.x;
+
+        _offsetX += Time.deltaTime * _speed * direction;
 
         if (_offsetX >= 1)
         {

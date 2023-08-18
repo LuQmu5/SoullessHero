@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyState : State
 {
+    [SerializeField] private AnimationNames _animationName;
+
     protected EnemyController EnemyController { get; private set; }
 
     private void Awake()
@@ -15,6 +17,6 @@ public class EnemyState : State
     {
         base.Enter();
 
-        EnemyController.PlayAnimation(AnimationName.ToString());
+        EnemyController.PlayAnimation(_animationName.ToString());
     }
 }

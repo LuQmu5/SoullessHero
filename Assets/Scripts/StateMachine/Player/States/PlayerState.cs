@@ -1,5 +1,10 @@
+using UnityEngine;
+
 public class PlayerState : State
 {
+    [SerializeField] private AnimationNames _animationName;
+
+    protected string AnimationNameExtension =  "";
     protected PlayerController PlayerController { get; private set; }
 
     private void Awake()
@@ -11,6 +16,6 @@ public class PlayerState : State
     {
         base.Enter();
 
-        PlayerController.PlayAnimation(AnimationName.ToString());
+        PlayerController.PlayAnimation(_animationName.ToString() + AnimationNameExtension);
     }
 }

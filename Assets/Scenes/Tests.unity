@@ -293,7 +293,7 @@ MonoBehaviour:
   - {fileID: 106912647}
   - {fileID: 106912651}
   - {fileID: 106912655}
-  AnimationName: 3
+  _animationName: 3
 --- !u!114 &106912637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
   - {fileID: 106912647}
   - {fileID: 106912648}
   - {fileID: 106912655}
-  AnimationName: 5
+  _animationName: 5
 --- !u!114 &106912638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
   - {fileID: 106912648}
   - {fileID: 106912635}
   - {fileID: 106912655}
-  AnimationName: 4
+  _animationName: 4
 --- !u!114 &106912650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +515,7 @@ MonoBehaviour:
   - {fileID: 106912635}
   - {fileID: 106912651}
   - {fileID: 106912638}
-  AnimationName: 2
+  _animationName: 2
 --- !u!114 &106912651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,7 +544,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 106912635}
   - {fileID: 106912648}
-  AnimationName: 0
+  _animationName: 0
 --- !u!114 &106912653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 106912648}
   - {fileID: 106912635}
-  AnimationName: 1
+  _animationName: 1
 --- !u!4 &332335881 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4513824290225404374, guid: 401e79e7e4df7d34fa64d74233a6de73, type: 3}
@@ -756,7 +756,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1427,6 +1427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.05
+  _followTarget: {fileID: 106912634}
 --- !u!1 &1969277848
 GameObject:
   m_ObjectHideFlags: 0
