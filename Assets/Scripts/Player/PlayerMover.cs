@@ -7,7 +7,6 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private Transform _legs;
     [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private float _legsSizeX = 0.1f;
 
     private Rigidbody2D _rigidbody;
     private Coroutine _dashReloadingCoroutine;
@@ -27,12 +26,13 @@ public class PlayerMover : MonoBehaviour
         _dashDuration = new WaitForSeconds(dashingTime);
 
         float legsSizeY = 0.1f;
-        _legsHitBoxSize = new Vector2(_legsSizeX, legsSizeY);
+        float _egsSizeX = 0.7f;
+        _legsHitBoxSize = new Vector2(_egsSizeX, legsSizeY);
     }
 
     private void FixedUpdate()
     {
-        float legsHitBoxAngle = 90;
+        float legsHitBoxAngle = 0;
 
         OnGround = Physics2D.OverlapBox(_legs.position, _legsHitBoxSize, legsHitBoxAngle, _groundMask);
     }
