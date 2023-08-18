@@ -15,8 +15,8 @@ public class PlayerAnimator : MonoBehaviour
         _animator.Play(name);
     }
 
-    public void StopPlayback()
+    public float GetCurrentAnimationLength()
     {
-        _animator.StopPlayback();
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 }

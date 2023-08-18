@@ -16,7 +16,7 @@ public class State : MonoBehaviour
 
     private void Start()
     {
-        print('q');
+        print("qq");
     }
 
     public virtual void Enter()

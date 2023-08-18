@@ -8,34 +8,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerCombat _combat;
     [SerializeField] private PlayerAnimator _animator;
-
-    [Header("Movement Settings")]
-    [SerializeField] private Transform _legs;
-    [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private float _legsRadius = 0.1f;
+    [SerializeField] private PlayerCollisionHandler _collisionHandler;
 
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
     public bool CanDash => _mover.CanDash;
-    public bool OnGround { get; private set; }
+    public bool OnGround => _mover.OnGround;
 
-    private void FixedUpdate()
+    private void OnEnable()
     {
-        OnGround = Physics2D.OverlapCircle(_legs.position, _legsRadius, _groundMask);
+        _collisionHandler.CollisionedWithGround += OnCollisionedWithGround;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnDisable()
     {
-        if (collision.gameObject.layer == Constants.GroundLayer)
-            _mover.StopMovement();
+        _collisionHandler.CollisionedWithGround -= OnCollisionedWithGround;
+    }
+
+    private void OnCollisionedWithGround()
+    {
+        _mover.StopMovement();
     }
 
     public void Move(Vector2 direction)
     {
         _mover.Move(direction);
-
-        if (direction != Vector2.zero)
-            TransformRotation(direction);
     }
 
     public void Jump()
@@ -45,24 +42,12 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        _combat.Attack();
+        _combat.Attack(_animator);
     }
 
     public void PlayAnimation(string name)
     {
         _animator.PlayAnimation(name);
-    }
-
-    private void TransformRotation(Vector2 direction)
-    {
-        if (direction == Vector2.right)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else if (direction == Vector2.left)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
     }
 
     public void Dash()
