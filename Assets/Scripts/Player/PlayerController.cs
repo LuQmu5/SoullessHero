@@ -15,21 +15,6 @@ public class PlayerController : MonoBehaviour
     public bool CanDash => _mover.CanDash;
     public bool OnGround => _mover.OnGround;
 
-    private void OnEnable()
-    {
-        _collisionHandler.CollisionedWithGround += OnCollisionedWithGround;
-    }
-
-    private void OnDisable()
-    {
-        _collisionHandler.CollisionedWithGround -= OnCollisionedWithGround;
-    }
-
-    private void OnCollisionedWithGround()
-    {
-        _mover.StopMovement();
-    }
-
     public void Move(Vector2 direction)
     {
         _mover.Move(direction);

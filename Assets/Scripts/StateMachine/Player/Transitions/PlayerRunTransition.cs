@@ -16,7 +16,7 @@ public class PlayerRunTransition : PlayerTransition
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        if (direction != Vector2.zero)
+        if (direction != Vector2.zero && PlayerController.OnGround)
             NeedTransit = true;
     }
 }
