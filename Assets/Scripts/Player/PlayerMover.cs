@@ -48,7 +48,7 @@ public class PlayerMover : MonoBehaviour
     {
         yield return _dashDuration;
 
-        StopMovement();
+        _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
     }
 
     private void TransformRotation(Vector2 direction)
@@ -73,11 +73,6 @@ public class PlayerMover : MonoBehaviour
     public void Jump()
     {
         _rigidbody.AddForce(Vector2.up * PlayerStats.Instance.JumpPower, ForceMode2D.Impulse);
-    }
-
-    public void StopMovement()
-    {
-        _rigidbody.velocity = Vector2.zero;
     }
 
     public void Dash()
