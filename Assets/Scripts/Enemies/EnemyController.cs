@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Patroling()
     {
-        var destinationOffset = 0.2f;
+        var destinationOffset = 0.1f;
         var minWaitTime = 2f;
         var maxWaitTime = 4f;
 
@@ -44,12 +44,25 @@ public class EnemyController : MonoBehaviour
         {
             var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
 
+            if (destination.x > transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+
+            _animator.Play(AnimationNames.Run.ToString());
+
             while (Vector2.Distance(transform.position, destination) > destinationOffset)
             {
                 transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _speed);
 
                 yield return null;
             }
+
+            _animator.Play(AnimationNames.Idle.ToString());
 
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
