@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
             DashKeyPressed?.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             AttackKeyPressed?.Invoke();
         }
