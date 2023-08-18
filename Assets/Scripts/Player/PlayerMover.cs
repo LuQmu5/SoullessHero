@@ -11,7 +11,6 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Coroutine _dashReloadingCoroutine;
     private WaitForSeconds _dashDuration;
-
     private Vector2 _legsHitBoxSize;
 
     public Vector2 Velocity => _rigidbody.velocity;
@@ -84,5 +83,10 @@ public class PlayerMover : MonoBehaviour
 
         _dashReloadingCoroutine = StartCoroutine(DashReloading());
         StartCoroutine(Dashing());
+    }
+
+    public void StopMovement()
+    {
+        _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
     }
 }

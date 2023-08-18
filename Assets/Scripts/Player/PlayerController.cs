@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerCombat _combat;
     [SerializeField] private PlayerAnimator _animator;
-    [SerializeField] private PlayerCollisionHandler _collisionHandler;
 
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
@@ -38,5 +37,10 @@ public class PlayerController : MonoBehaviour
     public void Dash()
     {
         _mover.Dash();
+    }
+
+    public void StopMovement()
+    {
+        _mover.StopMovement();
     }
 }
