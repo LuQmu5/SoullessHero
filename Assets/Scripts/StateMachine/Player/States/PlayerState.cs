@@ -7,11 +7,6 @@ public class PlayerState : State
         PlayerController = GetComponent<PlayerController>();
     }
 
-    private void Start()
-    {
-        print("q");
-    }
-
     public override void Enter()
     {
         base.Enter();

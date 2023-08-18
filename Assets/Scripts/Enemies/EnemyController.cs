@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _patrolAreaCollider;
+    [SerializeField] private float _speed = 2;
 
     private Animator _animator;
     private Rect _patrolArea;
@@ -19,10 +20,38 @@ public class EnemyController : MonoBehaviour
             _patrolAreaCollider.size.x,
             _patrolAreaCollider.size.y
             );
+
+        _patrolAreaCollider.enabled = false;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Patroling());
     }
 
     public void PlayAnimation(string name)
     {
         _animator.Play(name);
+    }
+
+    private IEnumerator Patroling()
+    {
+        var destinationOffset = 0.2f;
+        var minWaitTime = 2f;
+        var maxWaitTime = 4f;
+
+        while (true)
+        {
+            var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
+
+            while (Vector2.Distance(transform.position, destination) > destinationOffset)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _speed);
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+        }
     }
 }
