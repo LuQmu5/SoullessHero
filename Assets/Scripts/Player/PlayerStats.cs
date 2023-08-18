@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     public float JumpPower { get; private set; } = 12;
     public float DashPower { get; private set; } = 25;
     public float DashCooldown { get; private set; } = 1;
-    public float Damage{ get; private set; } = 2;
+    public float Damage{ get; private set; } = 1;
 
     private void Awake()
     {
