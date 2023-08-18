@@ -6,6 +6,7 @@ public class PlayerState : State
     {
         PlayerController = GetComponent<PlayerController>();
     }
+
     public override void Enter()
     {
         base.Enter();
