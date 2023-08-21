@@ -7,14 +7,17 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _patrolAreaCollider;
     [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _speed = 2;
+    [SerializeField] private float _movementSpeed = 2;
     [SerializeField] private float _attackRange = 0.5f;
 
     private Animator _animator;
     private Rect _patrolArea;
-    private Coroutine _patrolingCoroutine;
 
-    public event UnityAction PlayerDetected;
+    private Coroutine _patrolingCoroutine;
+    private Coroutine _followingCoroutine;
+
+    public bool PlayerInArea { get; private set; }
+    public bool IsPlayerDetected { get; private set; }
 
     private void Awake()
     {
@@ -31,51 +34,51 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Detecting());
-        //StartCoroutine(RayCasting());
-        StartCoroutine(Patroling());
-        StartCoroutine(CheckingPlayerInArea());
+        StartCoroutine(RayCasting());  
     }
 
-    private IEnumerator CheckingPlayerInArea()
+    private void Update()
+    {
+        PlayerInArea = CheckingPlayerInArea();
+        IsPlayerDetected = TryDetectPlayer();
+    }
+
+    private bool CheckingPlayerInArea()
     {
         var player = FindObjectOfType<PlayerController>().transform;
 
-        while (true)
-        {
-            if (player.transform.position.x > _patrolArea.xMax || 
-                player.transform.position.x < _patrolArea.xMin ||
-                player.transform.position.y > _patrolArea.yMax ||
-                player.transform.position.y < _patrolArea.yMin)
-            {
-                print("out of area");
-            }
+        if (player.transform.position.x > _patrolArea.xMax)
+            return false;
 
-            yield return null;
-        }
+        if (player.transform.position.x < _patrolArea.xMin)
+            return false;
+
+        if (player.transform.position.y > _patrolArea.yMax)
+            return false;
+
+        if (player.transform.position.y < _patrolArea.yMin)
+            return false;
+
+        return true;
     }
 
-    private IEnumerator Detecting()
+    private bool TryDetectPlayer()
     {
         float boxAngle = 0;
         float areaReduceCoeff = 2;
         Vector2 boxSize = new Vector2(_patrolArea.width, _patrolArea.height);
 
-        while (true)
+        var hits = Physics2D.OverlapBoxAll(transform.position, boxSize / areaReduceCoeff, boxAngle);
+
+        foreach (var hit in hits)
         {
-            var hits = Physics2D.OverlapBoxAll(transform.position, boxSize / areaReduceCoeff, boxAngle);
-
-            foreach (var hit in hits)
+            if (hit.TryGetComponent(out PlayerController player))
             {
-                if (hit.TryGetComponent(out PlayerController player))
-                {
-                    print("Detected!");
-                    break;
-                }
+                return true;
             }
-
-            yield return null;
         }
+
+        return false;
     }
 
     private IEnumerator RayCasting()
@@ -89,6 +92,24 @@ public class EnemyController : MonoBehaviour
             {
                 print("attack");
             }
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator Following()
+    {
+        Vector3 normalRotation = Vector3.zero;
+        Vector3 flippedRotation = new Vector3(0, 180, 0);
+        var followTarget = FindObjectOfType<PlayerController>().transform;
+
+        while (true)
+        {
+            transform.position = Vector2.MoveTowards(transform.position,
+                followTarget.position,
+                Time.deltaTime * _movementSpeed);
+
+            transform.eulerAngles = followTarget.transform.position.x > transform.position.x ? normalRotation : flippedRotation;
 
             yield return null;
         }
@@ -111,7 +132,7 @@ public class EnemyController : MonoBehaviour
 
             while (Vector2.Distance(transform.position, destination) > destinationOffset)
             {
-                transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _speed);
+                transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _movementSpeed);
 
                 yield return null;
             }
@@ -135,5 +156,15 @@ public class EnemyController : MonoBehaviour
     public void StopPatroling()
     {
         StopCoroutine(_patrolingCoroutine);
+    }
+
+    public void StartFollowing()
+    {
+        _followingCoroutine = StartCoroutine(Patroling());
+    }
+
+    public void StopFollowing()
+    {
+        StopCoroutine(_followingCoroutine);
     }
 }

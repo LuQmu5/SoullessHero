@@ -1,19 +1,10 @@
 ﻿public class EnemyPatrolTransition : EnemyTransition
 {
-    protected override void OnEnable()
+    private void Update()
     {
-        base.OnEnable();
-
-        // EnemyController.PlayerLost += OnPlayerLost;
-    }
-
-    private void OnDisable()
-    {
-        // EnemyController.PlayerLost -= OnPlayerLost;
-    }
-
-    private void OnPlayerLost()
-    {
-        NeedTransit = true;
+        if (EnemyController.PlayerInArea == false || FindObjectOfType<PlayerController>().gameObject.activeSelf == false)
+        {
+            NeedTransit = true;
+        }
     }
 }
