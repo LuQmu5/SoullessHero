@@ -21,21 +21,20 @@ public class EnemyController : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         _patrolArea = new Rect(
-            transform.position.x - _patrolAreaCollider.size.x / 2,
-            transform.position.y - _patrolAreaCollider.size.y / 2,
-            _patrolAreaCollider.size.x,
-            _patrolAreaCollider.size.y
-            );
+            _patrolAreaCollider.bounds.min.x, 
+            _patrolAreaCollider.bounds.min.y, 
+            _patrolAreaCollider.size.x, 
+            _patrolAreaCollider.size.y);
 
         _patrolAreaCollider.enabled = false;
     }
 
     private void Start()
     {
-        //StartCoroutine(CheckingPlayerInArea());
-        //StartCoroutine(Detecting());
-        StartCoroutine(Patroling());
+        StartCoroutine(Detecting());
         //StartCoroutine(RayCasting());
+        StartCoroutine(Patroling());
+        StartCoroutine(CheckingPlayerInArea());
     }
 
     private IEnumerator CheckingPlayerInArea()
@@ -59,11 +58,12 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Detecting()
     {
         float boxAngle = 0;
+        float areaReduceCoeff = 2;
         Vector2 boxSize = new Vector2(_patrolArea.width, _patrolArea.height);
 
         while (true)
         {
-            var hits = Physics2D.OverlapBoxAll(transform.position, boxSize, boxAngle);
+            var hits = Physics2D.OverlapBoxAll(transform.position, boxSize / areaReduceCoeff, boxAngle);
 
             foreach (var hit in hits)
             {
