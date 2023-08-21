@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class EnemyController : MonoBehaviour
 
     private Animator _animator;
     private Rect _patrolArea;
+    private Coroutine _patrolingCoroutine;
+
+    public event UnityAction PlayerDetected;
 
     private void Awake()
     {
@@ -28,15 +32,10 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        // StartCoroutine(Patroling());
-        // StartCoroutine(RayCasting());
-        StartCoroutine(Detecting());
-        // StartCoroutine(CheckingPlayerInArea());
-    }
-
-    public void PlayAnimation(string name)
-    {
-        _animator.Play(name);
+        //StartCoroutine(CheckingPlayerInArea());
+        //StartCoroutine(Detecting());
+        StartCoroutine(Patroling());
+        //StartCoroutine(RayCasting());
     }
 
     private IEnumerator CheckingPlayerInArea()
@@ -121,5 +120,20 @@ public class EnemyController : MonoBehaviour
 
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
+    }
+
+    public void PlayAnimation(string name)
+    {
+        _animator.Play(name);
+    }
+
+    public void StartPatroling()
+    {
+        _patrolingCoroutine = StartCoroutine(Patroling());
+    }
+
+    public void StopPatroling()
+    {
+        StopCoroutine(_patrolingCoroutine);
     }
 }

@@ -16,11 +16,13 @@ public class PlayerFallState : PlayerState
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 
+    /*
     private void FixedUpdate()
     {
         if (PlayerController.OnGround)
             PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
+    */
 
     private void OnMoveKeyPressing(Vector2 direction)
     {

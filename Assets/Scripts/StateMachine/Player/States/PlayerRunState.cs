@@ -13,7 +13,7 @@ public class PlayerRunState : PlayerState
     {
         base.Exit();
 
-        PlayerController.Move(Vector2.zero); // ы
+        PlayerController.StopMovement();
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 

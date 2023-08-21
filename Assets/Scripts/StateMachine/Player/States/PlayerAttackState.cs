@@ -4,7 +4,8 @@ public class PlayerAttackState : PlayerState
 {
     public override void Enter()
     {
-        AnimationNameExtension = Random.Range(1, 3).ToString();
+        int animationVariationsCount = 2;
+        AnimationNameExtension = Random.Range(1, animationVariationsCount + 1).ToString();
 
         base.Enter();
 

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    [SerializeField] private PlayerState _startState;
+    [SerializeField] private State _startState;
 
-    private PlayerState _currentState;
+    private State _currentState;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class StateMachine : MonoBehaviour
             ChangeState(nextState);
     }
 
-    private void ChangeState(PlayerState nextState)
+    private void ChangeState(State nextState)
     {
         _currentState.Exit();
         _currentState = nextState;

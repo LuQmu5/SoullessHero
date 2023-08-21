@@ -2,7 +2,9 @@
 {
     private void Update()
     {
-        if (PlayerController.Velocity.sqrMagnitude < 0.1f && PlayerController.IsAttacking == false)
+        float minVectorLengthToTransit = 0.1f;
+
+        if (PlayerController.Velocity.sqrMagnitude < minVectorLengthToTransit && PlayerController.IsAttacking == false)
         {
             NeedTransit = true;
         }

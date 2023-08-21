@@ -2,7 +2,7 @@
 
 public class State : MonoBehaviour
 {
-    [SerializeField] private PlayerTransition[] _transitions;
+    [SerializeField] private Transition[] _transitions;
 
     public virtual void Enter()
     {
@@ -20,7 +20,7 @@ public class State : MonoBehaviour
         enabled = false;
     }
 
-    public PlayerState TryGetNextState()
+    public State TryGetNextState()
     {
         foreach (var transition in _transitions)
         {

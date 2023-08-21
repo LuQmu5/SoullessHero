@@ -25,8 +25,8 @@ public class PlayerMover : MonoBehaviour
         _dashDuration = new WaitForSeconds(dashingTime);
 
         float legsSizeY = 0.1f;
-        float _egsSizeX = 0.7f;
-        _legsHitBoxSize = new Vector2(_egsSizeX, legsSizeY);
+        float _legsSizeX = 0.75f;
+        _legsHitBoxSize = new Vector2(_legsSizeX, legsSizeY);
     }
 
     private void FixedUpdate()

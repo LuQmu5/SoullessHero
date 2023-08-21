@@ -2,9 +2,9 @@
 
 public class Transition : MonoBehaviour
 {
-    [SerializeField] private PlayerState _targetState;
+    [SerializeField] private State _targetState;
 
-    public PlayerState TargetState => _targetState;
+    public State TargetState => _targetState;
     public bool NeedTransit { get; protected set; }
 
     protected virtual void OnEnable()
