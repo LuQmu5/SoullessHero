@@ -1251,6 +1251,8 @@ GameObject:
   - component: {fileID: 836960396}
   - component: {fileID: 836960402}
   - component: {fileID: 836960401}
+  - component: {fileID: 836960404}
+  - component: {fileID: 836960403}
   m_Layer: 0
   m_Name: SkeletonEnemy
   m_TagString: Untagged
@@ -1455,6 +1457,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 836960398}
   - {fileID: 836960401}
+  - {fileID: 836960403}
   _animationName: 5
 --- !u!114 &836960398
 MonoBehaviour:
@@ -1527,6 +1530,36 @@ MonoBehaviour:
   - {fileID: 836960398}
   - {fileID: 836960396}
   _animationName: 0
+--- !u!114 &836960403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836960387}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d251f81efdac49143b42f979c9dec244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetState: {fileID: 836960404}
+--- !u!114 &836960404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836960387}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1339abc457e71f4caeb29504c7cd2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitions:
+  - {fileID: 836960398}
+  - {fileID: 836960401}
+  - {fileID: 836960396}
+  _animationName: 3
 --- !u!1 &1108856383
 GameObject:
   m_ObjectHideFlags: 0

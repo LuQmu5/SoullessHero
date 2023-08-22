@@ -1,16 +1,16 @@
-﻿public class EnemyAttackState : EnemyState
+﻿public class EnemyIdleState : EnemyState
 {
     public override void Enter()
     {
         base.Enter();
 
-        EnemyController.StartAttacking();
+        EnemyController.StartIdling();
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        EnemyController.StopAttacking();
+        EnemyController.StopIdling();
     }
 }

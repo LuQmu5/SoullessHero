@@ -15,12 +15,14 @@ public class EnemyController : MonoBehaviour
     private Rect _patrolArea;
 
     private Coroutine _patrolingCoroutine;
+    private Coroutine _idlingCoroutine;
     private Coroutine _followingCoroutine;
     private Coroutine _attackingCoroutine;
 
     public bool IsPlayerInArea { get; private set; }
     public bool IsPlayerDetected { get; private set; }
     public bool IsPlayerInAttackRange { get; private set; }
+    public bool IsIdling { get; private set; } = false;
 
     private void Awake()
     {
@@ -124,7 +126,7 @@ public class EnemyController : MonoBehaviour
         while (true)
         {
             transform.position = Vector2.MoveTowards(transform.position,
-                followTarget.position,
+                new Vector3(followTarget.position.x, transform.position.y),
                 Time.deltaTime * _movementSpeed);
 
             transform.eulerAngles = followTarget.transform.position.x > transform.position.x ? normalRotation : flippedRotation;
@@ -136,26 +138,30 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Patroling()
     {
         var destinationOffset = 0.1f;
-        var minWaitTime = 2f;
-        var maxWaitTime = 4f;
         Vector3 normalRotation = Vector3.zero;
         Vector3 flippedRotation = new Vector3(0, 180, 0);
 
-        while (true)
+        var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
+        transform.eulerAngles = destination.x > transform.position.x? normalRotation : flippedRotation;
+
+        while (Vector2.Distance(transform.position, destination) > destinationOffset)
         {
-            var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _movementSpeed);
 
-            transform.eulerAngles = destination.x > transform.position.x? normalRotation : flippedRotation;
-
-            while (Vector2.Distance(transform.position, destination) > destinationOffset)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _movementSpeed);
-
-                yield return null;
-            }
-
-            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+            yield return null;
         }
+    }
+
+    private IEnumerator Idling()
+    {
+        float minWaitTime = 1;
+        float maxWaitTime = 4;
+        float waitTime = Random.Range(minWaitTime, maxWaitTime);
+        IsIdling = true;
+
+        yield return new WaitForSeconds(waitTime);
+
+        IsIdling = false;
     }
 
     public void PlayAnimation(string name)
@@ -191,5 +197,15 @@ public class EnemyController : MonoBehaviour
     public void StopAttacking()
     {
         StopCoroutine(_attackingCoroutine);
+    }
+
+    public void StartIdling()
+    {
+        _idlingCoroutine = StartCoroutine(Idling());
+    }
+
+    public void StopIdling()
+    {
+        StopCoroutine(_idlingCoroutine);
     }
 }
