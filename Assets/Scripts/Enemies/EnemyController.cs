@@ -141,14 +141,17 @@ public class EnemyController : MonoBehaviour
         Vector3 normalRotation = Vector3.zero;
         Vector3 flippedRotation = new Vector3(0, 180, 0);
 
-        var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
-        transform.eulerAngles = destination.x > transform.position.x? normalRotation : flippedRotation;
-
-        while (Vector2.Distance(transform.position, destination) > destinationOffset)
+        while (true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _movementSpeed);
+            var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
+            transform.eulerAngles = destination.x > transform.position.x ? normalRotation : flippedRotation;
 
-            yield return null;
+            while (Vector2.Distance(transform.position, destination) > destinationOffset)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _movementSpeed);
+
+                yield return null;
+            }
         }
     }
 
