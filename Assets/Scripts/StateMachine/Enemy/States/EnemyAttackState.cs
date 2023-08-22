@@ -1,16 +1,16 @@
-﻿public class EnemyFollowState : EnemyState
+﻿public class EnemyAttackState : EnemyState
 {
     public override void Enter()
     {
         base.Enter();
 
-        EnemyController.StartFollowing();
+        EnemyController.StartAttacking();
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        EnemyController.StopFollowing();
+        EnemyController.StopAttacking();
     }
 }

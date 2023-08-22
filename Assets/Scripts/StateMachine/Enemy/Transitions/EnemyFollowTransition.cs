@@ -2,7 +2,7 @@
 {
     private void Update()
     {
-        if (EnemyController.PlayerInArea && EnemyController.IsPlayerDetected)
+        if (EnemyController.IsPlayerInArea && EnemyController.IsPlayerDetected && EnemyController.IsPlayerInAttackRange == false)
         {
             NeedTransit = true;
         }

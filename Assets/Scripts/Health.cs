@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
         StartCoroutine(Animating());
 
         if (_health <= 0)
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
 
     private IEnumerator Animating()

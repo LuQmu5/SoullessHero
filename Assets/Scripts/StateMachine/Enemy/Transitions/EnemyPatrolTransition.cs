@@ -2,7 +2,7 @@
 {
     private void Update()
     {
-        if (EnemyController.PlayerInArea == false || FindObjectOfType<PlayerController>().gameObject.activeSelf == false)
+        if (EnemyController.IsPlayerInArea == false || FindObjectOfType<PlayerController>().gameObject.activeSelf == false)
         {
             NeedTransit = true;
         }

@@ -9,15 +9,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _movementSpeed = 2;
     [SerializeField] private float _attackRange = 0.5f;
+    [SerializeField] private float _damage = 2;
 
     private Animator _animator;
     private Rect _patrolArea;
 
     private Coroutine _patrolingCoroutine;
     private Coroutine _followingCoroutine;
+    private Coroutine _attackingCoroutine;
 
-    public bool PlayerInArea { get; private set; }
+    public bool IsPlayerInArea { get; private set; }
     public bool IsPlayerDetected { get; private set; }
+    public bool IsPlayerInAttackRange { get; private set; }
 
     private void Awake()
     {
@@ -32,20 +35,16 @@ public class EnemyController : MonoBehaviour
         _patrolAreaCollider.enabled = false;
     }
 
-    private void Start()
-    {
-        StartCoroutine(RayCasting());  
-    }
-
     private void Update()
     {
-        PlayerInArea = CheckingPlayerInArea();
+        IsPlayerInArea = CheckingPlayerInArea();
         IsPlayerDetected = TryDetectPlayer();
+        IsPlayerInAttackRange = CheckingPlayerInAttackRange();
     }
 
     private bool CheckingPlayerInArea()
     {
-        var player = FindObjectOfType<PlayerController>().transform;
+        var player = FindObjectOfType<PlayerController>().transform; // костыль
 
         if (player.transform.position.x > _patrolArea.xMax)
             return false;
@@ -81,19 +80,38 @@ public class EnemyController : MonoBehaviour
         return false;
     }
 
-    private IEnumerator RayCasting()
+    private bool CheckingPlayerInAttackRange()
     {
+        var hit = Physics2D.Raycast(_attackPoint.position, transform.right, _attackRange);
+        Debug.DrawRay(_attackPoint.position, transform.right * _attackRange, Color.red);
+
+        return (hit.collider != null && hit.collider.TryGetComponent(out PlayerController player));
+    }
+
+    private IEnumerator Attacking()
+    {
+        float delay = 0.1f;
+
+        yield return new WaitForSeconds(delay);
+
+        float animationTime = _animator.GetCurrentAnimatorStateInfo(0).length;
+        float animationTimeReduce = 2;
+
         while (true)
         {
-            var hit = Physics2D.Raycast(_attackPoint.position, transform.right, _attackRange);
-            Debug.DrawRay(_attackPoint.position, transform.right * _attackRange, Color.red);
+            yield return new WaitForSeconds(animationTime / animationTimeReduce);
 
-            if (hit.collider != null && hit.collider.TryGetComponent(out PlayerController player))
+            var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
+
+            foreach (var hit in hits)
             {
-                print("attack");
+                if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out EnemyController enemy) == false)
+                {
+                    health.ApplyDamage(_damage);
+                }
             }
 
-            yield return null;
+            yield return new WaitForSeconds(animationTime / animationTimeReduce);
         }
     }
 
@@ -101,7 +119,7 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 normalRotation = Vector3.zero;
         Vector3 flippedRotation = new Vector3(0, 180, 0);
-        var followTarget = FindObjectOfType<PlayerController>().transform;
+        var followTarget = FindObjectOfType<PlayerController>().transform; // костыль
 
         while (true)
         {
@@ -128,7 +146,6 @@ public class EnemyController : MonoBehaviour
             var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
 
             transform.eulerAngles = destination.x > transform.position.x? normalRotation : flippedRotation;
-            _animator.Play(AnimationNames.Run.ToString());
 
             while (Vector2.Distance(transform.position, destination) > destinationOffset)
             {
@@ -136,8 +153,6 @@ public class EnemyController : MonoBehaviour
 
                 yield return null;
             }
-
-            _animator.Play(AnimationNames.Idle.ToString());
 
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
@@ -160,11 +175,21 @@ public class EnemyController : MonoBehaviour
 
     public void StartFollowing()
     {
-        _followingCoroutine = StartCoroutine(Patroling());
+        _followingCoroutine = StartCoroutine(Following());
     }
 
     public void StopFollowing()
     {
         StopCoroutine(_followingCoroutine);
+    }
+
+    public void StartAttacking()
+    {
+        _attackingCoroutine = StartCoroutine(Attacking());
+    }
+
+    public void StopAttacking()
+    {
+        StopCoroutine(_attackingCoroutine);
     }
 }
