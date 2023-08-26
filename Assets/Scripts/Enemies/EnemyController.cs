@@ -1,27 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private PlayerController _player;
     [SerializeField] private BoxCollider2D _attachedAreaCollider;
-    [SerializeField] private Transform _attackPoint;
 
+    [Header("Components")]
+    [SerializeField] private EnemyCombatSystem _combatSystem;
     [SerializeField] private EnemyDetectionSystem _detectionSystem;
     [SerializeField] private EnemyMovementSystem _movementSystem;
-    [SerializeField] private EnemyCobatSystem _combatSystem;
 
-    [SerializeField] private float _movementSpeed = 2;
+    [Header("Combat Properties")]
+    [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange = 0.5f;
-    [SerializeField] private float _damage = 2;
+    [SerializeField] private float _attackDamage = 2;
+
+    [Header("Movement Properties")]
+    [SerializeField] private float _movementSpeed = 2;
 
     private Animator _animator;
     private Rect _attachedArea;
 
     public bool IsPlayerInArea => _detectionSystem.IsPlayerInArea;
     public bool IsPlayerDetected => _detectionSystem.IsPlayerDetected;
-    public bool IsPlayerInAttackRange { get; private set; }
+    public bool IsPlayerInAttackRange => _combatSystem.IsPlayerInAttackRange;
+    public bool IsPlayerAlive => _player.gameObject.activeSelf;
 
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class EnemyController : MonoBehaviour
 
         GenerateAttachedArea();
 
+        _combatSystem.Init(_animator, _attackPoint, _attackRange, _attackDamage);
         _detectionSystem.Init(_attachedArea, _player);
         _movementSystem.Init(_attachedArea, _movementSpeed, _player);
     }
@@ -48,42 +52,19 @@ public class EnemyController : MonoBehaviour
     {
         _animator.Play(name);
     }
-}
 
-public class EnemyCobatSystem : MonoBehaviour
-{
-    private bool CheckingPlayerInAttackRange()
+    public void SwitchAttackingState(bool state)
     {
-        var hit = Physics2D.Raycast(_attackPoint.position, transform.right, _attackRange);
-        Debug.DrawRay(_attackPoint.position, transform.right * _attackRange, Color.red);
-
-        return (hit.collider != null && hit.collider.TryGetComponent(out PlayerController player));
+        _combatSystem.SwitchAttackingState(state);
     }
 
-    private IEnumerator Attacking()
+    public void SwitchFollowingState(bool state)
     {
-        float delay = 0.1f;
+        _movementSystem.SwitchFollowingState(state);
+    }
 
-        yield return new WaitForSeconds(delay);
-
-        float animationTime = _animator.GetCurrentAnimatorStateInfo(0).length;
-        float animationTimeReduce = 2;
-
-        while (true)
-        {
-            yield return new WaitForSeconds(animationTime / animationTimeReduce);
-
-            var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
-
-            foreach (var hit in hits)
-            {
-                if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out EnemyController enemy) == false)
-                {
-                    health.ApplyDamage(_damage, transform);
-                }
-            }
-
-            yield return new WaitForSeconds(animationTime / animationTimeReduce);
-        }
+    public void SwitchPatrolingState(bool state)
+    {
+        _movementSystem.SwitchPatrolingState(state);
     }
 }

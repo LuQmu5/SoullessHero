@@ -4,13 +4,13 @@
     {
         base.Enter();
 
-        EnemyController.StartPatroling();
+        EnemyController.SwitchPatrolingState(true);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        EnemyController.StopPatroling();
+        EnemyController.SwitchPatrolingState(false);
     }
 }

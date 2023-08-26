@@ -4,13 +4,13 @@
     {
         base.Enter();
 
-        EnemyController.StartAttacking();
+        EnemyController.SwitchAttackingState(true);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        EnemyController.StopAttacking();
+        EnemyController.SwitchAttackingState(false);
     }
 }

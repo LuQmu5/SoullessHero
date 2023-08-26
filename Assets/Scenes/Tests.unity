@@ -1276,16 +1276,17 @@ GameObject:
   - component: {fileID: 836960405}
   - component: {fileID: 836960388}
   - component: {fileID: 836960395}
+  - component: {fileID: 836960408}
+  - component: {fileID: 836960407}
+  - component: {fileID: 836960406}
   - component: {fileID: 836960391}
   - component: {fileID: 836960400}
-  - component: {fileID: 836960399}
-  - component: {fileID: 836960398}
-  - component: {fileID: 836960397}
-  - component: {fileID: 836960396}
   - component: {fileID: 836960402}
+  - component: {fileID: 836960399}
+  - component: {fileID: 836960397}
   - component: {fileID: 836960401}
-  - component: {fileID: 836960404}
-  - component: {fileID: 836960403}
+  - component: {fileID: 836960398}
+  - component: {fileID: 836960396}
   m_Layer: 0
   m_Name: SkeletonEnemy
   m_TagString: Untagged
@@ -1458,13 +1459,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1404173be89f92a4d8b36432343ca5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _patrolAreaCollider: {fileID: 836960394}
+  _player: {fileID: 106912643}
+  _attachedAreaCollider: {fileID: 836960394}
+  _combatSystem: {fileID: 836960408}
+  _detectionSystem: {fileID: 836960407}
+  _movementSystem: {fileID: 836960406}
   _attackPoint: {fileID: 834300123}
-  _detectionSystem: {fileID: 0}
-  _movementSpeed: 2
   _attackRange: 0.5
-  _damage: 2
+  _attackDamage: 2
+  _movementSpeed: 2
 --- !u!114 &836960396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1493,7 +1496,6 @@ MonoBehaviour:
   _transitions:
   - {fileID: 836960398}
   - {fileID: 836960401}
-  - {fileID: 836960403}
   _animationName: 5
 --- !u!114 &836960398
 MonoBehaviour:
@@ -1566,36 +1568,6 @@ MonoBehaviour:
   - {fileID: 836960398}
   - {fileID: 836960396}
   _animationName: 0
---- !u!114 &836960403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836960387}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d251f81efdac49143b42f979c9dec244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetState: {fileID: 836960404}
---- !u!114 &836960404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836960387}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1339abc457e71f4caeb29504c7cd2ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transitions:
-  - {fileID: 836960398}
-  - {fileID: 836960401}
-  - {fileID: 836960396}
-  _animationName: 3
 --- !u!50 &836960405
 Rigidbody2D:
   serializedVersion: 4
@@ -1617,6 +1589,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &836960406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836960387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5f0fcabb8be7d45951342ecdc9f672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &836960407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836960387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9163f421f16564f89063b61be2def6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &836960408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836960387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53148da08696f994f8902c384f99f0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1055112563
 GameObject:
   m_ObjectHideFlags: 0

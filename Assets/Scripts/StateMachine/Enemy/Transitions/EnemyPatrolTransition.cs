@@ -2,7 +2,7 @@
 {
     private void Update()
     {
-        if (EnemyController.IsPlayerInArea == false && EnemyController.IsIdling == false)
+        if (EnemyController.IsPlayerInArea == false || EnemyController.IsPlayerAlive == false)
             NeedTransit = true;
     }
 }

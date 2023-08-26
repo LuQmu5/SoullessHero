@@ -7,6 +7,9 @@ public class EnemyMovementSystem : MonoBehaviour
     private float _movementSpeed = 2;
     private PlayerController _player;
 
+    private Coroutine _followingCoroutine;
+    private Coroutine _patrolingCoroutine;
+
     public void Init(Rect attachedArea, float movementSpeed, PlayerController player)
     {
         _attachedArea = attachedArea;
@@ -51,5 +54,21 @@ public class EnemyMovementSystem : MonoBehaviour
            
             yield return null;
         }
+    }
+
+    public void SwitchFollowingState(bool state)
+    {
+        if (state)
+            _followingCoroutine = StartCoroutine(PlayerFollowing());
+        else
+            StopCoroutine(_followingCoroutine);
+    }
+
+    public void SwitchPatrolingState(bool state)
+    {
+        if (state)
+            _patrolingCoroutine = StartCoroutine(Patroling());
+        else
+            StopCoroutine(_patrolingCoroutine);
     }
 }

@@ -4,13 +4,13 @@
     {
         base.Enter();
 
-        EnemyController.StartFollowing();
+        EnemyController.SwitchFollowingState(true);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        EnemyController.StopFollowing();
+        EnemyController.SwitchFollowingState(false);
     }
 }
