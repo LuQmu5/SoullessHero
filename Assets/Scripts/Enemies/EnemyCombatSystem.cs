@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyCombatSystem : MonoBehaviour
+public abstract class EnemyCombatSystem : MonoBehaviour
 {
     private Animator _animator;
     private Transform _attackPoint;
@@ -46,20 +46,13 @@ public class EnemyCombatSystem : MonoBehaviour
         {
             yield return new WaitForSeconds(animationTime / animationTimeReduce);
 
-            DealDamage();
+            DealDamage(_attackPoint, _attackRange, _attackDamage);
 
             yield return new WaitForSeconds(animationTime / animationTimeReduce);
         }
     }
 
-    private void DealDamage()
-    {
-        var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
-
-        foreach (var hit in hits)
-            if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out EnemyController enemy) == false)
-                health.ApplyDamage(_attackDamage);
-    }
+    protected abstract void DealDamage(Transform attackPoint, float attackRange, float attackDamage);
 
     public void SwitchAttackingState(bool state)
     {
