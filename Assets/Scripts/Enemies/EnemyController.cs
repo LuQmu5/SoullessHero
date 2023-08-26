@@ -5,81 +5,34 @@ using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D _patrolAreaCollider;
+    [SerializeField] private PlayerController _player;
+    [SerializeField] private BoxCollider2D _attachedAreaCollider;
     [SerializeField] private Transform _attackPoint;
+    [SerializeField] private EnemyDetectionSystem _detectionSystem;
     [SerializeField] private float _movementSpeed = 2;
     [SerializeField] private float _attackRange = 0.5f;
     [SerializeField] private float _damage = 2;
 
     private Animator _animator;
-    private Rect _patrolArea;
+    private Rect _attachedArea;
 
-    private Coroutine _patrolingCoroutine;
-    private Coroutine _idlingCoroutine;
-    private Coroutine _followingCoroutine;
-    private Coroutine _attackingCoroutine;
-
-    public bool IsPlayerInArea { get; private set; }
-    public bool IsPlayerDetected { get; private set; }
+    public bool IsPlayerInArea => _detectionSystem.IsPlayerInArea;
+    public bool IsPlayerDetected => _detectionSystem.IsPlayerDetected;
     public bool IsPlayerInAttackRange { get; private set; }
-    public bool IsIdling { get; private set; } = false;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
 
-        _patrolArea = new Rect(
-            _patrolAreaCollider.bounds.min.x, 
-            _patrolAreaCollider.bounds.min.y, 
-            _patrolAreaCollider.size.x, 
-            _patrolAreaCollider.size.y);
+        _attachedArea = new Rect(
+            _attachedAreaCollider.bounds.min.x, 
+            _attachedAreaCollider.bounds.min.y, 
+            _attachedAreaCollider.size.x, 
+            _attachedAreaCollider.size.y);
 
-        _patrolAreaCollider.enabled = false;
-    }
+        Destroy(_attachedAreaCollider);
 
-    private void Update()
-    {
-        IsPlayerInArea = CheckingPlayerInArea();
-        IsPlayerDetected = TryDetectPlayer();
-        IsPlayerInAttackRange = CheckingPlayerInAttackRange();
-    }
-
-    private bool CheckingPlayerInArea()
-    {
-        var player = FindObjectOfType<PlayerController>().transform; // костыль
-
-        if (player.transform.position.x > _patrolArea.xMax)
-            return false;
-
-        if (player.transform.position.x < _patrolArea.xMin)
-            return false;
-
-        if (player.transform.position.y > _patrolArea.yMax)
-            return false;
-
-        if (player.transform.position.y < _patrolArea.yMin)
-            return false;
-
-        return true;
-    }
-
-    private bool TryDetectPlayer()
-    {
-        float boxAngle = 0;
-        float areaReduceCoeff = 2;
-        Vector2 boxSize = new Vector2(_patrolArea.width, _patrolArea.height);
-
-        var hits = Physics2D.OverlapBoxAll(transform.position, boxSize / areaReduceCoeff, boxAngle);
-
-        foreach (var hit in hits)
-        {
-            if (hit.TryGetComponent(out PlayerController player))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        _detectionSystem.Init(_attachedArea, _player);
     }
 
     private bool CheckingPlayerInAttackRange()
@@ -109,7 +62,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out EnemyController enemy) == false)
                 {
-                    health.ApplyDamage(_damage);
+                    health.ApplyDamage(_damage, transform);
                 }
             }
 
@@ -117,22 +70,23 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private IEnumerator Following()
+    public void PlayAnimation(string name)
     {
-        Vector3 normalRotation = Vector3.zero;
-        Vector3 flippedRotation = new Vector3(0, 180, 0);
-        var followTarget = FindObjectOfType<PlayerController>().transform; // костыль
+        _animator.Play(name);
+    }
+}
 
-        while (true)
-        {
-            transform.position = Vector2.MoveTowards(transform.position,
-                new Vector3(followTarget.position.x, transform.position.y),
-                Time.deltaTime * _movementSpeed);
+public class EnemyMovementSystem : MonoBehaviour
+{
+    private Rect _attachedArea;
+    private float _movementSpeed = 2;
+    private PlayerController _player;
 
-            transform.eulerAngles = followTarget.transform.position.x > transform.position.x ? normalRotation : flippedRotation;
-
-            yield return null;
-        }
+    public void Init(Rect attachedArea, float movementSpeed, PlayerController player)
+    {
+        _attachedArea = attachedArea;
+        _movementSpeed = movementSpeed;
+        _player = player;
     }
 
     private IEnumerator Patroling()
@@ -143,7 +97,7 @@ public class EnemyController : MonoBehaviour
 
         while (true)
         {
-            var destination = new Vector3(Random.Range(_patrolArea.xMin, _patrolArea.xMax), transform.position.y);
+            var destination = new Vector3(Random.Range(_attachedArea.xMin, _attachedArea.xMax), transform.position.y);
             transform.eulerAngles = destination.x > transform.position.x ? normalRotation : flippedRotation;
 
             while (Vector2.Distance(transform.position, destination) > destinationOffset)
@@ -155,60 +109,25 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private IEnumerator Idling()
+    private IEnumerator Following()
     {
-        float minWaitTime = 1;
-        float maxWaitTime = 4;
-        float waitTime = Random.Range(minWaitTime, maxWaitTime);
-        IsIdling = true;
+        Vector3 normalRotation = Vector3.zero;
+        Vector3 flippedRotation = new Vector3(0, 180, 0);
 
-        yield return new WaitForSeconds(waitTime);
+        while (true)
+        {
+            transform.position = Vector2.MoveTowards(transform.position,
+                new Vector3(_player.transform.position.x, transform.position.y),
+                Time.deltaTime * _movementSpeed);
 
-        IsIdling = false;
+            transform.eulerAngles = _player.transform.position.x > transform.position.x ? normalRotation : flippedRotation;
+
+            yield return null;
+        }
     }
+}
 
-    public void PlayAnimation(string name)
-    {
-        _animator.Play(name);
-    }
+public class EnemyCobatSystem : MonoBehaviour
+{
 
-    public void StartPatroling()
-    {
-        _patrolingCoroutine = StartCoroutine(Patroling());
-    }
-
-    public void StopPatroling()
-    {
-        StopCoroutine(_patrolingCoroutine);
-    }
-
-    public void StartFollowing()
-    {
-        _followingCoroutine = StartCoroutine(Following());
-    }
-
-    public void StopFollowing()
-    {
-        StopCoroutine(_followingCoroutine);
-    }
-
-    public void StartAttacking()
-    {
-        _attackingCoroutine = StartCoroutine(Attacking());
-    }
-
-    public void StopAttacking()
-    {
-        StopCoroutine(_attackingCoroutine);
-    }
-
-    public void StartIdling()
-    {
-        _idlingCoroutine = StartCoroutine(Idling());
-    }
-
-    public void StopIdling()
-    {
-        StopCoroutine(_idlingCoroutine);
-    }
 }
