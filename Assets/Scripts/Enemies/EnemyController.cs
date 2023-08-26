@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private PlayerController _player;
     [SerializeField] private BoxCollider2D _attachedAreaCollider;
     [SerializeField] private Transform _attackPoint;
+
     [SerializeField] private EnemyDetectionSystem _detectionSystem;
+    [SerializeField] private EnemyMovementSystem _movementSystem;
+    [SerializeField] private EnemyCobatSystem _combatSystem;
+
     [SerializeField] private float _movementSpeed = 2;
     [SerializeField] private float _attackRange = 0.5f;
     [SerializeField] private float _damage = 2;
@@ -24,17 +27,31 @@ public class EnemyController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
 
+        GenerateAttachedArea();
+
+        _detectionSystem.Init(_attachedArea, _player);
+        _movementSystem.Init(_attachedArea, _movementSpeed, _player);
+    }
+
+    private void GenerateAttachedArea()
+    {
         _attachedArea = new Rect(
-            _attachedAreaCollider.bounds.min.x, 
-            _attachedAreaCollider.bounds.min.y, 
-            _attachedAreaCollider.size.x, 
+            _attachedAreaCollider.bounds.min.x,
+            _attachedAreaCollider.bounds.min.y,
+            _attachedAreaCollider.size.x,
             _attachedAreaCollider.size.y);
 
         Destroy(_attachedAreaCollider);
-
-        _detectionSystem.Init(_attachedArea, _player);
     }
 
+    public void PlayAnimation(string name)
+    {
+        _animator.Play(name);
+    }
+}
+
+public class EnemyCobatSystem : MonoBehaviour
+{
     private bool CheckingPlayerInAttackRange()
     {
         var hit = Physics2D.Raycast(_attackPoint.position, transform.right, _attackRange);
@@ -69,65 +86,4 @@ public class EnemyController : MonoBehaviour
             yield return new WaitForSeconds(animationTime / animationTimeReduce);
         }
     }
-
-    public void PlayAnimation(string name)
-    {
-        _animator.Play(name);
-    }
-}
-
-public class EnemyMovementSystem : MonoBehaviour
-{
-    private Rect _attachedArea;
-    private float _movementSpeed = 2;
-    private PlayerController _player;
-
-    public void Init(Rect attachedArea, float movementSpeed, PlayerController player)
-    {
-        _attachedArea = attachedArea;
-        _movementSpeed = movementSpeed;
-        _player = player;
-    }
-
-    private IEnumerator Patroling()
-    {
-        var destinationOffset = 0.1f;
-        Vector3 normalRotation = Vector3.zero;
-        Vector3 flippedRotation = new Vector3(0, 180, 0);
-
-        while (true)
-        {
-            var destination = new Vector3(Random.Range(_attachedArea.xMin, _attachedArea.xMax), transform.position.y);
-            transform.eulerAngles = destination.x > transform.position.x ? normalRotation : flippedRotation;
-
-            while (Vector2.Distance(transform.position, destination) > destinationOffset)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * _movementSpeed);
-
-                yield return null;
-            }
-        }
-    }
-
-    private IEnumerator Following()
-    {
-        Vector3 normalRotation = Vector3.zero;
-        Vector3 flippedRotation = new Vector3(0, 180, 0);
-
-        while (true)
-        {
-            transform.position = Vector2.MoveTowards(transform.position,
-                new Vector3(_player.transform.position.x, transform.position.y),
-                Time.deltaTime * _movementSpeed);
-
-            transform.eulerAngles = _player.transform.position.x > transform.position.x ? normalRotation : flippedRotation;
-
-            yield return null;
-        }
-    }
-}
-
-public class EnemyCobatSystem : MonoBehaviour
-{
-
 }
