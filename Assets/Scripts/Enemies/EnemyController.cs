@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     [Header("Movement Properties")]
     [SerializeField] private float _movementSpeed = 2;
 
-    private Animator _animator;
+    private CharacterAnimator _animator;
     private Rect _attachedArea;
 
     public bool IsPlayerInArea => _detectionSystem.IsPlayerInArea;
@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponent<CharacterAnimator>();
 
         GenerateAttachedArea();
 
@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
 
     public void PlayAnimation(string name)
     {
-        _animator.Play(name);
+        _animator.PlayAnimation(name);
     }
 
     public void SwitchAttackingState(bool state)

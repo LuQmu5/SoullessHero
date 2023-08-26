@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _attackRange;
+    private Transform _attackPoint;
+    private float _attackRange;
 
     public bool IsAttacking { get; private set; }
 
-    private IEnumerator Attacking(PlayerAnimator animator)
+    public void Init(Transform attackPoint, float attackRange)
+    {
+        _attackPoint = attackPoint;
+        _attackRange = attackRange;
+    }
+
+    private IEnumerator Attacking(CharacterAnimator animator)
     {
         IsAttacking = true;
 
@@ -40,7 +46,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    public void Attack(PlayerAnimator animator)
+    public void Attack(CharacterAnimator animator)
     {
         StartCoroutine(Attacking(animator));
     }

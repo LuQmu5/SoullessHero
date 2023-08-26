@@ -5,9 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMover : MonoBehaviour
 {
-    [SerializeField] private Transform _legs;
-    [SerializeField] private LayerMask _groundMask;
-
+    private Transform _legs;
+    private LayerMask _groundMask;
     private Rigidbody2D _rigidbody;
     private Coroutine _dashReloadingCoroutine;
     private WaitForSeconds _dashDuration;
@@ -17,9 +16,12 @@ public class PlayerMover : MonoBehaviour
     public bool CanDash => _dashReloadingCoroutine == null;
     public bool OnGround { get; private set; }
 
-    private void Awake()
+    public void Init(Transform legs, LayerMask groundMask)
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+
+        _legs = legs;
+        _groundMask = groundMask;
 
         float dashingTime = 0.1f;
         _dashDuration = new WaitForSeconds(dashingTime);

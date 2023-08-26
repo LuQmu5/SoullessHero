@@ -7,12 +7,26 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerCombat _combat;
-    [SerializeField] private PlayerAnimator _animator;
+    [SerializeField] private CharacterAnimator _animator;
+
+    [Header("Combat Properties")]
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackRange;
+
+    [Header("Movement Properties")]
+    [SerializeField] private Transform _legs;
+    [SerializeField] private LayerMask _groundMask;
 
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
     public bool CanDash => _mover.CanDash;
     public bool OnGround => _mover.OnGround;
+
+    private void Awake()
+    {
+        _mover.Init(_legs, _groundMask);
+        _combat.Init(_attackPoint, _attackRange);
+    }
 
     public void Move(Vector2 direction)
     {

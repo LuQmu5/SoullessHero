@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class EnemyCombatSystem : MonoBehaviour
 {
-    private Animator _animator;
+    private CharacterAnimator _animator;
     private Transform _attackPoint;
     private float _attackRange;
     private float _attackDamage;
@@ -12,7 +12,7 @@ public abstract class EnemyCombatSystem : MonoBehaviour
 
     public bool IsPlayerInAttackRange { get; private set; }
 
-    public void Init(Animator animator, Transform attackPoint, float attackRange, float attackDamage)
+    public void Init(CharacterAnimator animator, Transform attackPoint, float attackRange, float attackDamage)
     {
         _animator = animator;
         _attackPoint = attackPoint;
@@ -40,7 +40,7 @@ public abstract class EnemyCombatSystem : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        float animationTime = _animator.GetCurrentAnimatorStateInfo(0).length;
+        float animationTime = _animator.GetCurrentAnimationLength();
 
         while (true)
         {
