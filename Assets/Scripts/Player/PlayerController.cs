@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerCombat))]
+[RequireComponent(typeof(CharacterAnimator))]
+[RequireComponent(typeof(Health))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private PlayerMover _mover;
-    [SerializeField] private PlayerCombat _combat;
-    [SerializeField] private CharacterAnimator _animator;
-
     [Header("Combat Properties")]
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange;
@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _legs;
     [SerializeField] private LayerMask _groundMask;
 
+    private PlayerMover _mover;
+    private PlayerCombat _combat;
+    private CharacterAnimator _animator;
+    private Health _health;
+
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
     public bool CanDash => _mover.CanDash;
@@ -24,8 +29,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        _mover = GetComponent<PlayerMover>();
+        _combat = GetComponent<PlayerCombat>();
+        _animator = GetComponent<CharacterAnimator>();
+        _health = GetComponent<Health>();
+
         _mover.Init(_legs, _groundMask);
-        _combat.Init(_attackPoint, _attackRange);
+        _combat.Init(_attackPoint, _animator, _attackRange);
+        _health.Init(PlayerStats.MaxHealth);
     }
 
     public void Move(Vector2 direction)
@@ -40,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        _combat.Attack(_animator);
+        _combat.Attack();
     }
 
     public void PlayAnimation(string name)

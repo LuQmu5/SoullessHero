@@ -5,30 +5,32 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     private Transform _attackPoint;
+    private CharacterAnimator _animator;
     private float _attackRange;
 
     public bool IsAttacking { get; private set; }
 
-    public void Init(Transform attackPoint, float attackRange)
+    public void Init(Transform attackPoint, CharacterAnimator animator, float attackRange)
     {
         _attackPoint = attackPoint;
+        _animator = animator;
         _attackRange = attackRange;
     }
 
-    private IEnumerator Attacking(CharacterAnimator animator)
+    private IEnumerator Attacking()
     {
         IsAttacking = true;
 
         yield return new WaitForEndOfFrame();
 
-        float delay = animator.GetCurrentAnimationLength();
-        float delayReduction = 2;
+        float animationTime = _animator.GetCurrentAnimationLength();
+        float animationTimeReduce = 2;
 
-        yield return new WaitForSeconds(delay / delayReduction);
+        yield return new WaitForSeconds(animationTime / animationTimeReduce);
 
         DealDamage();
 
-        yield return new WaitForSeconds(delay / delayReduction);
+        yield return new WaitForSeconds(animationTime / animationTimeReduce);
 
         IsAttacking = false;
     }
@@ -41,13 +43,13 @@ public class PlayerCombat : MonoBehaviour
         {
             if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out PlayerController player) == false)
             {
-                health.ApplyDamage(PlayerStats.Instance.Damage);
+                health.ApplyDamage(PlayerStats.Damage);
             }
         }
     }
 
-    public void Attack(CharacterAnimator animator)
+    public void Attack()
     {
-        StartCoroutine(Attacking(animator));
+        StartCoroutine(Attacking());
     }
 }

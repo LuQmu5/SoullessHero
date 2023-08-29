@@ -35,12 +35,10 @@ public abstract class EnemyCombatSystem : MonoBehaviour
 
     private IEnumerator Attacking()
     {
-        float delay = 0.1f;
-        float animationTimeReduce = 2;
-
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForEndOfFrame();
 
         float animationTime = _animator.GetCurrentAnimationLength();
+        float animationTimeReduce = 2;
 
         while (true)
         {
