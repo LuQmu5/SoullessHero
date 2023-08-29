@@ -9,11 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerHealth))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Combat Properties")]
     [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _attackRange;
-
-    [Header("Movement Properties")]
     [SerializeField] private Transform _legs;
     [SerializeField] private LayerMask _groundMask;
 
@@ -35,7 +31,7 @@ public class PlayerController : MonoBehaviour
         _health = GetComponent<PlayerHealth>();
 
         _mover.Init(_legs, _groundMask);
-        _combat.Init(_attackPoint, _animator, _attackRange);
+        _combat.Init(_attackPoint, _animator);
         _health.Init(PlayerAttributes.Instance.MaxHealth);
     }
 
@@ -62,7 +58,7 @@ public class PlayerController : MonoBehaviour
     public void Dash()
     {
         _mover.Dash();
-        PlayerAttributes.Instance.IncreaseStatTemprary(AttributeNames.EvasionChance, PlayerConstants.MaxEvasionChance, PlayerConstants.BaseDashDuration);
+        PlayerAttributes.Instance.IncreaseAttributeTemporarily(AttributeNames.EvasionChance, PlayerConstants.MaxEvasionChance, PlayerConstants.BaseDashDuration);
     }
 
     public void StopMovement()

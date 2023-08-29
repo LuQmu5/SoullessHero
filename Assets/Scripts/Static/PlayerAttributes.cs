@@ -6,96 +6,82 @@ public class PlayerAttributes : MonoBehaviour
 {
     public static PlayerAttributes Instance { get; private set; }
 
-    // main
-    public float Strength => GetStrength();
     public float Agility => GetAgillity();
-    public float Intelligence => GetIntelligence();
-
-    // seconday (based on main)
-    public float MaxHealth => GetMaxHealth();
-    public float MovementSpeed => GetMovementSpeed();
-    public float JumpPower => GetJumpPower();
-    public float DashPower => GetDashPower();
     public float AttackDamage => GetAttackDamage();
     public float DashCooldown => GetDashCooldown();
+    public float DashPower => GetDashPower();
     public float EvasionChance => GetEvasionChance();
+    public float Intelligence => GetIntelligence();
+    public float JumpPower => GetJumpPower();
+    public float MaxHealth => GetMaxHealth();
+    public float MovementSpeed => GetMovementSpeed();
+    public float Strength => GetStrength();
 
-    // map
     private Dictionary<AttributeNames, float> _attributesMap = new Dictionary<AttributeNames, float>();
 
     private void Awake()
     {
-        Instance = this;   
+        Instance = this;
 
-        _attributesMap.Add(AttributeNames.Strength, PlayerConstants.BaseStrength);
         _attributesMap.Add(AttributeNames.Agility, PlayerConstants.BaseAgility);
+        _attributesMap.Add(AttributeNames.AttackDamage, PlayerConstants.BaseAttackDamage);
+        _attributesMap.Add(AttributeNames.DashPower, PlayerConstants.BaseDashPower);
+        _attributesMap.Add(AttributeNames.EvasionChance, PlayerConstants.BaseEvasionChance);
         _attributesMap.Add(AttributeNames.Intelligence, PlayerConstants.BaseIntelligence);
-
+        _attributesMap.Add(AttributeNames.JumpPower, PlayerConstants.BaseJumpPower);
         _attributesMap.Add(AttributeNames.MaxHealth, PlayerConstants.BaseMaxHealth);
         _attributesMap.Add(AttributeNames.MovementSpeed, PlayerConstants.BaseMovementSpeed);
-        _attributesMap.Add(AttributeNames.JumpPower, PlayerConstants.BaseJumpPower);
-        _attributesMap.Add(AttributeNames.DashPower, PlayerConstants.BaseDashPower);
-        _attributesMap.Add(AttributeNames.AttackDamage, PlayerConstants.BaseAttackDamage);
-        _attributesMap.Add(AttributeNames.EvasionChance, PlayerConstants.BaseEvasionChance);
+        _attributesMap.Add(AttributeNames.Strength, PlayerConstants.BaseStrength);
 
         PrintAllAttributes();
-    }
-
-    private float GetStrength()
-    {
-        return _attributesMap[AttributeNames.Strength];
     }
 
     private float GetAgillity()
     {
         return _attributesMap[AttributeNames.Agility];
     }
-
-    private float GetIntelligence()
+    private float GetAttackDamage()
     {
-        return _attributesMap[AttributeNames.Intelligence];
+        return PlayerConstants.AttackDamagePerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.AttackDamage];
     }
-
-    private float GetEvasionChance()
-    {
-        return Mathf.Clamp(PlayerConstants.EvasionChancePerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.EvasionChance], 
-            0, 
-            PlayerConstants.MaxEvasionChance);
-    }
-
-    private float GetMaxHealth()
-    {
-        return PlayerConstants.HealthPerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.MaxHealth];
-    }
-
-    private float GetMovementSpeed()
-    {
-        return PlayerConstants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed];
-    }
-
-    private float GetJumpPower()
-    {
-        return PlayerConstants.JumpPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.JumpPower];
-    }
-
-    private float GetDashPower()
-    {
-        return PlayerConstants.DashPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.DashPower];
-    }
-
     private float GetDashCooldown()
     {
         return Mathf.Clamp(PlayerConstants.BaseDashCooldown - PlayerConstants.DashCooldownCoeffPerStrength * _attributesMap[AttributeNames.Strength], 
             PlayerConstants.MinDashCooldown, 
             PlayerConstants.BaseDashCooldown);
     }
-
-    private float GetAttackDamage()
+    private float GetDashPower()
     {
-        return PlayerConstants.AttackDamagePerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.AttackDamage];
+        return PlayerConstants.DashPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.DashPower];
+    }
+    private float GetEvasionChance()
+    {
+        return Mathf.Clamp(PlayerConstants.EvasionChancePerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.EvasionChance], 
+            0, 
+            PlayerConstants.MaxEvasionChance);
+    }
+    private float GetIntelligence()
+    {
+        return _attributesMap[AttributeNames.Intelligence];
+    }
+    private float GetJumpPower()
+    {
+        return PlayerConstants.JumpPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.JumpPower];
+    }
+    private float GetMaxHealth()
+    {
+        return PlayerConstants.HealthPerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.MaxHealth];
+    }
+    private float GetMovementSpeed()
+    {
+        return PlayerConstants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed];
+    }
+    private float GetStrength()
+    {
+        return _attributesMap[AttributeNames.Strength];
     }
 
-    private IEnumerator IncreasingStatTemprary(AttributeNames attributeName, float amount, float duration)
+    private IEnumerator IncreasingAttributeTemporarily(AttributeNames attributeName, float amount, float duration)
     {
         _attributesMap[attributeName] += amount;
 
@@ -104,9 +90,13 @@ public class PlayerAttributes : MonoBehaviour
         _attributesMap[attributeName] -= amount;
     }
 
-    public void IncreaseStatTemprary(AttributeNames attributeName, float amount, float duration)
+    public void IncreaseAttributeTemporarily(AttributeNames attributeName, float amount, float duration)
     {
-        StartCoroutine(IncreasingStatTemprary(attributeName, amount, duration));
+        StartCoroutine(IncreasingAttributeTemporarily(attributeName, amount, duration));
+    }
+    public void IncreaseAttributePermanently(AttributeNames attributeName, float amount)
+    {
+        _attributesMap[attributeName] += amount;
     }
 
     public void PrintAllAttributes()

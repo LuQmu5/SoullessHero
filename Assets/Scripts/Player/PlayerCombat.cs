@@ -6,15 +6,13 @@ public class PlayerCombat : MonoBehaviour
 {
     private Transform _attackPoint;
     private CharacterAnimator _animator;
-    private float _attackRange;
 
     public bool IsAttacking { get; private set; }
 
-    public void Init(Transform attackPoint, CharacterAnimator animator, float attackRange)
+    public void Init(Transform attackPoint, CharacterAnimator animator)
     {
         _attackPoint = attackPoint;
         _animator = animator;
-        _attackRange = attackRange;
     }
 
     private IEnumerator Attacking()
@@ -37,7 +35,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void DealDamage()
     {
-        var hits = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange);
+        var hits = Physics2D.OverlapCircleAll(_attackPoint.position, PlayerConstants.BaseAttackRange);
 
         foreach (var hit in hits)
         {
