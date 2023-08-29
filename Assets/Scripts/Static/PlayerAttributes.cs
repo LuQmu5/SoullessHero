@@ -37,6 +37,8 @@ public class PlayerAttributes : MonoBehaviour
         _attributesMap.Add(AttributeNames.DashPower, PlayerConstants.BaseDashPower);
         _attributesMap.Add(AttributeNames.AttackDamage, PlayerConstants.BaseAttackDamage);
         _attributesMap.Add(AttributeNames.EvasionChance, PlayerConstants.BaseEvasionChance);
+
+        PrintAllAttributes();
     }
 
     private float GetStrength()
@@ -68,17 +70,17 @@ public class PlayerAttributes : MonoBehaviour
 
     private float GetMovementSpeed()
     {
-        return PlayerConstants.BaseMovementSpeed + PlayerConstants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed];
+        return PlayerConstants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed];
     }
 
     private float GetJumpPower()
     {
-        return PlayerConstants.BaseJumpPower + PlayerConstants.JumpPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.JumpPower];
+        return PlayerConstants.JumpPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.JumpPower];
     }
 
     private float GetDashPower()
     {
-        return PlayerConstants.BaseDashPower + PlayerConstants.DashPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.DashPower];
+        return PlayerConstants.DashPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.DashPower];
     }
 
     private float GetDashCooldown()
@@ -96,16 +98,27 @@ public class PlayerAttributes : MonoBehaviour
     private IEnumerator IncreasingStatTemprary(AttributeNames attributeName, float amount, float duration)
     {
         _attributesMap[attributeName] += amount;
-        print(attributeName + " : " + _attributesMap[attributeName]);
 
         yield return new WaitForSeconds(duration);
 
         _attributesMap[attributeName] -= amount;
-        print(attributeName + " : " + _attributesMap[attributeName]);
     }
 
     public void IncreaseStatTemprary(AttributeNames attributeName, float amount, float duration)
     {
         StartCoroutine(IncreasingStatTemprary(attributeName, amount, duration));
+    }
+
+    public void PrintAllAttributes()
+    {
+        print("Сила: " + GetStrength());
+        print("Ловкость: " + GetAgillity());
+        print("Интеллект: " + GetIntelligence());
+        print("Максимальное здоровье: " + GetMaxHealth());
+        print("Скорость движения: " + GetMovementSpeed());
+        print("Сила прыжка: " + GetJumpPower());
+        print("Сила рывка: " + GetDashPower());
+        print("Шанс уклонения: " + GetEvasionChance());
+        print("Сила атаки: " + GetAttackDamage());
     }
 }
