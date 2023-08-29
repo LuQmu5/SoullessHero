@@ -24,12 +24,11 @@ public class PlayerMover : MonoBehaviour
         _legs = legs;
         _groundMask = groundMask;
 
-        float dashingTime = 0.1f;
-        _dashDuration = new WaitForSeconds(dashingTime);
+        _dashDuration = new WaitForSeconds(PlayerConstants.BaseDashDuration);
 
         float legsSizeY = 0.1f;
-        float _legsSizeX = 0.75f;
-        _legsHitBoxSize = new Vector2(_legsSizeX, legsSizeY);
+        float legsSizeX = 0.75f;
+        _legsHitBoxSize = new Vector2(legsSizeX, legsSizeY);
     }
 
     private void FixedUpdate()

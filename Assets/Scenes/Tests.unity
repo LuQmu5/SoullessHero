@@ -203,8 +203,8 @@ GameObject:
   - component: {fileID: 106912643}
   - component: {fileID: 106912642}
   - component: {fileID: 106912644}
+  - component: {fileID: 106912659}
   - component: {fileID: 106912653}
-  - component: {fileID: 106912657}
   - component: {fileID: 106912658}
   - component: {fileID: 106912639}
   - component: {fileID: 106912652}
@@ -612,18 +612,6 @@ MonoBehaviour:
   - {fileID: 106912648}
   - {fileID: 106912635}
   _animationName: 1
---- !u!114 &106912657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106912632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4081e9e6392a1e44b4794df0f294050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &106912658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +622,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f6eb5312fd738b46895547cf416b400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &106912659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106912632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af271c408887b34ebfdff7d374f8400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &332335881 stripped

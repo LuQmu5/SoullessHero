@@ -12,6 +12,12 @@
     public static float DashPower => GetDashPower();
     public static float AttackDamage => GetAttackDamage();
     public static float DashCooldown => GetDashCooldown();
+    public static float EvasionChance => GetEvasionChance();
+
+    private static float GetEvasionChance()
+    {
+        return UnityEngine.Mathf.Clamp(PlayerConstants.EvasionChancePerAgility * Agility, 0, PlayerConstants.MaxEvasionChance);
+    }
 
     private static float GetMaxHealth()
     {

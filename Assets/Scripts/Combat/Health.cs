@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,7 +16,7 @@ public class Health : MonoBehaviour
         _currentHealth = maxHealth;
     }
 
-    public void ApplyDamage(float amount)
+    public virtual void ApplyDamage(float amount)
     {
         _currentHealth -= amount;
         Damaged?.Invoke();
