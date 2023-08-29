@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     public event UnityAction Damaged;
     public event UnityAction Over;
 
-    public void Init(float maxHealth)
+    public void SetMaxHealth(float maxHealth)
     {
         _maxHealth = maxHealth;
         _currentHealth = maxHealth;

@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
 
         _combatSystem.Init(_animator, _attackPoint, _data.AttackRange, _data.AttackDamage);
         _detectionSystem.Init(_attachedArea, _player);
-        _health.Init(_data.MaxHealth);
+        _health.SetMaxHealth(_data.MaxHealth);
         _movementSystem.Init(_attachedArea, _data.MovementSpeed, _player);
     }
 
