@@ -10,14 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private PlayerController _player;
     [SerializeField] private BoxCollider2D _attachedAreaCollider;
     [SerializeField] private EnemyData _data;
-
-    [Header("Combat Properties")]
     [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _attackRange = 0.5f;
-    [SerializeField] private float _attackDamage = 2;
-
-    [Header("Movement Properties")]
-    [SerializeField] private float _movementSpeed = 2;
 
     private CharacterAnimator _animator;
     private EnemyCombatSystem _combatSystem;
@@ -41,10 +34,10 @@ public class EnemyController : MonoBehaviour
 
         GenerateAttachedArea();
 
-        _combatSystem.Init(_animator, _attackPoint, _attackRange, _attackDamage);
+        _combatSystem.Init(_animator, _attackPoint, _data.AttackRange, _data.AttackDamage);
         _detectionSystem.Init(_attachedArea, _player);
         _health.Init(_data.MaxHealth);
-        _movementSystem.Init(_attachedArea, _movementSpeed, _player);
+        _movementSystem.Init(_attachedArea, _data.MovementSpeed, _player);
     }
 
     private void GenerateAttachedArea()

@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7338134427ca1742adc66b3cb953be3, type: 3}
   m_Name: Mage
   m_EditorClassIdentifier: 
+  _attackDamage: 2
+  _attackRange: 2
+  _attackSpeed: 1
   _maxHealth: 3
+  _movementSpeed: 1.5
