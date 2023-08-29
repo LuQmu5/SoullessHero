@@ -43,7 +43,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out PlayerController player) == false)
             {
-                health.ApplyDamage(PlayerStats.Damage);
+                health.ApplyDamage(PlayerStats.AttackDamage);
             }
         }
     }

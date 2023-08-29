@@ -19,6 +19,7 @@ public class PlayerMover : MonoBehaviour
     public void Init(Transform legs, LayerMask groundMask)
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.gravityScale = PlayerConstants.BaseGravityScale;
 
         _legs = legs;
         _groundMask = groundMask;

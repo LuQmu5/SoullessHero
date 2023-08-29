@@ -6,15 +6,42 @@
     public static float Intelligence { get; private set; } = 10;
 
     // seconday (based on main)
-    public static float MaxHealth { get; private set; } = GetMaxHealth();
-    public static float MovementSpeed { get; private set; } = 5;
-    public static float JumpPower { get; private set; } = 12;
-    public static float DashPower { get; private set; } = 25;
-    public static float DashCooldown { get; private set; } = 1;
-    public static float Damage { get; private set; } = 1;
+    public static float MaxHealth => GetMaxHealth();
+    public static float MovementSpeed => GetMovementSpeed();
+    public static float JumpPower => GetJumpPower();
+    public static float DashPower => GetDashPower();
+    public static float AttackDamage => GetAttackDamage();
+    public static float DashCooldown => GetDashCooldown();
 
     private static float GetMaxHealth()
     {
-        return Constants.HealthPerStrength * Strength;
+        return PlayerConstants.HealthPerStrength * Strength;
+    }
+
+    private static float GetMovementSpeed()
+    {
+        return PlayerConstants.BaseMovementSpeed + PlayerConstants.MovementSpeedPerAgility * Agility;
+    }
+
+    private static float GetJumpPower()
+    {
+        return PlayerConstants.BaseJumpPower + PlayerConstants.JumpPowerPerAgility * Agility;
+    }
+
+    private static float GetDashPower()
+    {
+        return PlayerConstants.BaseDashPower + PlayerConstants.DashPowerPerAgility * Agility;
+    }
+
+    private static float GetDashCooldown()
+    {
+        return UnityEngine.Mathf.Clamp(PlayerConstants.BaseDashCooldown - PlayerConstants.DashCooldownCoeffPerStrength * Strength, 
+            PlayerConstants.MinDashCooldown, 
+            PlayerConstants.BaseDashCooldown);
+    }
+
+    private static float GetAttackDamage()
+    {
+        return PlayerConstants.AttackDamagePerStrength * Strength;
     }
 }
