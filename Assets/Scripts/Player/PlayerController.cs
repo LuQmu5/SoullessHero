@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     public void Dash()
     {
         _mover.Dash();
+        PlayerAttributes.Instance.IncreaseStatTemprary(AttributeNames.EvasionChance, PlayerConstants.MaxEvasionChance, PlayerConstants.BaseDashDuration);
     }
 
     public void StopMovement()

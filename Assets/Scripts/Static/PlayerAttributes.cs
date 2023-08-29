@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttributes : MonoBehaviour
@@ -90,5 +91,21 @@ public class PlayerAttributes : MonoBehaviour
     private float GetAttackDamage()
     {
         return PlayerConstants.AttackDamagePerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.AttackDamage];
+    }
+
+    private IEnumerator IncreasingStatTemprary(AttributeNames attributeName, float amount, float duration)
+    {
+        _attributesMap[attributeName] += amount;
+        print(attributeName + " : " + _attributesMap[attributeName]);
+
+        yield return new WaitForSeconds(duration);
+
+        _attributesMap[attributeName] -= amount;
+        print(attributeName + " : " + _attributesMap[attributeName]);
+    }
+
+    public void IncreaseStatTemprary(AttributeNames attributeName, float amount, float duration)
+    {
+        StartCoroutine(IncreasingStatTemprary(attributeName, amount, duration));
     }
 }

@@ -13,11 +13,6 @@ public class EnemyState : State
         EnemyController = GetComponent<EnemyController>();
     }
 
-    private void Start()
-    {
-        print(1);
-    }
-
     public override void Enter()
     {
         base.Enter();
