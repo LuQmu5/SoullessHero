@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Enums
 {
 
@@ -15,4 +11,17 @@ public enum AnimationNames
     Idle,
     Jump,
     Run
+}
+
+public enum AttributeNames
+{
+    Agility,
+    Strength,
+    Intelligence,
+    MaxHealth,
+    MovementSpeed,
+    JumpPower,
+    DashPower,
+    AttackDamage,
+    EvasionChance
 }

@@ -40,7 +40,7 @@ public class PlayerMover : MonoBehaviour
 
     private IEnumerator DashReloading()
     {
-        yield return new WaitForSeconds(PlayerStats.DashCooldown);
+        yield return new WaitForSeconds(PlayerAttributes.Instance.DashCooldown);
 
         _dashReloadingCoroutine = null;
     }
@@ -68,19 +68,19 @@ public class PlayerMover : MonoBehaviour
         if (direction != Vector2.zero)
             TransformRotation(direction);
 
-        _rigidbody.velocity = new Vector2(direction.x * PlayerStats.MovementSpeed, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(direction.x * PlayerAttributes.Instance.MovementSpeed, _rigidbody.velocity.y);
     }
 
     public void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * PlayerStats.JumpPower, ForceMode2D.Impulse);
+        _rigidbody.AddForce(Vector2.up * PlayerAttributes.Instance.JumpPower, ForceMode2D.Impulse);
     }
 
     public void Dash()
     {
         _rigidbody.AddForce(transform.rotation.y == 0 ? 
-            Vector2.right * PlayerStats.DashPower : 
-            Vector2.left * PlayerStats.DashPower, 
+            Vector2.right * PlayerAttributes.Instance.DashPower : 
+            Vector2.left * PlayerAttributes.Instance.DashPower, 
             ForceMode2D.Impulse);
 
         _dashReloadingCoroutine = StartCoroutine(DashReloading());

@@ -1,10 +1,14 @@
 ﻿public static class PlayerConstants
 {
-    // Player Stats
+    // Player Attributes
+    public const float BaseStrength = 10;
+    public const float BaseAgility = 10;
+    public const float BaseIntelligence = 10;
+
     public const float BaseGravityScale = 2;
-    public const float BaseDashPower = 25;
+    public const float BaseDashPower = 15;
     public const float BaseDashDuration = 0.1f;
-    public const float BaseJumpPower = 12;
+    public const float BaseJumpPower = 6;
     public const float BaseDashCooldown = 4;
     public const float BaseMovementSpeed = 5;
     public const float MinDashCooldown = 0.5f;
@@ -19,4 +23,8 @@
 
     public const float EvasionChancePerAgility = 0.5f;
     public const int MaxEvasionChance = 90;
+
+    public const float BaseMaxHealth = 10;
+    public const float BaseAttackDamage = 1;
+    public const float BaseEvasionChance = 5;
 }

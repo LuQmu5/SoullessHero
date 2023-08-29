@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         _mover.Init(_legs, _groundMask);
         _combat.Init(_attackPoint, _animator, _attackRange);
-        _health.Init(PlayerStats.MaxHealth);
+        _health.Init(PlayerAttributes.Instance.MaxHealth);
     }
 
     public void Move(Vector2 direction)
