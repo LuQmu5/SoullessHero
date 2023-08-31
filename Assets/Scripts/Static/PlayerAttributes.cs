@@ -111,4 +111,8 @@ public class PlayerAttributes : MonoBehaviour
         print("Шанс уклонения: " + GetEvasionChance());
         print("Сила атаки: " + GetAttackDamage());
     }
+    public float GetAttributeValue(AttributeNames attributeName)
+    {
+        return _attributesMap[attributeName];
+    }
 }

@@ -13,7 +13,9 @@ public class Health : MonoBehaviour
     public void SetMaxHealth(float maxHealth)
     {
         _maxHealth = maxHealth;
-        _currentHealth = maxHealth;
+
+        if (_currentHealth == 0)
+            _currentHealth = maxHealth;
     }
 
     public virtual void ApplyDamage(float amount)
