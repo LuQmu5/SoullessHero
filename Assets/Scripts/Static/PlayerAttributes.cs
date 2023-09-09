@@ -17,6 +17,9 @@ public class PlayerAttributes : MonoBehaviour
     public float MaxHealth => GetMaxHealth();
     public float MovementSpeed => GetMovementSpeed();
     public float Strength => GetStrength();
+    public float FireResistance => GetFireResistance();
+    public float FrostResistance => GetFrostResistance();
+    public float NatureResistance => GetNatureResistance();
 
     private Dictionary<AttributeNames, float> _attributesMap = new Dictionary<AttributeNames, float>();
 
@@ -35,7 +38,26 @@ public class PlayerAttributes : MonoBehaviour
         _attributesMap.Add(AttributeNames.MovementSpeed, PlayerConstants.BaseMovementSpeed);
         _attributesMap.Add(AttributeNames.Strength, PlayerConstants.BaseStrength);
 
+        _attributesMap.Add(AttributeNames.FireResistance, PlayerConstants.BaseFireResistance);
+        _attributesMap.Add(AttributeNames.FrostResistance, PlayerConstants.BaseFrostResistance);
+        _attributesMap.Add(AttributeNames.NatureResistance, PlayerConstants.BaseNatureResistance);
+
         PrintAllAttributes();
+    }
+
+    private float GetFireResistance()
+    {
+        return _attributesMap[AttributeNames.FireResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetFrostResistance()
+    {
+        return _attributesMap[AttributeNames.FrostResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetNatureResistance()
+    {
+        return _attributesMap[AttributeNames.NatureResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
     }
 
     private float GetAgillity()

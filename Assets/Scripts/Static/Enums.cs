@@ -25,4 +25,13 @@ public enum AttributeNames
     MaxHealth,
     MovementSpeed,
     Strength,
+    FireResistance,
+    FrostResistance,
+    NatureResistance,
+    ShadowResistance,
+    DiabolicResistance,
+    BloodResistance,
+    ArcaneResistance,
+    HolyResistance,
+    MentalResistance
 }
