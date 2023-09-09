@@ -8,6 +8,7 @@ public class PlayerAttributes : MonoBehaviour
 
     public float Agility => GetAgillity();
     public float AttackDamage => GetAttackDamage();
+    public float AttackSpeed => GetAttackSpeed();
     public float DashCooldown => GetDashCooldown();
     public float DashPower => GetDashPower();
     public float EvasionChance => GetEvasionChance();
@@ -25,6 +26,7 @@ public class PlayerAttributes : MonoBehaviour
 
         _attributesMap.Add(AttributeNames.Agility, PlayerConstants.BaseAgility);
         _attributesMap.Add(AttributeNames.AttackDamage, PlayerConstants.BaseAttackDamage);
+        _attributesMap.Add(AttributeNames.AttackSpeed, PlayerConstants.BaseAttackSpeed);
         _attributesMap.Add(AttributeNames.DashPower, PlayerConstants.BaseDashPower);
         _attributesMap.Add(AttributeNames.EvasionChance, PlayerConstants.BaseEvasionChance);
         _attributesMap.Add(AttributeNames.Intelligence, PlayerConstants.BaseIntelligence);
@@ -40,42 +42,56 @@ public class PlayerAttributes : MonoBehaviour
     {
         return _attributesMap[AttributeNames.Agility];
     }
+
     private float GetAttackDamage()
     {
         return PlayerConstants.AttackDamagePerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.AttackDamage];
     }
+
+    private float GetAttackSpeed()
+    {
+        return PlayerConstants.AttackSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.AttackSpeed];
+    }
+
     private float GetDashCooldown()
     {
         return Mathf.Clamp(PlayerConstants.BaseDashCooldown - PlayerConstants.DashCooldownCoeffPerStrength * _attributesMap[AttributeNames.Strength], 
             PlayerConstants.MinDashCooldown, 
             PlayerConstants.BaseDashCooldown);
     }
+
     private float GetDashPower()
     {
         return PlayerConstants.DashPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.DashPower];
     }
+
     private float GetEvasionChance()
     {
         return Mathf.Clamp(PlayerConstants.EvasionChancePerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.EvasionChance], 
             0, 
             PlayerConstants.MaxEvasionChance);
     }
+
     private float GetIntelligence()
     {
         return _attributesMap[AttributeNames.Intelligence];
     }
+
     private float GetJumpPower()
     {
-        return PlayerConstants.JumpPowerPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.JumpPower];
+        return PlayerConstants.JumpPowerPerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.JumpPower];
     }
+
     private float GetMaxHealth()
     {
-        return PlayerConstants.HealthPerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.MaxHealth];
+        return _attributesMap[AttributeNames.MaxHealth];
     }
+
     private float GetMovementSpeed()
     {
         return PlayerConstants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed];
     }
+
     private float GetStrength()
     {
         return _attributesMap[AttributeNames.Strength];

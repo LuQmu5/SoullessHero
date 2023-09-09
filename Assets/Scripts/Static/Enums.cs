@@ -16,12 +16,13 @@ public enum AnimationNames
 public enum AttributeNames
 {
     Agility,
-    Strength,
+    AttackSpeed,
+    AttackDamage,
+    DashPower,
+    EvasionChance,
     Intelligence,
+    JumpPower,
     MaxHealth,
     MovementSpeed,
-    JumpPower,
-    DashPower,
-    AttackDamage,
-    EvasionChance
+    Strength,
 }

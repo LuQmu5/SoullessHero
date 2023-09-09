@@ -21,6 +21,7 @@ public class PlayerCombat : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        _animator.SetAttackSpeed(PlayerAttributes.Instance.AttackSpeed);
         float animationTime = _animator.GetCurrentAnimationLength();
         float animationTimeReduce = 2;
 
