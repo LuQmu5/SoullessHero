@@ -7,19 +7,21 @@ public abstract class EnemyCombatSystem : MonoBehaviour
     private Transform _attackPoint;
     private float _attackRange;
     private float _attackDamage;
-    private DamageType _damageType = DamageType.Physical;
+    private DamageType _damageType;
+    private AttributesManager _attributesManager;
 
     private Coroutine _attackingCoroutine;
 
     public bool IsPlayerInAttackRange { get; private set; }
 
-    public void Init(CharacterAnimator animator, Transform attackPoint, float attackRange, float attackDamage, DamageType damageType)
+    public void Init(CharacterAnimator animator, Transform attackPoint, float attackRange, float attackDamage, DamageType damageType, AttributesManager attributesManager)
     {
         _animator = animator;
         _attackPoint = attackPoint;
         _attackRange = attackRange;
         _attackDamage = attackDamage;
         _damageType = damageType;
+        _attributesManager = attributesManager;
     }
 
     private void Update()
@@ -39,6 +41,7 @@ public abstract class EnemyCombatSystem : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
+        _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
         float animationTime = _animator.GetCurrentAnimationLength();
         float animationTimeReduce = 2;
 

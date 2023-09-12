@@ -62,4 +62,37 @@ public class PlayerCombat : MonoBehaviour
     {
         StartCoroutine(Attacking());
     }
+
+    public void AddDamageTypePermanently(DamageType damageType, float value)
+    {
+        if (_damageTypesMap.ContainsKey(damageType))
+        {
+            _damageTypesMap[damageType] += value;
+        }
+        else
+        {
+            _damageTypesMap.Add(damageType, value);
+        }
+    }
+
+    public void AddDamageTypeTemporarily(DamageType damageType, float value, float duration)
+    {
+        StartCoroutine(AddingDamageTypeTemporarily(damageType, value, duration));
+    }
+
+    private IEnumerator AddingDamageTypeTemporarily(DamageType damageType, float value, float duration)
+    {
+        if (_damageTypesMap.ContainsKey(damageType))
+        {
+            _damageTypesMap[damageType] += value;
+        }
+        else
+        {
+            _damageTypesMap.Add(damageType, value);
+        }
+        
+        yield return new WaitForSeconds(duration);
+
+        _damageTypesMap[damageType] -= value;
+    }
 }
