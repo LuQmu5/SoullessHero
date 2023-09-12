@@ -33,5 +33,6 @@ public enum AttributeNames
     BloodResistance,
     ArcaneResistance,
     HolyResistance,
-    MentalResistance
+    MentalResistance,
+    PhysicalResistance
 }

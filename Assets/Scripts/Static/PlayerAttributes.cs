@@ -20,6 +20,13 @@ public class PlayerAttributes : MonoBehaviour
     public float FireResistance => GetFireResistance();
     public float FrostResistance => GetFrostResistance();
     public float NatureResistance => GetNatureResistance();
+    public float ShadowResistance => GetShadowResistance();
+    public float DiabolicResistance => GetDiabolicResistance();
+    public float BloodResistance => GetBloodResistance();
+    public float ArcaneResistance => GetArcaneResistance();
+    public float HolyResistance => GetHolyResistance();
+    public float MentalResistance => GetMentalResistance();
+    public float PhysicalResistance => GetPhysicalResistance();
 
     private Dictionary<AttributeNames, float> _attributesMap = new Dictionary<AttributeNames, float>();
 
@@ -37,12 +44,51 @@ public class PlayerAttributes : MonoBehaviour
         _attributesMap.Add(AttributeNames.MaxHealth, PlayerConstants.BaseMaxHealth);
         _attributesMap.Add(AttributeNames.MovementSpeed, PlayerConstants.BaseMovementSpeed);
         _attributesMap.Add(AttributeNames.Strength, PlayerConstants.BaseStrength);
-
         _attributesMap.Add(AttributeNames.FireResistance, PlayerConstants.BaseFireResistance);
         _attributesMap.Add(AttributeNames.FrostResistance, PlayerConstants.BaseFrostResistance);
         _attributesMap.Add(AttributeNames.NatureResistance, PlayerConstants.BaseNatureResistance);
+        _attributesMap.Add(AttributeNames.ShadowResistance, PlayerConstants.BaseShadowResistance);
+        _attributesMap.Add(AttributeNames.DiabolicResistance, PlayerConstants.BaseDiabolicResistance);
+        _attributesMap.Add(AttributeNames.BloodResistance, PlayerConstants.BaseBloodResistance);
+        _attributesMap.Add(AttributeNames.ArcaneResistance, PlayerConstants.BaseArcaneResistance);
+        _attributesMap.Add(AttributeNames.HolyResistance, PlayerConstants.BaseHolyResistance);
+        _attributesMap.Add(AttributeNames.MentalResistance, PlayerConstants.BaseMentalResistance);
+        _attributesMap.Add(AttributeNames.PhysicalResistance, PlayerConstants.BasePhysicalResistance);
+    }
 
-        PrintAllAttributes();
+    private float GetPhysicalResistance()
+    {
+        return _attributesMap[AttributeNames.PhysicalResistance] + PlayerConstants.PhysicalResistancePerStrength * _attributesMap[AttributeNames.Strength];
+    }
+
+    private float GetMentalResistance()
+    {
+        return _attributesMap[AttributeNames.MentalResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetHolyResistance()
+    {
+        return _attributesMap[AttributeNames.HolyResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetArcaneResistance()
+    {
+        return _attributesMap[AttributeNames.ArcaneResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetBloodResistance()
+    {
+        return _attributesMap[AttributeNames.BloodResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetDiabolicResistance()
+    {
+        return _attributesMap[AttributeNames.DiabolicResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
+    }
+
+    private float GetShadowResistance()
+    {
+        return _attributesMap[AttributeNames.ShadowResistance] + PlayerConstants.MagicResistancePerIntelligence * _attributesMap[AttributeNames.Intelligence];
     }
 
     private float GetFireResistance()
@@ -137,18 +183,6 @@ public class PlayerAttributes : MonoBehaviour
         _attributesMap[attributeName] += amount;
     }
 
-    public void PrintAllAttributes()
-    {
-        print("Сила: " + GetStrength());
-        print("Ловкость: " + GetAgillity());
-        print("Интеллект: " + GetIntelligence());
-        print("Максимальное здоровье: " + GetMaxHealth());
-        print("Скорость движения: " + GetMovementSpeed());
-        print("Сила прыжка: " + GetJumpPower());
-        print("Сила рывка: " + GetDashPower());
-        print("Шанс уклонения: " + GetEvasionChance());
-        print("Сила атаки: " + GetAttackDamage());
-    }
     public float GetAttributeValue(AttributeNames attributeName)
     {
         return _attributesMap[attributeName];

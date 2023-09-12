@@ -10,6 +10,9 @@ public class PlayerHealth : Health
             return;
         }
 
+        amount = Mathf.Clamp((100 - PlayerAttributes.Instance.PhysicalResistance) / 100, 0, amount);
+        print(amount);
+
         base.ApplyDamage(amount);
     }
 }
