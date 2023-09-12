@@ -7,7 +7,7 @@ public abstract class EnemyCombatSystem : MonoBehaviour
     private Transform _attackPoint;
     private float _attackRange;
     private float _attackDamage;
-    private DamageType _damageType;
+    private DamageType _damageType = DamageType.Physical;
 
     private Coroutine _attackingCoroutine;
 

@@ -20,8 +20,6 @@ public class PlayerCombat : MonoBehaviour
 
         _damageTypesMap = new Dictionary<DamageType, float>();
         _damageTypesMap.Add(DamageType.Physical, attributesManager.AttackDamage);
-        _damageTypesMap.Add(DamageType.Fire, 3);
-        // везде получается почему-то 0.99 ед. урона
     }
 
     private IEnumerator Attacking()

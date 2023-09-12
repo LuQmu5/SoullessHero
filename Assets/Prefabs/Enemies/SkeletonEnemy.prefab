@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 6615017971191122970}
   - component: {fileID: 6615017971191122968}
   - component: {fileID: 189417323112914229}
+  - component: {fileID: 3351407864738417031}
   m_Layer: 7
   m_Name: SkeletonEnemy
   m_TagString: Untagged
@@ -42,7 +43,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6615017971191122967}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -3.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -211,11 +212,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _attachedAreaCollider: {fileID: 6615017971191122974}
-  _data: {fileID: 11400000, guid: 24f1c258304d21946a1614bff9781a21, type: 2}
   _attackPoint: {fileID: 6615017971195929679}
   _attackRange: 0.5
-  _attackDamage: 2
-  _movementSpeed: 2
+  _damageType: 0
 --- !u!114 &189417323112914230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +387,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2104eb5c0e3d2c0478a579c39d462b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3351407864738417031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615017971191122967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77155aa17f3fbf648bf82d2ad2f27253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: 8dca583f1e7ff624da1fe74e95f07a15, type: 2}
 --- !u!1 &6615017971195929678
 GameObject:
   m_ObjectHideFlags: 0

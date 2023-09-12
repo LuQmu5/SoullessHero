@@ -18,7 +18,7 @@ MonoBehaviour:
   _attackDamage: 1
   _attackSpeed: 0.5
   _evasionChance: 0
-  _maxHealth: 5
+  _maxHealth: 100
   _movementSpeed: 2
   _fireResistance: 0
   _frostResistance: 0

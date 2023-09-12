@@ -32,11 +32,11 @@ public class Health : MonoBehaviour
         switch (damageType)
         {
             case DamageType.Physical:
-                amount = Mathf.Clamp((maxValue - AttributesManager.PhysicalResistance) / maxValue, minValue, amount);
+                amount *= Mathf.Clamp((maxValue - AttributesManager.PhysicalResistance) / maxValue, minValue, amount);
                 break;
 
             case DamageType.Fire:
-                amount = Mathf.Clamp((maxValue - AttributesManager.FireResistance) / maxValue, minValue, amount);
+                amount *= Mathf.Clamp((maxValue - AttributesManager.FireResistance) / maxValue, minValue, amount);
                 break;
         }
 
