@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AttributesManager))]
 [RequireComponent(typeof(CharacterAnimator))]
 [RequireComponent(typeof(EnemyCombatSystem))]
 [RequireComponent(typeof(EnemyDetectionSystem))]
@@ -9,9 +10,10 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private PlayerController _player;
     [SerializeField] private BoxCollider2D _attachedAreaCollider;
-    [SerializeField] private EnemyData _data;
     [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackRange;
 
+    private AttributesManager _attributesManager;
     private CharacterAnimator _animator;
     private EnemyCombatSystem _combatSystem;
     private EnemyDetectionSystem _detectionSystem;
@@ -26,6 +28,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
+        _attributesManager = GetComponent<AttributesManager>();
         _animator = GetComponent<CharacterAnimator>();
         _combatSystem = GetComponent<EnemyCombatSystem>();
         _detectionSystem = GetComponent<EnemyDetectionSystem>();
@@ -34,10 +37,10 @@ public class EnemyController : MonoBehaviour
 
         GenerateAttachedArea();
 
-        _combatSystem.Init(_animator, _attackPoint, _data.AttackRange, _data.AttackDamage);
+        _combatSystem.Init(_animator, _attackPoint, _attackRange, _attributesManager.AttackDamage);
         _detectionSystem.Init(_attachedArea, _player);
-        _health.SetMaxHealth(_data.MaxHealth);
-        _movementSystem.Init(_attachedArea, _data.MovementSpeed, _player);
+        _health.Init(_attributesManager);
+        _movementSystem.Init(_attachedArea, _attributesManager.MovementSpeed, _player);
     }
 
     private void GenerateAttachedArea()

@@ -11,20 +11,25 @@ public class PlayerMover : MonoBehaviour
     private Coroutine _dashReloadingCoroutine;
     private WaitForSeconds _dashDuration;
     private Vector2 _legsHitBoxSize;
+    private AttributesManager _attributesManager;
 
     public Vector2 Velocity => _rigidbody.velocity;
     public bool CanDash => _dashReloadingCoroutine == null;
     public bool OnGround { get; private set; }
 
-    public void Init(Transform legs, LayerMask groundMask)
+    public void Init(Transform legs, LayerMask groundMask, AttributesManager attributesManager)
     {
+        _attributesManager = attributesManager;
+
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.gravityScale = PlayerConstants.BaseGravityScale;
+        // _rigidbody.gravityScale = Constants.BaseGravityScale;
+        _rigidbody.gravityScale = 2;
 
         _legs = legs;
         _groundMask = groundMask;
 
-        _dashDuration = new WaitForSeconds(PlayerConstants.BaseDashDuration);
+        // _dashDuration = new WaitForSeconds(Constants.BaseDashDuration);
+        _dashDuration = new WaitForSeconds(0.1f);
 
         float legsSizeY = 0.1f;
         float legsSizeX = 0.75f;
@@ -40,7 +45,10 @@ public class PlayerMover : MonoBehaviour
 
     private IEnumerator DashReloading()
     {
-        yield return new WaitForSeconds(PlayerAttributes.Instance.DashCooldown);
+        // float dashCooldown = Constants.BaseDashCooldown - PlayerAttributes.Instance.Strength * Constants.DashCooldownCoeffPerStrength;
+        float dashCooldown = 4 - _attributesManager.Strength * Constants.DashCooldownCoeffPerStrength;
+
+        yield return new WaitForSeconds(dashCooldown);
 
         _dashReloadingCoroutine = null;
     }
@@ -68,19 +76,23 @@ public class PlayerMover : MonoBehaviour
         if (direction != Vector2.zero)
             TransformRotation(direction);
 
-        _rigidbody.velocity = new Vector2(direction.x * PlayerAttributes.Instance.MovementSpeed, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(direction.x * _attributesManager.MovementSpeed, _rigidbody.velocity.y);
     }
 
     public void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * PlayerAttributes.Instance.JumpPower, ForceMode2D.Impulse);
+        float jumpPower = 5 + _attributesManager.Strength * Constants.JumpPowerPerStrength;
+
+        _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
     public void Dash()
     {
+        float dashPower = 15 + _attributesManager.Agility * Constants.DashPowerPerAgility;
+
         _rigidbody.AddForce(transform.rotation.y == 0 ? 
-            Vector2.right * PlayerAttributes.Instance.DashPower : 
-            Vector2.left * PlayerAttributes.Instance.DashPower, 
+            Vector2.right * dashPower : 
+            Vector2.left * dashPower, 
             ForceMode2D.Impulse);
 
         _dashReloadingCoroutine = StartCoroutine(DashReloading());

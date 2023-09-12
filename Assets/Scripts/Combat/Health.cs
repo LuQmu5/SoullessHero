@@ -4,26 +4,26 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    private float _maxHealth;
-    private float _currentHealth;
+    protected float MaxHealth;
+    protected float CurrentHealth;
+    protected AttributesManager AttributesManager;
 
     public event UnityAction Damaged;
     public event UnityAction Over;
 
-    public void SetMaxHealth(float maxHealth)
+    public void Init(AttributesManager attributesManager)
     {
-        _maxHealth = maxHealth;
-
-        if (_currentHealth == 0)
-            _currentHealth = maxHealth;
+        AttributesManager = attributesManager;
+        MaxHealth = AttributesManager.MaxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     public virtual void ApplyDamage(float amount, DamageType damageType = DamageType.Physical)
     {
-        _currentHealth -= amount;
+        CurrentHealth -= amount;
         Damaged?.Invoke();
 
-        if (_currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Over?.Invoke();
             gameObject.SetActive(false);

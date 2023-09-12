@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e508c42adc819c7498d6f6d03bf770e2, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  _agility: 10
+  _strength: 10
+  _intelligence: 10
+  _attackDamage: 1
+  _attackSpeed: 0.5
+  _evasionChance: 0
+  _maxHealth: 5
+  _movementSpeed: 2
+  _fireResistance: 0
+  _frostResistance: 0
+  _natureResistance: 0
+  _shadowResistance: 0
+  _diabolicResistance: 0
+  _bloodResistance: 0
+  _arcaneResistance: 0
+  _holyResistance: 0
+  _mentalResistance: 0
+  _physicalResistance: 0

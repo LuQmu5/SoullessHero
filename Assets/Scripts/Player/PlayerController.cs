@@ -7,12 +7,14 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCombat))]
 [RequireComponent(typeof(CharacterAnimator))]
 [RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(AttributesManager))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private Transform _legs;
     [SerializeField] private LayerMask _groundMask;
 
+    private AttributesManager _attributesManager;
     private PlayerMover _mover;
     private PlayerCombat _combat;
     private CharacterAnimator _animator;
@@ -25,19 +27,15 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        _attributesManager = GetComponent<AttributesManager>();
         _mover = GetComponent<PlayerMover>();
         _combat = GetComponent<PlayerCombat>();
         _animator = GetComponent<CharacterAnimator>();
         _health = GetComponent<PlayerHealth>();
 
-        _mover.Init(_legs, _groundMask);
-        _combat.Init(_attackPoint, _animator);
-        _health.SetMaxHealth(PlayerAttributes.Instance.MaxHealth);
-    }
-
-    private void Start()
-    {
-        PlayerAttributes.Instance.IncreaseAttributeTemporarily(AttributeNames.PhysicalResistance, 100, 10);
+        _mover.Init(_legs, _groundMask, _attributesManager);
+        _combat.Init(_attackPoint, _animator, _attributesManager);
+        _health.Init(_attributesManager);
     }
 
     public void Move(Vector2 direction)
@@ -63,7 +61,6 @@ public class PlayerController : MonoBehaviour
     public void Dash()
     {
         _mover.Dash();
-        PlayerAttributes.Instance.IncreaseAttributeTemporarily(AttributeNames.EvasionChance, PlayerConstants.MaxEvasionChance, PlayerConstants.BaseDashDuration);
     }
 
     public void StopMovement()

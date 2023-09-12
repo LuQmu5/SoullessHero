@@ -7,7 +7,7 @@ public class PlayerHealth : Health
         float maxValue = 100;
         float minValue = 0;
 
-        if (Random.Range(minValue, maxValue) < PlayerAttributes.Instance.EvasionChance)
+        if (Random.Range(minValue, maxValue) < AttributesManager.EvasionChance)
         {
             print("Miss!");
             return;
@@ -16,7 +16,7 @@ public class PlayerHealth : Health
         switch (damageType)
         {
             case DamageType.Physical:
-                amount = Mathf.Clamp((maxValue - PlayerAttributes.Instance.PhysicalResistance) / maxValue, minValue, amount);
+                amount = Mathf.Clamp((maxValue - AttributesManager.PhysicalResistance) / maxValue, minValue, amount);
                 break;
         }
 
