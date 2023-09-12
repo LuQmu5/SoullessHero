@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<CharacterAnimator>();
         _health = GetComponent<Health>();
 
+        _attributesManager.Init();
         _mover.Init(_legs, _groundMask, _attributesManager);
         _combat.Init(_attackPoint, _animator, _attributesManager);
         _health.Init(_attributesManager);

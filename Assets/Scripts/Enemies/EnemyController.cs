@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
 
         GenerateAttachedArea();
 
+        _attributesManager.Init();
         _combatSystem.Init(_animator, _attackPoint, _attackRange, _attributesManager.AttackDamage, _damageType, _attributesManager);
         _detectionSystem.Init(_attachedArea, _player);
         _health.Init(_attributesManager);

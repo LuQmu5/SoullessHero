@@ -16,7 +16,7 @@ MonoBehaviour:
   _strength: 10
   _intelligence: 10
   _attackDamage: 1
-  _attackSpeed: 0.5
+  _attackSpeed: 1
   _evasionChance: 0
   _maxHealth: 100
   _movementSpeed: 2

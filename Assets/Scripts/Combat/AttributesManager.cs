@@ -27,7 +27,7 @@ public class AttributesManager : MonoBehaviour
 
     private Dictionary<AttributeNames, float> _attributesMap = new Dictionary<AttributeNames, float>();
 
-    private void Awake()
+    public void Init()
     {
         _attributesMap.Add(AttributeNames.Agility, _data.Agility);
         _attributesMap.Add(AttributeNames.Intelligence, _data.Intelligence);
