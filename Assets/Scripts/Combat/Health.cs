@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
             _currentHealth = maxHealth;
     }
 
-    public virtual void ApplyDamage(float amount)
+    public virtual void ApplyDamage(float amount, DamageType damageType = DamageType.Physical)
     {
         _currentHealth -= amount;
         Damaged?.Invoke();

@@ -36,3 +36,17 @@ public enum AttributeNames
     MentalResistance,
     PhysicalResistance
 }
+
+public enum DamageType
+{
+    Physical,
+    Fire,
+    Frost,
+    Nature,
+    Shadow,
+    Diabolic,
+    Blood,
+    Arcane,
+    Holy,
+    Mental
+}

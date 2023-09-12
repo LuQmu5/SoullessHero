@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour
         _health.SetMaxHealth(PlayerAttributes.Instance.MaxHealth);
     }
 
+    private void Start()
+    {
+        PlayerAttributes.Instance.IncreaseAttributeTemporarily(AttributeNames.PhysicalResistance, 100, 10);
+    }
+
     public void Move(Vector2 direction)
     {
         _mover.Move(direction);
