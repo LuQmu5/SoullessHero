@@ -22,14 +22,14 @@ public class PlayerMover : MonoBehaviour
         _attributesManager = attributesManager;
 
         _rigidbody = GetComponent<Rigidbody2D>();
-        // _rigidbody.gravityScale = Constants.BaseGravityScale;
-        _rigidbody.gravityScale = 2;
+        float baseGravityScale = 2;
+        _rigidbody.gravityScale = baseGravityScale;
 
         _legs = legs;
         _groundMask = groundMask;
 
-        // _dashDuration = new WaitForSeconds(Constants.BaseDashDuration);
-        _dashDuration = new WaitForSeconds(0.1f);
+        float baseDashDuration = 0.1f;
+        _dashDuration = new WaitForSeconds(baseDashDuration);
 
         float legsSizeY = 0.1f;
         float legsSizeX = 0.75f;
@@ -45,8 +45,8 @@ public class PlayerMover : MonoBehaviour
 
     private IEnumerator DashReloading()
     {
-        // float dashCooldown = Constants.BaseDashCooldown - PlayerAttributes.Instance.Strength * Constants.DashCooldownCoeffPerStrength;
-        float dashCooldown = 4 - _attributesManager.Strength * Constants.DashCooldownCoeffPerStrength;
+        float baseDashCooldown = 4;
+        float dashCooldown = baseDashCooldown - _attributesManager.Strength * Constants.DashCooldownCoeffPerStrength;
 
         yield return new WaitForSeconds(dashCooldown);
 
@@ -81,14 +81,16 @@ public class PlayerMover : MonoBehaviour
 
     public void Jump()
     {
-        float jumpPower = 5 + _attributesManager.Strength * Constants.JumpPowerPerStrength;
+        float baseJumpPower = 10;
+        float jumpPower = baseJumpPower + _attributesManager.Strength * Constants.JumpPowerPerStrength;
 
         _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
     public void Dash()
     {
-        float dashPower = 15 + _attributesManager.Agility * Constants.DashPowerPerAgility;
+        float baseDashPower = 25;
+        float dashPower = baseDashPower + _attributesManager.Agility * Constants.DashPowerPerAgility;
 
         _rigidbody.AddForce(transform.rotation.y == 0 ? 
             Vector2.right * dashPower : 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     private Transform _attackPoint;
     private CharacterAnimator _animator;
     private AttributesManager _attributesManager;
+    private Dictionary<DamageType, float> _damageTypesMap;
 
     public bool IsAttacking { get; private set; }
 
@@ -15,6 +17,11 @@ public class PlayerCombat : MonoBehaviour
         _attributesManager = attributesManager;
         _attackPoint = attackPoint;
         _animator = animator;
+
+        _damageTypesMap = new Dictionary<DamageType, float>();
+        _damageTypesMap.Add(DamageType.Physical, attributesManager.AttackDamage);
+        _damageTypesMap.Add(DamageType.Fire, 3);
+        // везде получается почему-то 0.99 ед. урона
     }
 
     private IEnumerator Attacking()
@@ -38,14 +45,17 @@ public class PlayerCombat : MonoBehaviour
 
     private void DealDamage()
     {
-        // var hits = Physics2D.OverlapCircleAll(_attackPoint.position, Constants.BaseAttackRange);
-        var hits = Physics2D.OverlapCircleAll(_attackPoint.position, 0.5f);
+        float baseAttackRange = 0.5f;
+        var hits = Physics2D.OverlapCircleAll(_attackPoint.position, baseAttackRange);
 
         foreach (var hit in hits)
         {
             if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out PlayerController player) == false)
             {
-                health.ApplyDamage(_attributesManager.AttackDamage);
+                foreach (var item in _damageTypesMap)
+                {
+                    health.ApplyDamage(item.Value, item.Key);
+                }
             }
         }
     }
@@ -55,5 +65,3 @@ public class PlayerCombat : MonoBehaviour
         StartCoroutine(Attacking());
     }
 }
-
-

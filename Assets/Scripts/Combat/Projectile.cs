@@ -5,11 +5,13 @@ public class Projectile : MonoBehaviour
 {
     private float _speed = 5;
     private float _damage;
+    private DamageType _damageType;
 
-    public void Init(float damage)
+    public void Init(float damage, DamageType damageType)
     {
         transform.parent = null;
         _damage = damage;
+        _damageType = damageType;
     }
 
     private void Update()
@@ -21,7 +23,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.collider.TryGetComponent(out Health health))
         {
-            health.ApplyDamage(_damage);
+            health.ApplyDamage(_damage, _damageType);
         }
 
         Destroy(gameObject);

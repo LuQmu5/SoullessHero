@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMover))]
 [RequireComponent(typeof(PlayerCombat))]
 [RequireComponent(typeof(CharacterAnimator))]
-[RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(Health))]
 [RequireComponent(typeof(AttributesManager))]
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMover _mover;
     private PlayerCombat _combat;
     private CharacterAnimator _animator;
-    private PlayerHealth _health;
+    private Health _health;
 
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         _mover = GetComponent<PlayerMover>();
         _combat = GetComponent<PlayerCombat>();
         _animator = GetComponent<CharacterAnimator>();
-        _health = GetComponent<PlayerHealth>();
+        _health = GetComponent<Health>();
 
         _mover.Init(_legs, _groundMask, _attributesManager);
         _combat.Init(_attackPoint, _animator, _attributesManager);

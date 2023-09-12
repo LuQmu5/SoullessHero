@@ -18,10 +18,31 @@ public class Health : MonoBehaviour
         CurrentHealth = MaxHealth;
     }
 
-    public virtual void ApplyDamage(float amount, DamageType damageType = DamageType.Physical)
+    public void ApplyDamage(float amount, DamageType damageType = DamageType.Physical)
     {
+        float maxValue = 100;
+        float minValue = 0;
+
+        if (Random.Range(minValue, maxValue) < AttributesManager.EvasionChance)
+        {
+            print("Miss!");
+            return;
+        }
+
+        switch (damageType)
+        {
+            case DamageType.Physical:
+                amount = Mathf.Clamp((maxValue - AttributesManager.PhysicalResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Fire:
+                amount = Mathf.Clamp((maxValue - AttributesManager.FireResistance) / maxValue, minValue, amount);
+                break;
+        }
+
         CurrentHealth -= amount;
         Damaged?.Invoke();
+        print($"{amount} ед. урона от {damageType} типа урона");
 
         if (CurrentHealth <= 0)
         {
