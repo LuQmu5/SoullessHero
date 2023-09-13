@@ -6,15 +6,17 @@ public class EnemyMovementSystem : MonoBehaviour
     private Rect _attachedArea;
     private float _movementSpeed = 2;
     private PlayerController _player;
+    private bool _isFlying;
 
     private Coroutine _followingCoroutine;
     private Coroutine _patrolingCoroutine;
 
-    public void Init(Rect attachedArea, float movementSpeed, PlayerController player)
+    public void Init(Rect attachedArea, float movementSpeed, PlayerController player, bool isFlying)
     {
         _attachedArea = attachedArea;
         _movementSpeed = movementSpeed;
         _player = player;
+        _isFlying = isFlying;
     }
 
     private void RotateToTarget(float targetX)
@@ -31,7 +33,7 @@ public class EnemyMovementSystem : MonoBehaviour
 
         while (true)
         {
-            var destination = new Vector3(Random.Range(_attachedArea.xMin, _attachedArea.xMax), transform.position.y);
+            var destination = GetRandomDestination();
             RotateToTarget(destination.x);
 
             while (Vector2.Distance(transform.position, destination) > destinationOffset)
@@ -43,14 +45,21 @@ public class EnemyMovementSystem : MonoBehaviour
         }
     }
 
+    private Vector3 GetRandomDestination()
+    {
+        if (_isFlying)
+            return new Vector3(Random.Range(_attachedArea.xMin, _attachedArea.xMax), Random.Range(_attachedArea.yMin, _attachedArea.yMax));
+        else
+            return new Vector3(Random.Range(_attachedArea.xMin, _attachedArea.xMax), transform.position.y);
+    }
+
     private IEnumerator PlayerFollowing()
     {
         while (true)
         {
             RotateToTarget(_player.transform.position.x);
-            transform.position = Vector2.MoveTowards(transform.position,
-                new Vector3(_player.transform.position.x, transform.position.y),
-                Time.deltaTime * _movementSpeed);
+            Vector3 moveTarget = _isFlying? _player.transform.position : new Vector3(_player.transform.position.x, transform.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, moveTarget, Time.deltaTime * _movementSpeed);
            
             yield return null;
         }

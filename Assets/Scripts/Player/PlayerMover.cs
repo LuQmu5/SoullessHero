@@ -81,7 +81,7 @@ public class PlayerMover : MonoBehaviour
 
     public void Jump()
     {
-        float baseJumpPower = 10;
+        float baseJumpPower = 12;
         float jumpPower = baseJumpPower + _attributesManager.Strength * Constants.JumpPowerPerStrength;
 
         _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
