@@ -19,9 +19,9 @@ public class Projectile : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.right, _speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.TryGetComponent(out Health health))
+        if (collision.TryGetComponent(out Health health))
         {
             health.ApplyDamage(_damage, _damageType);
         }
