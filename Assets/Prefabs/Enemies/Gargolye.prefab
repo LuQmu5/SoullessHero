@@ -212,7 +212,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _attachedAreaCollider: {fileID: 6935201016233523355}
   _attackPoint: {fileID: 6935201016239329482}
-  _attackRange: 6
+  _attackRange: 1
   _damageType: 4
   _isFlying: 1
 --- !u!114 &6935201016233523583
