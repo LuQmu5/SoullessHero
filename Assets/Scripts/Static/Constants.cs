@@ -10,4 +10,7 @@
     public const float PhysicalResistancePerStrength = 0.1f;
     public const float HealthRegenPerStrength = 0.02f;
     public const float MagicResistancePerIntelligence = 0.1f;
+
+    // Items Constrations
+    public const int MaxSoulShardsCount = 10;
 }
