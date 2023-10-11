@@ -51,7 +51,6 @@ public class PlayerMagic : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         float animationTime = _animator.GetCurrentAnimationLength();
-        print(animationTime);
 
         yield return new WaitForSeconds(animationTime);
 
