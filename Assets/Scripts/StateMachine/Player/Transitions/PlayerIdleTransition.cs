@@ -4,7 +4,7 @@
 
     private void Update()
     {
-        if (PlayerController.Velocity.sqrMagnitude < MinVectorLengthToTransit && PlayerController.IsAttacking == false)
+        if (Controller.Velocity.sqrMagnitude < MinVectorLengthToTransit && Controller.IsAttacking == false && Controller.IsCasting == false)
         {
             NeedTransit = true;
         }

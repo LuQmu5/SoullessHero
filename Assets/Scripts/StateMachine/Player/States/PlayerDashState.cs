@@ -4,6 +4,6 @@
     {
         base.Enter();
 
-        PlayerController.Dash();
+        Controller.Dash();
     }
 }

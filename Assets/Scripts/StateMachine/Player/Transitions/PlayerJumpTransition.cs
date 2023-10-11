@@ -14,7 +14,7 @@
 
     private void OnJumpKeyPressed()
     {
-        if (PlayerController.OnGround)
+        if (Controller.OnGround)
             NeedTransit = true;
     }
 }

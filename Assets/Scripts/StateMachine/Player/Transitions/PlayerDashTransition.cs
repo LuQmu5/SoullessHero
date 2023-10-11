@@ -14,7 +14,7 @@
 
     private void OnDashKeyPressed()
     {
-        if (PlayerController.CanDash)
+        if (Controller.CanDash)
             NeedTransit = true;
     }
 }

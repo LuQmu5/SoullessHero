@@ -4,7 +4,7 @@
 
     private void Update()
     {
-        if (PlayerController.Velocity.y < MinVelocityYToTransit && PlayerController.IsAttacking == false)
+        if (Controller.Velocity.y < MinVelocityYToTransit && Controller.IsAttacking == false)
         {
             NeedTransit = true;
         }

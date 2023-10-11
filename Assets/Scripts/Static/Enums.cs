@@ -10,7 +10,8 @@ public enum AnimationNames
     Fall,
     Idle,
     Jump,
-    Run
+    Run,
+    Cast,
 }
 
 public enum AttributeNames

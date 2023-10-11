@@ -13,12 +13,12 @@ public class PlayerRunState : PlayerState
     {
         base.Exit();
 
-        PlayerController.StopMovement();
+        Controller.StopMovement();
         PlayerInput.MoveKeyPressing -= OnMoveKeyPressing;
     }
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        PlayerController.Move(direction);
+        Controller.Move(direction);
     }
 }

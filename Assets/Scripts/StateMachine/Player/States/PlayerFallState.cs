@@ -26,6 +26,6 @@ public class PlayerFallState : PlayerState
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        PlayerController.Move(direction);
+        Controller.Move(direction);
     }
 }

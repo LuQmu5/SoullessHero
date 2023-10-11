@@ -9,7 +9,7 @@ public class PlayerAttackState : PlayerState
 
         base.Enter();
 
-        PlayerController.Attack();
-        PlayerController.StopMovement();
+        Controller.Attack();
+        Controller.StopMovement();
     }
 }

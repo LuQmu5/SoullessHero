@@ -6,7 +6,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
 
-        PlayerController.Jump();
+        Controller.Jump();
         PlayerInput.MoveKeyPressing += OnMoveKeyPressing;
     }
 
@@ -19,6 +19,6 @@ public class PlayerJumpState : PlayerState
 
     private void OnMoveKeyPressing(Vector2 direction)
     {
-        PlayerController.Move(direction);
+        Controller.Move(direction);
     }
 }

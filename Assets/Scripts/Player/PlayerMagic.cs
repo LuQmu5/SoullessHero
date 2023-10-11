@@ -15,7 +15,7 @@ public class PlayerMagic : MonoBehaviour
 
     public int MaxSoulShardsCount => _maxSoulShardsCount;
     public int SecondsToRestoreSoulShard => _secondsToRestoreSoulShard;
-    public bool IsCasting { get; private set; }
+    public bool IsCasting { get; private set; } = false;
 
     public event UnityAction<int> CurrentSoulShardsCountChanged;
 
@@ -24,38 +24,12 @@ public class PlayerMagic : MonoBehaviour
         _animator = animator;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            TryCastSpell();
-        }
-    }
-
     public void TryCastSpell()
     {
-        /*
-        if (_currentActiveSpell == null)
+        if (_currentSoulShardsCount < 2)
             return;
 
-        if (_currentSoulShardsCount < _currentActiveSpell.Level)
-            return;
-
-
-        _currentActiveSpell.Use();
-
-        _currentSoulShardsCount -= _currentActiveSpell.Level;
-        */
-
-        _currentSoulShardsCount -= 2; // for tests
-
-
-        CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
-
-        if (_soulShardRestoringCoroutine != null)
-            StopCoroutine(_soulShardRestoringCoroutine);
-
-        _soulShardRestoringCoroutine = StartCoroutine(SoulShardRestoring());
+        StartCoroutine(Casting());
     }
     
     private IEnumerator SoulShardRestoring()
@@ -68,5 +42,28 @@ public class PlayerMagic : MonoBehaviour
         }
 
         _soulShardRestoringCoroutine = null;
+    }
+
+    private IEnumerator Casting()
+    {
+        IsCasting = true;
+
+        yield return new WaitForEndOfFrame();
+
+        float animationTime = _animator.GetCurrentAnimationLength();
+        print(animationTime);
+
+        yield return new WaitForSeconds(animationTime);
+
+        _currentSoulShardsCount -= 2;
+
+        CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
+
+        if (_soulShardRestoringCoroutine != null)
+            StopCoroutine(_soulShardRestoringCoroutine);
+
+        _soulShardRestoringCoroutine = StartCoroutine(SoulShardRestoring());
+
+        IsCasting = false;
     }
 }

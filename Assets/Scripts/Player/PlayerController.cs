@@ -73,4 +73,9 @@ public class PlayerController : MonoBehaviour
     {
         _mover.StopMovement();
     }
+
+    public void TryCastSpell()
+    {
+        _magic.TryCastSpell();
+    }
 }

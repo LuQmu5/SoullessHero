@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
     public static event UnityAction JumpKeyPressed;
     public static event UnityAction DashKeyPressed;
     public static event UnityAction AttackKeyPressed;
+    public static event UnityAction CastKeyPressed;
 
     private void Update()
     {
@@ -25,6 +26,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
         {
             AttackKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            CastKeyPressed?.Invoke();
         }
     }
 
