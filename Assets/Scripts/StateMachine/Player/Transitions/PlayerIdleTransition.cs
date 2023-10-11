@@ -1,10 +1,10 @@
 ﻿public class PlayerIdleTransition : PlayerTransition
 {
+    private const float MinVectorLengthToTransit = 0.1f;
+
     private void Update()
     {
-        float minVectorLengthToTransit = 0.1f;
-
-        if (PlayerController.Velocity.sqrMagnitude < minVectorLengthToTransit && PlayerController.IsAttacking == false)
+        if (PlayerController.Velocity.sqrMagnitude < MinVectorLengthToTransit && PlayerController.IsAttacking == false)
         {
             NeedTransit = true;
         }

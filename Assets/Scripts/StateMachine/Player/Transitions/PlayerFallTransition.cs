@@ -1,10 +1,10 @@
 ﻿public class PlayerFallTransition : PlayerTransition
 {
+    private const float MinVelocityYToTransit = -0.01f;
+
     private void Update()
     {
-        float minVelocityYToTransit = -0.01f;
-
-        if (PlayerController.Velocity.y < minVelocityYToTransit && PlayerController.IsAttacking == false)
+        if (PlayerController.Velocity.y < MinVelocityYToTransit && PlayerController.IsAttacking == false)
         {
             NeedTransit = true;
         }

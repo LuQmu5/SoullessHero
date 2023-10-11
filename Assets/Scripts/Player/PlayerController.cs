@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover))]
 [RequireComponent(typeof(PlayerCombat))]
+[RequireComponent(typeof(PlayerMagic))]
 [RequireComponent(typeof(CharacterAnimator))]
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(AttributesManager))]
@@ -16,12 +17,14 @@ public class PlayerController : MonoBehaviour
 
     private AttributesManager _attributesManager;
     private PlayerMover _mover;
+    private PlayerMagic _magic;
     private PlayerCombat _combat;
     private CharacterAnimator _animator;
     private Health _health;
 
     public Vector2 Velocity => _mover.Velocity;
     public bool IsAttacking => _combat.IsAttacking;
+    public bool IsCasting => _magic.IsCasting;
     public bool CanDash => _mover.CanDash;
     public bool OnGround => _mover.OnGround;
 
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
         _attributesManager = GetComponent<AttributesManager>();
         _mover = GetComponent<PlayerMover>();
         _combat = GetComponent<PlayerCombat>();
+        _magic = GetComponent<PlayerMagic>();
         _animator = GetComponent<CharacterAnimator>();
         _health = GetComponent<Health>();
 
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour
         _mover.Init(_legs, _groundMask, _attributesManager);
         _combat.Init(_attackPoint, _animator, _attributesManager);
         _health.Init(_attributesManager);
+        _magic.Init(_animator);
     }
 
     public void Move(Vector2 direction)

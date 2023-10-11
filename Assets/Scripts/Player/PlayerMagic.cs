@@ -1,48 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerMagic : MonoBehaviour
 {
-    private int _currentSoulShardsCount = 3;
-    private int _maxSoulShardsCount = 3;
+    private int _currentSoulShardsCount = 10;
+    private int _maxSoulShardsCount = 10;
     private int _secondsToRestoreSoulShard = 3;
     private Coroutine _soulShardRestoringCoroutine;
+
     private MagicSpell _currentActiveSpell;
-    private float _timer;
+    private CharacterAnimator _animator;
 
     public int MaxSoulShardsCount => _maxSoulShardsCount;
-    public int CurrentSoulShardsCount => _currentSoulShardsCount;
     public int SecondsToRestoreSoulShard => _secondsToRestoreSoulShard;
+    public bool IsCasting { get; private set; }
 
     public event UnityAction<int> CurrentSoulShardsCountChanged;
 
-    private void Start()
+    public void Init(CharacterAnimator animator)
     {
-        CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
+        _animator = animator;
     }
-
-    public bool TryCastSpell()
-    {
-        /*
-        if (_currentActiveSpell == null)
-            return false;
-
-        if (_currentSoulShardsCount < _currentActiveSpell.Level)
-            return false;
-
-
-        _currentActiveSpell.Use();
-
-        _currentSoulShardsCount -= _currentActiveSpell.Level;
-        */
-
-        _currentSoulShardsCount -= 1; // for tests
-        CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
-
-        return true;
-    }
-    
 
     private void Update()
     {
@@ -50,17 +30,43 @@ public class PlayerMagic : MonoBehaviour
         {
             TryCastSpell();
         }
+    }
 
-        if (_currentSoulShardsCount < _maxSoulShardsCount)
+    public void TryCastSpell()
+    {
+        /*
+        if (_currentActiveSpell == null)
+            return;
+
+        if (_currentSoulShardsCount < _currentActiveSpell.Level)
+            return;
+
+
+        _currentActiveSpell.Use();
+
+        _currentSoulShardsCount -= _currentActiveSpell.Level;
+        */
+
+        _currentSoulShardsCount -= 2; // for tests
+
+
+        CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
+
+        if (_soulShardRestoringCoroutine != null)
+            StopCoroutine(_soulShardRestoringCoroutine);
+
+        _soulShardRestoringCoroutine = StartCoroutine(SoulShardRestoring());
+    }
+    
+    private IEnumerator SoulShardRestoring()
+    {
+        while (_currentSoulShardsCount < _maxSoulShardsCount)
         {
-            _timer += Time.deltaTime;
+            yield return new WaitForSeconds(_secondsToRestoreSoulShard);
 
-            if (_timer >= _secondsToRestoreSoulShard)
-            {
-                _timer = 0;
-                _currentSoulShardsCount++;
-                print(_currentSoulShardsCount);
-            }
+            _currentSoulShardsCount++;
         }
+
+        _soulShardRestoringCoroutine = null;
     }
 }

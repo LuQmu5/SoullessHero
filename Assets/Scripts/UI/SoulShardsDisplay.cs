@@ -22,28 +22,32 @@ public class SoulShardsDisplay : MonoBehaviour
 
     private void OnCurrentSoulShardsCountChanged(int amount)
     {
-        for (int i = _images.Count - 1; i >= _playerMagic.CurrentSoulShardsCount; i--)
+        for (int i = _images.Count - 1; i >= amount; i--)
         {
-            _images[i].color = new Color(1, 1, 1, 0);
+            _images[i].color = _images[i].color.SetAlpha(0);
         }
 
-        if (_coroutine == null)
-            _coroutine = StartCoroutine(Restoring());
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(Restoring(amount));
     }
 
-    private IEnumerator Restoring()
+    private IEnumerator Restoring(int amount)
     {
-        while (_playerMagic.CurrentSoulShardsCount < _playerMagic.MaxSoulShardsCount)
+        while (amount != _playerMagic.MaxSoulShardsCount)
         {
             float alpha = 0;
 
-            while (alpha < 1 && _playerMagic.CurrentSoulShardsCount != _playerMagic.MaxSoulShardsCount)
+            while (alpha < 1)
             {
-                _images[_playerMagic.CurrentSoulShardsCount].color = new Color(1, 1, 1, alpha);
+                _images[amount].color = _images[amount].color.SetAlpha(alpha);
                 alpha += Time.deltaTime / _playerMagic.SecondsToRestoreSoulShard;
 
                 yield return null;
             }
+
+            amount++;
         }
 
         _coroutine = null;
