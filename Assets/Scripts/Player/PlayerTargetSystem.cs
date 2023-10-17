@@ -9,6 +9,7 @@ public class PlayerTargetSystem : MonoBehaviour
     private List<EnemyController> _closestEnemies;
     private EnemyController _currentTarget;
     private int _currentEnemyIndex = 0;
+    private Vector3 _tarketMarkOffset;
 
     public void Awake()
     {
@@ -17,6 +18,8 @@ public class PlayerTargetSystem : MonoBehaviour
         var detectArea = gameObject.AddComponent<BoxCollider2D>();
         detectArea.isTrigger = true;
         detectArea.size = new Vector2(_minDetectRange, _minDetectRange);
+
+        _tarketMarkOffset = new Vector3(0, 1.2f);
     }
 
     private void OnEnable()
@@ -34,7 +37,7 @@ public class PlayerTargetSystem : MonoBehaviour
     private void Update()
     {
         if (_currentTarget != null)
-            _targetMark.transform.position = _currentTarget.transform.position + new Vector3(0, 2);
+            _targetMark.transform.position = _currentTarget.transform.position + _tarketMarkOffset;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
