@@ -8,6 +8,7 @@ public class PlayerTargetSystem : MonoBehaviour
 
     private List<EnemyController> _closestEnemies;
     private EnemyController _currentTarget;
+    private int _currentEnemyIndex = 0;
 
     public void Awake()
     {
@@ -21,11 +22,13 @@ public class PlayerTargetSystem : MonoBehaviour
     private void OnEnable()
     {
         EnemyController.Died += OnEnemyDied;
+        PlayerInput.SwitchTargetKeyPressed += OnSwitchTargetKeyPressed;
     }
 
     private void OnDisable()
     {
         EnemyController.Died -= OnEnemyDied;
+        PlayerInput.SwitchTargetKeyPressed -= OnSwitchTargetKeyPressed;
     }
 
     private void Update()
@@ -79,7 +82,17 @@ public class PlayerTargetSystem : MonoBehaviour
             return;
         }
 
-        _currentTarget = _closestEnemies[0];
+        if (_currentEnemyIndex >= _closestEnemies.Count)
+            _currentEnemyIndex = 0;
+
+        _currentTarget = _closestEnemies[_currentEnemyIndex];
         _targetMark.gameObject.SetActive(true);
+    }
+
+    private void OnSwitchTargetKeyPressed()
+    {
+        _currentEnemyIndex++;
+
+        TrySwitchOnNextEnemy();
     }
 }

@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     public static event UnityAction DashKeyPressed;
     public static event UnityAction AttackKeyPressed;
     public static event UnityAction CastKeyPressed;
+    public static event UnityAction SwitchTargetKeyPressed;
 
     private void Update()
     {
@@ -31,6 +32,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             CastKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            SwitchTargetKeyPressed?.Invoke();
         }
     }
 
