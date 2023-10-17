@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour
 {
     private float _speed = 5;
     private float _damage;
@@ -21,12 +21,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Health health))
+        if (collision.TryGetComponent(out Health health) && collision.TryGetComponent(out PlayerController player))
         {
             health.ApplyDamage(_damage, _damageType);
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
     }
 
     private void OnBecameInvisible()

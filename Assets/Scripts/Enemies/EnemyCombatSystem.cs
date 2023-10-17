@@ -31,10 +31,14 @@ public abstract class EnemyCombatSystem : MonoBehaviour
 
     private bool CheckPlayerInAttackRange()
     {
-        var hit = Physics2D.Raycast(_attackPoint.position, transform.right, _attackRange);
+        var hits = Physics2D.RaycastAll(_attackPoint.position, transform.right, _attackRange);
         Debug.DrawRay(_attackPoint.position, transform.right * _attackRange, Color.red);
 
-        return (hit.collider != null && hit.collider.TryGetComponent(out PlayerController player));
+        foreach (var hit in hits)
+            if (hit.collider.TryGetComponent(out PlayerController player))
+                return true;
+
+        return false;
     }
 
     private IEnumerator Attacking()
@@ -42,7 +46,9 @@ public abstract class EnemyCombatSystem : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
-        float animationTime = _animator.GetCurrentAnimationLength();
+        float animationTime = _animator.GetCurrentAnimationLength(); // infinity
+        print(animationTime);
+
         float animationTimeReduce = 2;
 
         while (true)
