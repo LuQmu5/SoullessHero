@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class PlayerTargetSystem : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _targetMark;
-    [SerializeField] private float _minDetectRange = 10;
-
+    private SpriteRenderer _targetMark;
+    private float _minDetectRange = 10;
     private List<EnemyController> _closestEnemies;
     private EnemyController _currentTarget;
     private int _currentEnemyIndex = 0;
     private Vector3 _tarketMarkOffset;
 
-    public void Awake()
+    public void Init(SpriteRenderer targetMark, float minDetectRange)
     {
+        _targetMark = targetMark;
+        _minDetectRange = minDetectRange;
         _closestEnemies = new List<EnemyController>();
 
         var detectArea = gameObject.AddComponent<BoxCollider2D>();

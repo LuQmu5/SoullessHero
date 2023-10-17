@@ -14,12 +14,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private Transform _legs;
     [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private SpriteRenderer _targetMark;
+    [SerializeField] private float _minDetectRange = 10;
 
     private AttributesManager _attributesManager;
     private PlayerMover _mover;
     private PlayerMagic _magic;
     private PlayerCombat _combat;
     private CharacterAnimator _animator;
+    private PlayerTargetSystem _targetSystem;
     private Health _health;
 
     public Vector2 Velocity => _mover.Velocity;
@@ -36,11 +39,13 @@ public class PlayerController : MonoBehaviour
         _magic = GetComponent<PlayerMagic>();
         _animator = GetComponent<CharacterAnimator>();
         _health = GetComponent<Health>();
+        _targetSystem = GetComponentInChildren<PlayerTargetSystem>();   
 
         _attributesManager.Init();
         _mover.Init(_legs, _groundMask, _attributesManager);
         _combat.Init(_attackPoint, _animator, _attributesManager);
         _health.Init(_attributesManager);
+        _targetSystem.Init(_targetMark, _minDetectRange);
         _magic.Init(_animator);
     }
 
