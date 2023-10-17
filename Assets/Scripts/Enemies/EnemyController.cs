@@ -80,11 +80,6 @@ public class EnemyController : MonoBehaviour
         _animator.PlayAnimation(name);
     }
 
-    public void SwitchAttackingState(bool state)
-    {
-        _combatSystem.SwitchAttackingState(state);
-    }
-
     public void SwitchFollowingState(bool state)
     {
         _movementSystem.SwitchFollowingState(state);

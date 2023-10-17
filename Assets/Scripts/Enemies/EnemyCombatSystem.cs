@@ -41,33 +41,14 @@ public abstract class EnemyCombatSystem : MonoBehaviour
         return false;
     }
 
-    private IEnumerator Attacking()
+    /// <summary>
+    /// Running in animation
+    /// </summary>
+    public void Attack()
     {
-        yield return new WaitForEndOfFrame();
-
         _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
-        float animationTime = _animator.GetCurrentAnimationLength() / _attributesManager.AttackSpeed; // infinity mage
-        print(animationTime);
-
-        float animationTimeReduce = 2;
-
-        while (true)
-        {
-            yield return new WaitForSeconds(animationTime / animationTimeReduce);
-
-            DealDamage(_attackPoint, _attackRange, _attackDamage, _damageType);
-
-            yield return new WaitForSeconds(animationTime / animationTimeReduce);
-        }
+        DealDamage(_attackPoint, _attackRange, _attackDamage, _damageType);
     }
 
     protected abstract void DealDamage(Transform attackPoint, float attackRange, float attackDamage, DamageType damageType);
-
-    public void SwitchAttackingState(bool state)
-    {
-        if (state)
-            _attackingCoroutine = StartCoroutine(Attacking());
-        else
-            StopCoroutine(_attackingCoroutine);
-    }
 }
