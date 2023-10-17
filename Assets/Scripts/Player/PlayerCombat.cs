@@ -29,19 +29,17 @@ public class PlayerCombat : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
-        float animationTime = _animator.GetCurrentAnimationLength();
-        float animationTimeReduce = 2;
+        float animationTime = _animator.GetCurrentAnimationLength() / _attributesManager.AttackSpeed;
 
-        yield return new WaitForSeconds(animationTime / animationTimeReduce);
-
-        DealDamage();
-
-        yield return new WaitForSeconds(animationTime / animationTimeReduce);
+        yield return new WaitForSeconds(animationTime);
 
         IsAttacking = false;
     }
 
-    private void DealDamage()
+    /// <summary>
+    /// running in animations
+    /// </summary>
+    public void DealDamage()
     {
         float baseAttackRange = 0.5f;
         var hits = Physics2D.OverlapCircleAll(_attackPoint.position, baseAttackRange);
