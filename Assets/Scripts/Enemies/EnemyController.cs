@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AttributesManager))]
 [RequireComponent(typeof(CharacterAnimator))]
@@ -28,6 +29,8 @@ public class EnemyController : MonoBehaviour
     public bool IsPlayerInAttackRange => _combatSystem.IsPlayerInAttackRange;
     public bool IsPlayerAlive => _player.gameObject.activeSelf;
 
+    public static event UnityAction<EnemyController> Died;
+
     private void Awake()
     {
         _attributesManager = GetComponent<AttributesManager>();
@@ -44,6 +47,21 @@ public class EnemyController : MonoBehaviour
         _detectionSystem.Init(_attachedArea, _player);
         _health.Init(_attributesManager);
         _movementSystem.Init(_attachedArea, _attributesManager.MovementSpeed, _player, _isFlying);
+    }
+
+    private void OnEnable()
+    {
+        _health.Over += OnHealthOver;
+    }
+
+    private void OnDisable()
+    {
+        _health.Over -= OnHealthOver;
+    }
+
+    private void OnHealthOver()
+    {
+        Died?.Invoke(this);
     }
 
     private void GenerateAttachedArea()

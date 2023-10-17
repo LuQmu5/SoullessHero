@@ -24,9 +24,9 @@ public class EnemyDetectionSystem : MonoBehaviour
     {
         float boxAngle = 0;
         float areaReduceCoeff = 2;
-        Vector2 boxSize = new Vector2(_attachedArea.width, _attachedArea.height);
+        Vector2 boxSize = new Vector2(_attachedArea.width / areaReduceCoeff, _attachedArea.height);
 
-        var hits = Physics2D.OverlapBoxAll(transform.position, boxSize / areaReduceCoeff, boxAngle);
+        var hits = Physics2D.OverlapBoxAll(transform.position, boxSize, boxAngle);
 
         foreach (var hit in hits)
             if (hit.TryGetComponent(out PlayerController player))

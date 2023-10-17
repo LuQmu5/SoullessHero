@@ -26,7 +26,7 @@ public class PlayerMagic : MonoBehaviour
 
     public void TryCastSpell()
     {
-        if (_currentSoulShardsCount < 2)
+        if (_currentSoulShardsCount < 2) // test
             return;
 
         StartCoroutine(Casting());
@@ -54,7 +54,7 @@ public class PlayerMagic : MonoBehaviour
 
         yield return new WaitForSeconds(animationTime);
 
-        _currentSoulShardsCount -= 2;
+        _currentSoulShardsCount -= 2; //test
 
         CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
 
