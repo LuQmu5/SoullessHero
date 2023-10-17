@@ -46,7 +46,7 @@ public abstract class EnemyCombatSystem : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
-        float animationTime = _animator.GetCurrentAnimationLength(); // infinity
+        float animationTime = _animator.GetCurrentAnimationLength() / _attributesManager.AttackSpeed; // infinity mage
         print(animationTime);
 
         float animationTimeReduce = 2;
