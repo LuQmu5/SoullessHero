@@ -11,6 +11,13 @@
     public const float HealthRegenPerStrength = 0.02f;
     public const float MagicResistancePerIntelligence = 0.1f;
 
+    public const float MaxMovementSpeed = 10;
+    public const float MinMovementSpeed = 1;
+
+    public const float MaxJumpPower = 20;
+    public const float MinJumpPower = 1;
+    public const float BaseJumpPower = 12;
+
     // Items Constrations
     public const int MaxSoulShardsCount = 10;
 }

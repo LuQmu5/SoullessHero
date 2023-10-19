@@ -13,6 +13,7 @@ public class AttributesManager : MonoBehaviour
     public float Intelligence => GetIntelligence();
     public float MaxHealth => GetMaxHealth();
     public float MovementSpeed => GetMovementSpeed();
+    public float JumpPower => GetJumpPower();
     public float Strength => GetStrength();
     public float FireResistance => GetFireResistance();
     public float FrostResistance => GetFrostResistance();
@@ -37,7 +38,9 @@ public class AttributesManager : MonoBehaviour
         _attributesMap.Add(AttributeNames.AttackSpeed, _data.AttackSpeed);
         _attributesMap.Add(AttributeNames.EvasionChance, _data.EvasionChance);
         _attributesMap.Add(AttributeNames.MaxHealth, _data.MaxHealth);
+
         _attributesMap.Add(AttributeNames.MovementSpeed, _data.MovementSpeed);
+        _attributesMap.Add(AttributeNames.JumpPower, Constants.BaseJumpPower);
 
         _attributesMap.Add(AttributeNames.FireResistance, _data.FireResistance);
         _attributesMap.Add(AttributeNames.FrostResistance, _data.FrostResistance);
@@ -133,7 +136,20 @@ public class AttributesManager : MonoBehaviour
 
     private float GetMovementSpeed()
     {
-        return Constants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed];
+        return Mathf.Clamp(
+            Constants.MovementSpeedPerAgility * _attributesMap[AttributeNames.Agility] + _attributesMap[AttributeNames.MovementSpeed], 
+            Constants.MinMovementSpeed, 
+            Constants.MaxMovementSpeed
+            );
+    }
+
+    private float GetJumpPower()
+    {
+        return Mathf.Clamp(
+            Constants.JumpPowerPerStrength * _attributesMap[AttributeNames.Strength] + _attributesMap[AttributeNames.JumpPower],
+            Constants.MinJumpPower,
+            Constants.MaxJumpPower
+            );
     }
 
     private float GetStrength()

@@ -81,10 +81,7 @@ public class PlayerMover : MonoBehaviour
 
     public void Jump()
     {
-        float baseJumpPower = 12;
-        float jumpPower = baseJumpPower + _attributesManager.Strength * Constants.JumpPowerPerStrength;
-
-        _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        _rigidbody.AddForce(Vector2.up * _attributesManager.JumpPower, ForceMode2D.Impulse);
     }
 
     public void Dash()
