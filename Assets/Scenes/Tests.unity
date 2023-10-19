@@ -209,6 +209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MageEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2868447683404934404, guid: a56ab2956b82f5d4a8f7da639782aa81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2868447683404934412, guid: a56ab2956b82f5d4a8f7da639782aa81, type: 3}
       propertyPath: _player
       value: 
@@ -731,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2df59bb8f58ea438bba5f1e3539741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentActiveSpell: {fileID: 3351447372046664282, guid: 3f85d94178bee3c4eadbccebd48db2b0, type: 3}
 --- !u!114 &106912663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,11 +783,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6935201016233523346, guid: 00602c3e408dd5d4a90bdc7b6822a81f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6935201016233523348, guid: 00602c3e408dd5d4a90bdc7b6822a81f, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6935201016233523348, guid: 00602c3e408dd5d4a90bdc7b6822a81f, type: 3}
       propertyPath: m_LocalPosition.x

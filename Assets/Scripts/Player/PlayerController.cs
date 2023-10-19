@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         _combat.Init(_attackPoint, _animator, _attributesManager);
         _health.Init(_attributesManager);
         _targetSystem.Init(_targetMark, _minDetectRange);
-        _magic.Init(_animator);
+        _magic.Init(_animator, _attributesManager);
     }
 
     public void Move(Vector2 direction)

@@ -5,13 +5,14 @@ using UnityEngine.Events;
 
 public class PlayerMagic : MonoBehaviour
 {
+    [SerializeField] private MagicSpell _currentActiveSpell;
+
     private int _currentSoulShardsCount = 10;
     private int _maxSoulShardsCount = 10;
     private int _secondsToRestoreSoulShard = 3;
     private Coroutine _soulShardRestoringCoroutine;
-
-    private MagicSpell _currentActiveSpell;
     private CharacterAnimator _animator;
+    private AttributesManager _attributesManager;
 
     public int MaxSoulShardsCount => _maxSoulShardsCount;
     public int SecondsToRestoreSoulShard => _secondsToRestoreSoulShard;
@@ -19,14 +20,18 @@ public class PlayerMagic : MonoBehaviour
 
     public event UnityAction<int> CurrentSoulShardsCountChanged;
 
-    public void Init(CharacterAnimator animator)
+    public void Init(CharacterAnimator animator, AttributesManager attributesManager)
     {
         _animator = animator;
+        _attributesManager = attributesManager;
     }
 
     public void TryCastSpell()
     {
-        if (_currentSoulShardsCount < 2) // test
+        if (_currentActiveSpell == null)
+            return;
+
+        if (_currentSoulShardsCount < _currentActiveSpell.Data.Level)
             return;
 
         StartCoroutine(Casting());
@@ -54,7 +59,9 @@ public class PlayerMagic : MonoBehaviour
 
         yield return new WaitForSeconds(animationTime);
 
-        _currentSoulShardsCount -= 2; //test
+        _currentSoulShardsCount -= _currentActiveSpell.Data.Level;
+        var spell = Instantiate(_currentActiveSpell);
+        spell.Use(_attributesManager);
 
         CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
 
