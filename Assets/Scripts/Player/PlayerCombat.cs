@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     private Transform _attackPoint;
     private CharacterAnimator _animator;
     private AttributesManager _attributesManager;
+    private DamageType _currentDamageType;
 
     public bool IsAttacking { get; private set; }
 
@@ -16,6 +17,7 @@ public class PlayerCombat : MonoBehaviour
         _attributesManager = attributesManager;
         _attackPoint = attackPoint;
         _animator = animator;
+        _currentDamageType = DamageType.Physical;
     }
 
     private IEnumerator Attacking()
@@ -45,7 +47,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out PlayerController player) == false)
             {
-                health.ApplyDamage(_attributesManager.AttackDamage);
+                health.ApplyDamage(_attributesManager.AttackDamage, _currentDamageType);
             }
         }
     }
