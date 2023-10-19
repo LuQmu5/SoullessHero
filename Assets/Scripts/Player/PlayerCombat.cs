@@ -25,11 +25,12 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator Attacking()
     {
         IsAttacking = true;
+        _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
 
         yield return new WaitForEndOfFrame();
 
-        _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
-        float animationTime = _animator.GetCurrentAnimationLength() / _attributesManager.AttackSpeed;
+        float animationTime = _animator.GetCurrentAnimationLength();
+        print(animationTime);
 
         yield return new WaitForSeconds(animationTime);
 
