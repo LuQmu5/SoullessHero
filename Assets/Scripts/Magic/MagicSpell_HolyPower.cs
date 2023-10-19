@@ -5,6 +5,6 @@
         playerAttributes.IncreaseAttributeTemporarily(AttributeNames.Strength, 100, 5);
         playerAttributes.IncreaseAttributeTemporarily(AttributeNames.PhysicalResistance, 100, 5);
 
-        Destroy(gameObject);
+        Destroy(gameObject); // object pool
     }
 }

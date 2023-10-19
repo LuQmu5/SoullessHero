@@ -22,7 +22,6 @@ public enum AttributeNames
     DashPower,
     EvasionChance,
     Intelligence,
-    JumpPower,
     MaxHealth,
     MovementSpeed,
     Strength,
