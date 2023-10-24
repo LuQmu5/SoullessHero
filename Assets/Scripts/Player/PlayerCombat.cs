@@ -8,7 +8,6 @@ public class PlayerCombat : MonoBehaviour
     private Transform _attackPoint;
     private CharacterAnimator _animator;
     private AttributesManager _attributesManager;
-    private DamageType _currentDamageType;
 
     public bool IsAttacking { get; private set; }
 
@@ -17,7 +16,6 @@ public class PlayerCombat : MonoBehaviour
         _attributesManager = attributesManager;
         _attackPoint = attackPoint;
         _animator = animator;
-        _currentDamageType = DamageType.Physical;
     }
 
     private IEnumerator Attacking()
@@ -28,7 +26,7 @@ public class PlayerCombat : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         float animationTime = _animator.GetCurrentAnimationLength();
-        print(animationTime);
+        // print(animationTime);
 
         yield return new WaitForSeconds(animationTime);
 
@@ -47,7 +45,10 @@ public class PlayerCombat : MonoBehaviour
         {
             if (hit.TryGetComponent(out Health health) && hit.TryGetComponent(out PlayerController player) == false)
             {
-                health.ApplyDamage(_attributesManager.AttackDamage, _currentDamageType);
+                health.ApplyDamage(_attributesManager.AttackDamage);
+
+                foreach (var item in _attributesManager.AdditionalDamageTypesMap)
+                    health.ApplyDamage(item.Value, item.Key);
             }
         }
     }

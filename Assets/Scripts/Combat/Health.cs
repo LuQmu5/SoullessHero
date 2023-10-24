@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
 
         if (Random.Range(minValue, maxValue) < AttributesManager.EvasionChance)
         {
-            print("Miss!");
+            // print("Miss!");
             return;
         }
 
@@ -39,6 +39,9 @@ public class Health : MonoBehaviour
                 amount *= Mathf.Clamp((maxValue - AttributesManager.FireResistance) / maxValue, minValue, amount);
                 break;
         }
+
+        if (amount <= 0)
+            return;
 
         CurrentHealth -= amount;
         Damaged?.Invoke();

@@ -44,11 +44,11 @@ public abstract class EnemyCombatSystem : MonoBehaviour
     /// <summary>
     /// Running in animation
     /// </summary>
-    public void Attack()
+    public void StartAttack()
     {
         _animator.SetAttackSpeed(_attributesManager.AttackSpeed);
-        DealDamage(_attackPoint, _attackRange, _attackDamage, _damageType);
+        Attack(_attackPoint, _attackRange, _attackDamage, _damageType);
     }
 
-    protected abstract void DealDamage(Transform attackPoint, float attackRange, float attackDamage, DamageType damageType);
+    protected abstract void Attack(Transform attackPoint, float attackRange, float attackDamage, DamageType damageType);
 }

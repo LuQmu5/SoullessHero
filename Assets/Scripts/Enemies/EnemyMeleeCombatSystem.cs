@@ -2,7 +2,7 @@
 
 public class EnemyMeleeCombatSystem : EnemyCombatSystem
 {
-    protected override void DealDamage(Transform attackPoint, float attackRange, float attackDamage, DamageType damageType)
+    protected override void Attack(Transform attackPoint, float attackRange, float attackDamage, DamageType damageType)
     {
         var hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange);
 

@@ -6,6 +6,11 @@ public class AttributesManager : MonoBehaviour
 {
     [SerializeField] private AttributesData _data;
 
+    private Dictionary<AttributeNames, float> _attributesMap = new Dictionary<AttributeNames, float>();
+    private Dictionary<DamageType, float> _additionalDamageTypesMap = new Dictionary<DamageType, float>();
+
+    public Dictionary<DamageType, float> AdditionalDamageTypesMap => _additionalDamageTypesMap;
+
     public float Agility => GetAgillity();
     public float AttackDamage => GetAttackDamage();
     public float AttackSpeed => GetAttackSpeed();
@@ -26,9 +31,27 @@ public class AttributesManager : MonoBehaviour
     public float MentalResistance => GetMentalResistance();
     public float PhysicalResistance => GetPhysicalResistance();
 
-    private Dictionary<AttributeNames, float> _attributesMap = new Dictionary<AttributeNames, float>();
-
     public void Init()
+    {
+        CreateAttributesDict();
+        CreateDamageTypesDict();
+    }
+
+    private void CreateDamageTypesDict()
+    {
+        _additionalDamageTypesMap.Add(DamageType.Physical, _data.PhysicalDamage);
+        _additionalDamageTypesMap.Add(DamageType.Fire, _data.FireDamage);
+        _additionalDamageTypesMap.Add(DamageType.Frost, _data.FrostDamage);
+        _additionalDamageTypesMap.Add(DamageType.Nature, _data.NatureDamage);
+        _additionalDamageTypesMap.Add(DamageType.Shadow, _data.ShadowDamage);
+        _additionalDamageTypesMap.Add(DamageType.Diabolic, _data.DiabolicDamage);
+        _additionalDamageTypesMap.Add(DamageType.Blood, _data.BloodDamage);
+        _additionalDamageTypesMap.Add(DamageType.Arcane, _data.ArcaneDamage);
+        _additionalDamageTypesMap.Add(DamageType.Holy, _data.HolyDamage);
+        _additionalDamageTypesMap.Add(DamageType.Mental, _data.MentalDamage);
+    }
+
+    private void CreateAttributesDict()
     {
         _attributesMap.Add(AttributeNames.Agility, _data.Agility);
         _attributesMap.Add(AttributeNames.Intelligence, _data.Intelligence);
@@ -174,6 +197,25 @@ public class AttributesManager : MonoBehaviour
     public void IncreaseAttributePermanently(AttributeNames attributeName, float amount)
     {
         _attributesMap[attributeName] += amount;
+    }
+
+    private IEnumerator IncreasingDamageTypeTemporarily(DamageType damageTypeName, float amount, float duration)
+    {
+        _additionalDamageTypesMap[damageTypeName] += amount;
+
+        yield return new WaitForSeconds(duration);
+
+        _additionalDamageTypesMap[damageTypeName] -= amount;
+    }
+
+    public void IncreaseDamageTypeTemporarily(DamageType damageTypeName, float amount, float duration)
+    {
+        StartCoroutine(IncreasingDamageTypeTemporarily(damageTypeName, amount, duration));
+    }
+
+    public void IncreaseDamageTypePermanently(DamageType damageTypeName, float amount)
+    {
+        _additionalDamageTypesMap[damageTypeName] += amount;
     }
 
     public float GetAttributeValue(AttributeNames attributeName)

@@ -30,3 +30,13 @@ MonoBehaviour:
   _holyResistance: 0
   _mentalResistance: 0
   _physicalResistance: 0
+  _fireDamage: 0
+  _frostDamage: 0
+  _natureDamage: 0
+  _shadowDamage: 0
+  _diabolicDamage: 0
+  _bloodDamage: 0
+  _arcaneDamage: 0
+  _holyDamage: 0
+  _mentalDamage: 0
+  _physicalDamage: 2

@@ -27,6 +27,18 @@ public class AttributesData : ScriptableObject
     [SerializeField] private float _mentalResistance;
     [SerializeField] private float _physicalResistance;
 
+    [Header("Additional Damage Types Values")]
+    [SerializeField] private float _fireDamage;
+    [SerializeField] private float _frostDamage;
+    [SerializeField] private float _natureDamage;
+    [SerializeField] private float _shadowDamage;
+    [SerializeField] private float _diabolicDamage;
+    [SerializeField] private float _bloodDamage;
+    [SerializeField] private float _arcaneDamage;
+    [SerializeField] private float _holyDamage;
+    [SerializeField] private float _mentalDamage;
+    [SerializeField] private float _physicalDamage;
+
     public float Agility => _agility;
     public float Intelligence => _intelligence;
     public float Strength => _strength;
@@ -47,4 +59,15 @@ public class AttributesData : ScriptableObject
     public float PhysicalResistance => _physicalResistance;
     public float ArcaneResistance => _arcaneResistance;
     public float BloodResistance => _bloodResistance;
+
+    public float FireDamage => _fireDamage;
+    public float FrostDamage => _frostDamage;
+    public float NatureDamage => _natureDamage;
+    public float ShadowDamage => _shadowDamage;
+    public float DiabolicDamage => _diabolicDamage;
+    public float HolyDamage => _holyDamage;
+    public float MentalDamage => _mentalDamage;
+    public float PhysicalDamage => _physicalDamage;
+    public float ArcaneDamage => _arcaneDamage;
+    public float BloodDamage => _bloodDamage;
 }
