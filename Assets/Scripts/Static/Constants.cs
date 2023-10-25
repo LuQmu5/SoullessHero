@@ -20,4 +20,6 @@
 
     // Items Constrations
     public const int MaxSoulShardsCount = 10;
+
+    public const float SpellPowerPerIntelligence = 0.5f;
 }

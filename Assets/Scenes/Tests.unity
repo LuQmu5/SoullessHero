@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2df59bb8f58ea438bba5f1e3539741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentActiveSpell: {fileID: 5671268296101179539, guid: ba142f262006e1c419eb80a17267bf5a, type: 3}
+  _currentActiveSpell: {fileID: -6063091904948882138, guid: 745f5fb21bc0c394eb07cea76eaa61ea, type: 3}
 --- !u!114 &106912663
 MonoBehaviour:
   m_ObjectHideFlags: 0

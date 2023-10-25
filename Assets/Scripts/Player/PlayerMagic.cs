@@ -13,6 +13,7 @@ public class PlayerMagic : MonoBehaviour
     private Coroutine _soulShardRestoringCoroutine;
     private CharacterAnimator _animator;
     private AttributesManager _attributesManager;
+    private Transform _spellPoint;
 
     public int MaxSoulShardsCount => _maxSoulShardsCount;
     public int SecondsToRestoreSoulShard => _secondsToRestoreSoulShard;
@@ -20,10 +21,11 @@ public class PlayerMagic : MonoBehaviour
 
     public event UnityAction<int> CurrentSoulShardsCountChanged;
 
-    public void Init(CharacterAnimator animator, AttributesManager attributesManager)
+    public void Init(CharacterAnimator animator, AttributesManager attributesManager, Transform spellPoint)
     {
         _animator = animator;
         _attributesManager = attributesManager;
+        _spellPoint = spellPoint;
     }
 
     public void TryCastSpell()
@@ -60,7 +62,7 @@ public class PlayerMagic : MonoBehaviour
         yield return new WaitForSeconds(animationTime);
 
         _currentSoulShardsCount -= _currentActiveSpell.Data.Level;
-        var spell = Instantiate(_currentActiveSpell);
+        var spell = Instantiate(_currentActiveSpell, _spellPoint.position, Quaternion.identity);
         spell.Use(_attributesManager);
 
         CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
