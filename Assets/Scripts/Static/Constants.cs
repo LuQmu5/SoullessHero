@@ -21,5 +21,7 @@
     // Items Constrations
     public const int MaxSoulShardsCount = 10;
 
+    // Magic
     public const float SpellPowerPerIntelligence = 0.5f;
+    public const float PeriodicDamageSpellPowerReduceCoeff = 5;
 }

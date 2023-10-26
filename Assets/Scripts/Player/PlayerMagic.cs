@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerMagic : MonoBehaviour
 {
-    [SerializeField] private MagicSpell _currentActiveSpell;
+    [SerializeField] private MagicSpell _currentActiveSpell; // не тут!
 
     private int _currentSoulShardsCount = 10;
     private int _maxSoulShardsCount = 10;
@@ -62,7 +62,7 @@ public class PlayerMagic : MonoBehaviour
         yield return new WaitForSeconds(animationTime);
 
         _currentSoulShardsCount -= _currentActiveSpell.Data.Level;
-        var spell = Instantiate(_currentActiveSpell, _spellPoint.position, Quaternion.identity);
+        var spell = Instantiate(_currentActiveSpell, _spellPoint.position, Quaternion.identity); // залазем в дату из книги заклинаний, а там хранится префаб
         spell.Use(_attributesManager);
 
         CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);

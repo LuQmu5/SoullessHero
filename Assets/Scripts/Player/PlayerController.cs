@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public bool IsCasting => _magic.IsCasting;
     public bool CanDash => _mover.CanDash;
     public bool OnGround => _mover.OnGround;
+    public EnemyController ClosestEnemy => _targetSystem.ClosestEnemy;
 
     private void Awake()
     {

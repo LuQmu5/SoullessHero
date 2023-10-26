@@ -10,6 +10,8 @@ public class PlayerTargetSystem : MonoBehaviour
     private int _currentEnemyIndex = 0;
     private Vector3 _tarketMarkOffset;
 
+    public EnemyController ClosestEnemy => _currentTarget;
+
     public void Init(SpriteRenderer targetMark, float minDetectRange)
     {
         _targetMark = targetMark;

@@ -7,5 +7,5 @@ public abstract class MagicSpell : MonoBehaviour
 
     public SpellData Data => _data;
 
-    public abstract void Use(AttributesManager playerAttributes);
+    public abstract void Use(AttributesManager casterAttributes);
 }

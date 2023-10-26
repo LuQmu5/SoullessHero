@@ -23,22 +23,13 @@ public class Health : MonoBehaviour
         float maxValue = 100;
         float minValue = 0;
 
-        if (Random.Range(minValue, maxValue) < AttributesManager.EvasionChance)
+        if (Random.Range(minValue, maxValue) < AttributesManager.EvasionChance && damageType == DamageType.Physical)
         {
             // print("Miss!");
             return;
         }
 
-        switch (damageType)
-        {
-            case DamageType.Physical:
-                amount *= Mathf.Clamp((maxValue - AttributesManager.PhysicalResistance) / maxValue, minValue, amount);
-                break;
-
-            case DamageType.Fire:
-                amount *= Mathf.Clamp((maxValue - AttributesManager.FireResistance) / maxValue, minValue, amount);
-                break;
-        }
+        amount = GetDecreasedDamage(amount, damageType, maxValue, minValue);
 
         if (amount <= 0)
             return;
@@ -51,6 +42,73 @@ public class Health : MonoBehaviour
         {
             Over?.Invoke();
             gameObject.SetActive(false);
+        }
+    }
+
+    private float GetDecreasedDamage(float amount, DamageType damageType, float maxValue, float minValue)
+    {
+        switch (damageType)
+        {
+            case DamageType.Physical:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.PhysicalResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Fire:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.FireResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Frost:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.FrostResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Nature:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.NatureResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Shadow:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.ShadowResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Diabolic:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.DiabolicResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Blood:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.BloodResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Arcane:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.ArcaneResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Holy:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.HolyResistance) / maxValue, minValue, amount);
+                break;
+
+            case DamageType.Mental:
+                amount *= Mathf.Clamp((maxValue - AttributesManager.MentalResistance) / maxValue, minValue, amount);
+                break;
+        }
+
+        return amount;
+    }
+
+    public void StartPeriodicDamage(float damagePerTick, float duration, DamageType damageType)
+    {
+        StartCoroutine(PeriodicDamaging(damagePerTick, duration, damageType));
+    }
+
+    private IEnumerator PeriodicDamaging(float damagePerTick, float duration, DamageType damageType)
+    {
+        float tickTime = 1;
+        WaitForSeconds tick = new WaitForSeconds(tickTime);
+
+        while (duration > 0)
+        {
+            duration -= tickTime;
+            ApplyDamage(damagePerTick, damageType);
+
+            yield return tick;
         }
     }
 }

@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     private EnemyMovementSystem _movementSystem;
     private Rect _attachedArea;
 
+    public PlayerController Player => _player;
     public bool IsPlayerInArea => _detectionSystem.IsPlayerInArea;
     public bool IsPlayerDetected => _detectionSystem.IsPlayerDetected;
     public bool IsPlayerInAttackRange => _combatSystem.IsPlayerInAttackRange;

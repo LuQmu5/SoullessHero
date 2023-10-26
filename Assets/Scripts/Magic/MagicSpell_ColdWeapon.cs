@@ -1,12 +1,12 @@
 ﻿public class MagicSpell_ColdWeapon : MagicSpell
 {
-    public override void Use(AttributesManager playerAttributes)
+    public override void Use(AttributesManager casterAttributes)
     {
-        playerAttributes.IncreaseDamageTypeTemporarily(DamageType.Frost, 10, 5);
+        casterAttributes.IncreaseDamageTypeTemporarily(DamageType.Frost, 10, 5);
 
-        float currentAttackSpeed = playerAttributes.AttackSpeed;
+        float currentAttackSpeed = casterAttributes.AttackSpeed;
         float decreaseMultiplier = -0.5f;
-        playerAttributes.IncreaseAttributeTemporarily(AttributeNames.AttackSpeed, currentAttackSpeed * decreaseMultiplier, 5);
+        casterAttributes.IncreaseAttributeTemporarily(AttributeNames.AttackSpeed, currentAttackSpeed * decreaseMultiplier, 5);
 
         Destroy(gameObject);
     }

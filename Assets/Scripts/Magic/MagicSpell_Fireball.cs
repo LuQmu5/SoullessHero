@@ -5,11 +5,11 @@ public class MagicSpell_Fireball : MagicSpell
 {
     [SerializeField] private float _baseDamage = 2;
 
-    public override void Use(AttributesManager playerAttributes)
+    public override void Use(AttributesManager casterAttributes)
     {
-        _baseDamage += Constants.SpellPowerPerIntelligence * playerAttributes.Intelligence;
+        _baseDamage += Constants.SpellPowerPerIntelligence * casterAttributes.Intelligence;
 
-        StartCoroutine(Moving(playerAttributes.transform.right));     
+        StartCoroutine(Moving(casterAttributes.transform.right));     
     }
 
     private IEnumerator Moving(Vector3 direction)
