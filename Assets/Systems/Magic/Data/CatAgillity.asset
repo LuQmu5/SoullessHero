@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
   m_Name: CatAgillity
   m_EditorClassIdentifier: 
-  _icon: {fileID: -1035413718, guid: b78c270ab7d5b8341b37b86269493f07, type: 3}
-  _title: Holy Power
+  _icon: {fileID: -208962044, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
+  _title: Cat Agillity
   _description: AAAAAAAAAAAA
   _level: 2
