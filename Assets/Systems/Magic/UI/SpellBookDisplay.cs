@@ -20,12 +20,19 @@ public class SpellBookDisplay : MonoBehaviour
     {
         PlayerInput.OpenSpellBookKeyPressed += OnOpenSpellBookKeyPressed;
         SpellsBadgeButton.BadgeClicked += OnBadgeClicked;
+        SpellDisplay.SpellChoosen += OnSpellChoosen;
     }
 
     private void OnDisable()
     {
         PlayerInput.OpenSpellBookKeyPressed -= OnOpenSpellBookKeyPressed;
         SpellsBadgeButton.BadgeClicked -= OnBadgeClicked;
+        SpellDisplay.SpellChoosen -= OnSpellChoosen;
+    }
+
+    private void OnSpellChoosen(MagicSpell magicSpell)
+    {
+        _wrapper.SetActive(false);
     }
 
     private void OnOpenSpellBookKeyPressed()

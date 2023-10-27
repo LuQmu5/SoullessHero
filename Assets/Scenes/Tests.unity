@@ -908,7 +908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2df59bb8f58ea438bba5f1e3539741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentActiveSpell: {fileID: 8999574190524460198, guid: 8cb0fd3363b27e24490fbeefc86fc15f, type: 3}
 --- !u!114 &106912663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3714,6 +3713,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c974dcb231a4cb6458c9950e4915e688, type: 2}
   - {fileID: 11400000, guid: 7a807693e8fefb24c8dba37d9c7d53bb, type: 2}
   - {fileID: 11400000, guid: a4ab9e8ed5d2e634bbac2b5861d2c7c1, type: 2}
+  - {fileID: 11400000, guid: b89cd0753618a9b45a3da7693d486514, type: 2}
 --- !u!1 &1771563486
 GameObject:
   m_ObjectHideFlags: 0
