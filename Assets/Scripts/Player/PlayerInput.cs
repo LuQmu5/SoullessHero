@@ -9,10 +9,16 @@ public class PlayerInput : MonoBehaviour
     public static event UnityAction AttackKeyPressed;
     public static event UnityAction CastKeyPressed;
     public static event UnityAction SwitchTargetKeyPressed;
+    public static event UnityAction OpenSpellBookKeyPressed;
 
     private void Update()
     {
         CheckMoveKeysPressing();
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            OpenSpellBookKeyPressed?.Invoke();
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

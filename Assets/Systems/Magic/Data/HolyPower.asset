@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
   m_Name: HolyPower
   m_EditorClassIdentifier: 
+  _magicSpell: {fileID: 3351447372046664282, guid: 3f85d94178bee3c4eadbccebd48db2b0, type: 3}
   _icon: {fileID: 348499969, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
   _title: Holy Power
-  _description: AAAAAAAAAAAA
+  _description: caster grants strength and physical resistance
   _level: 2

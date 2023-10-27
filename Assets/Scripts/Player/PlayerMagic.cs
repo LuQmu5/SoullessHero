@@ -5,8 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerMagic : MonoBehaviour
 {
-    [SerializeField] private MagicSpell _currentActiveSpell; // не тут!
-
+    private MagicSpell _currentActiveSpell;
     private int _currentSoulShardsCount = 10;
     private int _maxSoulShardsCount = 10;
     private int _secondsToRestoreSoulShard = 3;
@@ -28,15 +27,19 @@ public class PlayerMagic : MonoBehaviour
         _spellPoint = spellPoint;
     }
 
-    public void TryCastSpell()
+    private void OnEnable()
     {
-        if (_currentActiveSpell == null)
-            return;
+        SpellDisplay.SpellChoosen += OnSpellChoosen;
+    }
 
-        if (_currentSoulShardsCount < _currentActiveSpell.Data.Level)
-            return;
+    private void OnDisable()
+    {
+        SpellDisplay.SpellChoosen -= OnSpellChoosen;
+    }
 
-        StartCoroutine(Casting());
+    private void OnSpellChoosen(MagicSpell magicSpell)
+    {
+        _currentActiveSpell = magicSpell;
     }
     
     private IEnumerator SoulShardRestoring()
@@ -73,5 +76,16 @@ public class PlayerMagic : MonoBehaviour
         _soulShardRestoringCoroutine = StartCoroutine(SoulShardRestoring());
 
         IsCasting = false;
+    }
+
+    public void TryCastSpell()
+    {
+        if (_currentActiveSpell == null)
+            return;
+
+        if (_currentSoulShardsCount < _currentActiveSpell.Data.Level)
+            return;
+
+        StartCoroutine(Casting());
     }
 }

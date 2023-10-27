@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  _magicSpell: {fileID: -6063091904948882138, guid: 745f5fb21bc0c394eb07cea76eaa61ea, type: 3}
   _icon: {fileID: 1349404276, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
   _title: Fireball
-  _description: Fire balls
+  _description: Cast fireball that deals 5 fire damage
   _level: 3

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SpellBookDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject _wrapper;
     [SerializeField] private SpellBook _spellBook; 
     [SerializeField] private SpellDisplay _spellDisplayPrefab;
     [SerializeField] private GridLayoutGroup _spellContainer;
@@ -17,14 +18,22 @@ public class SpellBookDisplay : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerInput.OpenSpellBookKeyPressed += OnOpenSpellBookKeyPressed;
         SpellsBadgeButton.BadgeClicked += OnBadgeClicked;
-
-        Draw();
     }
 
     private void OnDisable()
     {
+        PlayerInput.OpenSpellBookKeyPressed -= OnOpenSpellBookKeyPressed;
         SpellsBadgeButton.BadgeClicked -= OnBadgeClicked;
+    }
+
+    private void OnOpenSpellBookKeyPressed()
+    {
+        _wrapper.SetActive(!_wrapper.activeSelf);
+
+        if (_wrapper.activeSelf)
+            Draw();
     }
 
     private void Draw()

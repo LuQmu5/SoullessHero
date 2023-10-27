@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
   m_Name: CatAgillity
   m_EditorClassIdentifier: 
+  _magicSpell: {fileID: 8999574190524460198, guid: 8cb0fd3363b27e24490fbeefc86fc15f, type: 3}
   _icon: {fileID: -208962044, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
   _title: Cat Agillity
-  _description: AAAAAAAAAAAA
+  _description: Caster grants movementspeed, evasion and jump power
   _level: 2
