@@ -34,6 +34,7 @@ public class SpellBookDisplay : MonoBehaviour
 
         for (int i = 0; i < activatedSpellsBadgesCount; i++)
         {
+            _spellsBadgeButtons[i].Init(i);
             _spellsBadgeButtons[i].gameObject.SetActive(true);
         }
 

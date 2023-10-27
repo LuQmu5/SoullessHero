@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
   m_Name: ColdWeapon
   m_EditorClassIdentifier: 
-  _icon: {fileID: -1583143273, guid: ba27db90bca397a42b3b81d8de1f84b1, type: 3}
+  _icon: {fileID: 870064413, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
   _title: Cold Weapon
   _description: +10 frost damage, -50% attack speed, 5 sec duration
   _level: 3

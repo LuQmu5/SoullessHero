@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
   m_Name: Plague
   m_EditorClassIdentifier: 
-  _icon: {fileID: -1583143273, guid: ba27db90bca397a42b3b81d8de1f84b1, type: 3}
+  _icon: {fileID: 1321717784, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
   _title: Plague
   _description: ttttt ick
   _level: 4
