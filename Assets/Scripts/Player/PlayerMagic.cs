@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class PlayerMagic : MonoBehaviour
 {
     private MagicSpell _currentActiveSpell;
-    private int _currentSoulShardsCount = 10;
-    private int _maxSoulShardsCount = 10;
+    private int _currentSoulShardsCount;
+    private int _maxSoulShardsCount;
     private int _secondsToRestoreSoulShard = 3;
     private Coroutine _soulShardRestoringCoroutine;
     private CharacterAnimator _animator;
@@ -22,6 +22,9 @@ public class PlayerMagic : MonoBehaviour
 
     public void Init(CharacterAnimator animator, AttributesManager attributesManager, Transform spellPoint)
     {
+        _maxSoulShardsCount = Constants.MaxSoulShardsCount;
+        _currentSoulShardsCount = Constants.StartSoulShardsCount;
+
         _animator = animator;
         _attributesManager = attributesManager;
         _spellPoint = spellPoint;
@@ -37,9 +40,9 @@ public class PlayerMagic : MonoBehaviour
         SpellDisplay.SpellChoosen -= OnSpellChoosen;
     }
 
-    private void OnSpellChoosen(MagicSpell magicSpell)
+    private void OnSpellChoosen(SpellData data)
     {
-        _currentActiveSpell = magicSpell;
+        _currentActiveSpell = data.MagicSpell;
     }
     
     private IEnumerator SoulShardRestoring()

@@ -15,7 +15,7 @@ public class SpellDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private SpellData _data;
 
-    public static event UnityAction<MagicSpell> SpellChoosen;
+    public static event UnityAction<SpellData> SpellChoosen;
 
     public void Init(SpellData data)
     {
@@ -38,6 +38,6 @@ public class SpellDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SpellChoosen?.Invoke(_data.MagicSpell);
+        SpellChoosen?.Invoke(_data);
     }
 }

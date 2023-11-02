@@ -5,10 +5,18 @@ using UnityEngine.UI;
 
 public class SoulShardsDisplay : MonoBehaviour
 {
-    [SerializeField] private List<Image> _images = new List<Image>();
     [SerializeField] private PlayerMagic _playerMagic;
 
+    private List<Image> _images = new List<Image>();
     private Coroutine _coroutine;
+
+    private void Awake()
+    {
+        foreach (var child in transform.GetComponentsInChildren<Image>())
+        {
+            _images.Add(child);
+        }
+    }
 
     private void OnEnable()
     {

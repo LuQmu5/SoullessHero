@@ -19,7 +19,8 @@
     public const float BaseJumpPower = 12;
 
     // Items Constrations
-    public const int MaxSoulShardsCount = 10;
+    public const int MaxSoulShardsCount = 8;
+    public const int StartSoulShardsCount = 3;
 
     // Magic
     public const float SpellPowerPerIntelligence = 0.5f;

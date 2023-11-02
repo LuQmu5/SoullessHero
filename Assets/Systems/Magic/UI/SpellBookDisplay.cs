@@ -30,9 +30,10 @@ public class SpellBookDisplay : MonoBehaviour
         SpellDisplay.SpellChoosen -= OnSpellChoosen;
     }
 
-    private void OnSpellChoosen(MagicSpell magicSpell)
+    private void OnSpellChoosen(SpellData data)
     {
         _wrapper.SetActive(false);
+        PauseManager.Unpause();
     }
 
     private void OnOpenSpellBookKeyPressed()
@@ -40,7 +41,14 @@ public class SpellBookDisplay : MonoBehaviour
         _wrapper.SetActive(!_wrapper.activeSelf);
 
         if (_wrapper.activeSelf)
+        {
             Draw();
+            PauseManager.Pause();
+        }
+        else
+        {
+            PauseManager.Unpause();
+        }
     }
 
     private void Draw()
