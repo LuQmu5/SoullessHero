@@ -6,6 +6,6 @@
         casterAttributes.IncreaseAttributeTemporarily(AttributeNames.JumpPower, 10, 5);
         casterAttributes.IncreaseAttributeTemporarily(AttributeNames.EvasionChance, 100, 5);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

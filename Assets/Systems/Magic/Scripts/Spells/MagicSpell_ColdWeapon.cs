@@ -8,6 +8,6 @@
         float decreaseMultiplier = -0.5f;
         casterAttributes.IncreaseAttributeTemporarily(AttributeNames.AttackSpeed, currentAttackSpeed * decreaseMultiplier, 5);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

@@ -4,38 +4,36 @@ using UnityEngine;
 public class MagicSpell_Fireball : MagicSpell
 {
     [SerializeField] private float _baseDamage = 2;
+    [SerializeField] private float _speed = 5;
+
+    private Vector3 _direction;
+    private float _damage;
 
     public override void Use(AttributesManager casterAttributes)
     {
-        _baseDamage += Constants.SpellPowerPerIntelligence * casterAttributes.Intelligence;
+        // object pool for fireballs projectile
 
-        StartCoroutine(Moving(casterAttributes.transform.right));     
+        _damage = _baseDamage + Constants.SpellPowerPerIntelligence * casterAttributes.Intelligence;
+        _direction = casterAttributes.transform.right;  
+        transform.position = casterAttributes.transform.position;
     }
 
-    private IEnumerator Moving(Vector3 direction)
+    private void Update()
     {
-        float speed = 5;
-
-        while (true)
-        {
-            transform.Translate(direction * speed * Time.deltaTime);
-
-            yield return null;
-        }
+        transform.Translate(_direction * _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Health health))
         {
-            health.ApplyDamage(_baseDamage, DamageType.Fire);
-            print(collision.gameObject.name);
-            Destroy(gameObject);
+            health.ApplyDamage(_damage, DamageType.Fire);
+            gameObject.SetActive(false);
         }
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

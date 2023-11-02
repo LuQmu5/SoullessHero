@@ -15,6 +15,7 @@ public class PlayerMagic : MonoBehaviour
     private Transform _spellPoint;
 
     public int MaxSoulShardsCount => _maxSoulShardsCount;
+    public int CurrentSoulShardCount => _currentSoulShardsCount;
     public int SecondsToRestoreSoulShard => _secondsToRestoreSoulShard;
     public bool IsCasting { get; private set; } = false;
 
@@ -22,8 +23,9 @@ public class PlayerMagic : MonoBehaviour
 
     public void Init(CharacterAnimator animator, AttributesManager attributesManager, Transform spellPoint)
     {
-        _maxSoulShardsCount = Constants.MaxSoulShardsCount;
-        _currentSoulShardsCount = Constants.StartSoulShardsCount;
+        _maxSoulShardsCount = Constants.StartSoulShardsCount;
+        _currentSoulShardsCount = _maxSoulShardsCount;
+        CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
 
         _animator = animator;
         _attributesManager = attributesManager;
@@ -40,9 +42,9 @@ public class PlayerMagic : MonoBehaviour
         SpellDisplay.SpellChoosen -= OnSpellChoosen;
     }
 
-    private void OnSpellChoosen(SpellData data)
+    private void OnSpellChoosen(MagicSpell magicSpell)
     {
-        _currentActiveSpell = data.MagicSpell;
+        _currentActiveSpell = magicSpell;
     }
     
     private IEnumerator SoulShardRestoring()
@@ -52,6 +54,7 @@ public class PlayerMagic : MonoBehaviour
             yield return new WaitForSeconds(_secondsToRestoreSoulShard);
 
             _currentSoulShardsCount++;
+            CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
         }
 
         _soulShardRestoringCoroutine = null;
@@ -68,8 +71,8 @@ public class PlayerMagic : MonoBehaviour
         yield return new WaitForSeconds(animationTime);
 
         _currentSoulShardsCount -= _currentActiveSpell.Data.Level;
-        var spell = Instantiate(_currentActiveSpell, _spellPoint.position, Quaternion.identity); // залазем в дату из книги заклинаний, а там хранится префаб
-        spell.Use(_attributesManager);
+        _currentActiveSpell.gameObject.SetActive(true);
+        _currentActiveSpell.Use(_attributesManager);
 
         CurrentSoulShardsCountChanged?.Invoke(_currentSoulShardsCount);
 

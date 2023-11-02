@@ -13,17 +13,17 @@ public class SpellDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] private Image _descriptionWrapper;
     [SerializeField] private Text _description;
 
-    private SpellData _data;
+    private MagicSpell _magicSpell;
 
-    public static event UnityAction<SpellData> SpellChoosen;
+    public static event UnityAction<MagicSpell> SpellChoosen;
 
-    public void Init(SpellData data)
+    public void Init(MagicSpell magicSpell)
     {
-        _data = data;
+        _magicSpell = magicSpell;
 
-        _icon.sprite = data.Icon;
-        _title.text = data.Title;
-        _description.text = data.Description;
+        _icon.sprite = _magicSpell.Data.Icon;
+        _title.text = _magicSpell.Data.Title;
+        _description.text = _magicSpell.Data.Description;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -38,6 +38,6 @@ public class SpellDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SpellChoosen?.Invoke(_data);
+        SpellChoosen?.Invoke(_magicSpell);
     }
 }

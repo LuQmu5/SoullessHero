@@ -16,4 +16,4 @@ MonoBehaviour:
   _icon: {fileID: 1349404276, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
   _title: Fireball
   _description: Cast fireball that deals 5 fire damage
-  _level: 3
+  _level: 1

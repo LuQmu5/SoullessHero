@@ -23,5 +23,7 @@ public class MagicSpell_Plague : MagicSpell
                 health.StartPeriodicDamage(_damagePerTick, _duration, DamageType.Shadow);
             }
         }
+
+        gameObject.SetActive(false);
     }
 }

@@ -5,6 +5,6 @@
         casterAttributes.IncreaseAttributeTemporarily(AttributeNames.Strength, 100, 5);
         casterAttributes.IncreaseAttributeTemporarily(AttributeNames.PhysicalResistance, 100, 5);
 
-        Destroy(gameObject); // object pool
+        gameObject.SetActive(false);
     }
 }

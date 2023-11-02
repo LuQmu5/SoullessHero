@@ -30,7 +30,7 @@ public class SpellBookDisplay : MonoBehaviour
         SpellDisplay.SpellChoosen -= OnSpellChoosen;
     }
 
-    private void OnSpellChoosen(SpellData data)
+    private void OnSpellChoosen(MagicSpell magicSpell)
     {
         _wrapper.SetActive(false);
         PauseManager.Unpause();
@@ -53,8 +53,8 @@ public class SpellBookDisplay : MonoBehaviour
 
     private void Draw()
     {
-        int extraBadge = _spellBook.SpellsData.Count % SpellsCountOnOneFrame == 0 ? 0 : 1;
-        int activatedSpellsBadgesCount = _spellBook.SpellsData.Count / SpellsCountOnOneFrame + extraBadge;
+        int extraBadge = _spellBook.Spells.Count % SpellsCountOnOneFrame == 0 ? 0 : 1;
+        int activatedSpellsBadgesCount = _spellBook.Spells.Count / SpellsCountOnOneFrame + extraBadge;
 
         for (int i = 0; i < activatedSpellsBadgesCount; i++)
         {
@@ -72,11 +72,11 @@ public class SpellBookDisplay : MonoBehaviour
 
         for (int i = buttonIndex * SpellsCountOnOneFrame; i < SpellsCountOnOneFrame * (buttonIndex + 1); i++)
         {
-            if (i == _spellBook.SpellsData.Count)
+            if (i == _spellBook.Spells.Count)
                 break;
 
             var spell = Instantiate(_spellDisplayPrefab, _spellContainer.transform);
-            spell.Init(_spellBook.SpellsData[i]);
+            spell.Init(_spellBook.Spells[i]);
         }
     }
 }
