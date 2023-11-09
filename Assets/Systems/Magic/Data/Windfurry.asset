@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df577da8e0feea4ca05f744410a91e9, type: 3}
+  m_Name: Windfurry
+  m_EditorClassIdentifier: 
+  _magicSpell: {fileID: 6262565640681121247, guid: 8ab8a82fc87738245863d1712c7e03a9, type: 3}
+  _icon: {fileID: -1071330771, guid: 6a9677634b2882b4ba30d14d60232b08, type: 3}
+  _title: Windfurry
+  _description: decrease attack power and increase attack speed
+  _level: 3
